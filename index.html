@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escala Asesorías — Procesos que crecen contigo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1D9E75;
+      --green-dark: #085041;
+      --green-light: #E1F5EE;
+      --green-mid: #0F6E56;
+      --ink: #0e1a14;
+      --ink-soft: #2a3d33;
+      --muted: #6b8278;
+      --surface: #f5faf7;
+      --white: #ffffff;
+      --border: rgba(29,158,117,0.15);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--ink); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--green); }
+    .nav-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      font-size: 0.875rem; color: var(--muted); text-decoration: none;
+      font-weight: 400; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--green); color: var(--white) !important;
+      padding: 0.5rem 1.25rem; border-radius: 6px;
+      font-weight: 500 !important; font-size: 0.875rem !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--green-mid) !important; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 4rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -10%; right: -5%;
+      width: 55%; height: 110%;
+      background: var(--surface);
+      border-radius: 40% 0 0 40%;
+      z-index: 0;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); color: var(--green-mid);
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;
+      padding: 6px 14px; border-radius: 20px; margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+    .hero-badge-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 800; line-height: 1.05;
+      color: var(--ink); margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    h1 em { font-style: normal; color: var(--green); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted); line-height: 1.7;
+      max-width: 480px; margin-bottom: 2.5rem; font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green); color: var(--white);
+      padding: 0.85rem 2rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 500;
+      text-decoration: none; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .btn-secondary {
+      color: var(--ink); border: 1.5px solid var(--border);
+      padding: 0.85rem 2rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 400;
+      text-decoration: none; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+    .hero-visual { position: relative; z-index: 1; }
+    .hero-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .stat-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(29,158,117,0.1); }
+    .stat-card:first-child { grid-column: span 2; background: var(--green); border-color: var(--green); }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem; font-weight: 800; color: var(--ink);
+      line-height: 1;
+    }
+    .stat-card:first-child .stat-num { color: var(--white); }
+    .stat-card:first-child .stat-label { color: rgba(255,255,255,0.75); }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; font-weight: 400; }
+
+    /* ── SECTION ── */
+    section { padding: 6rem 4rem; }
+    .section-tag {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700; line-height: 1.15;
+      color: var(--ink); margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .section-lead {
+      font-size: 1rem; color: var(--muted); line-height: 1.7;
+      max-width: 540px; font-weight: 300;
+    }
+
+    /* ── SERVICIOS ── */
+    .servicios { background: var(--surface); }
+    .servicios-header { margin-bottom: 3.5rem; }
+    .servicios-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .servicio-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: all 0.25s;
+    }
+    .servicio-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--green); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.3s;
+    }
+    .servicio-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(29,158,117,0.1); }
+    .servicio-card:hover::after { transform: scaleX(1); }
+    .servicio-icon {
+      width: 44px; height: 44px;
+      background: var(--green-light); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .servicio-icon svg { width: 22px; height: 22px; stroke: var(--green-mid); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .servicio-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--ink); margin-bottom: 0.5rem;
+    }
+    .servicio-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+    /* ── TESTIMONIOS ── */
+    .testimonios-header { margin-bottom: 3.5rem; }
+    .testimonios-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonio-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      position: relative;
+      transition: all 0.25s;
+    }
+    .testimonio-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(29,158,117,0.08); }
+    .quote-mark {
+      font-family: var(--font-display);
+      font-size: 4rem; line-height: 1; color: var(--green-light);
+      margin-bottom: 0.5rem; display: block;
+    }
+    .testimonio-text {
+      font-size: 0.9rem; color: var(--ink-soft); line-height: 1.7;
+      font-weight: 300; font-style: italic; margin-bottom: 1.5rem;
+    }
+    .testimonio-author { display: flex; align-items: center; gap: 10px; }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--green); display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 0.8rem;
+      font-weight: 700; color: var(--white); flex-shrink: 0;
+    }
+    .author-name { font-size: 0.875rem; font-weight: 500; color: var(--ink); }
+    .author-role { font-size: 0.75rem; color: var(--muted); }
+    .stars { color: var(--green); font-size: 0.8rem; margin-bottom: 0.75rem; letter-spacing: 2px; }
+
+    /* ── PROCESO ── */
+    .proceso { background: var(--ink); }
+    .proceso h2 { color: var(--white); }
+    .proceso .section-tag { color: var(--green); }
+    .proceso .section-lead { color: rgba(255,255,255,0.5); }
+    .proceso-header { margin-bottom: 3.5rem; }
+    .proceso-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: rgba(255,255,255,0.08);
+      border-radius: 16px; overflow: hidden;
+    }
+    .proceso-step {
+      background: var(--ink); padding: 2.5rem 2rem;
+      position: relative; transition: background 0.2s;
+    }
+    .proceso-step:hover { background: var(--ink-soft); }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 3rem; font-weight: 800;
+      color: rgba(29,158,117,0.2); line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--white); margin-bottom: 0.5rem;
+    }
+    .step-desc { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.6; font-weight: 300; }
+
+    /* ── CONTACTO ── */
+    .contacto { background: var(--surface); }
+    .contacto-inner {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 5rem; align-items: start;
+    }
+    .contacto-info h2 { margin-bottom: 1rem; }
+    .contacto-info .section-lead { margin-bottom: 2rem; }
+    .contact-detail {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 1rem;
+    }
+    .contact-icon {
+      width: 36px; height: 36px; background: var(--green-light);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 16px; height: 16px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .contact-text { font-size: 0.875rem; color: var(--muted); }
+    .contact-text strong { color: var(--ink); font-weight: 500; display: block; font-size: 0.875rem; }
+
+    /* ── FORM ── */
+    .form-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.5rem;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-full { grid-column: span 2; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 0.8rem; font-weight: 500; color: var(--ink-soft); letter-spacing: 0.02em; }
+    input, textarea, select {
+      font-family: var(--font-body);
+      font-size: 0.9rem; color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.75rem 1rem;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(29,158,117,0.1);
+    }
+    textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      width: 100%; background: var(--green); color: var(--white);
+      border: none; padding: 1rem; border-radius: 8px;
+      font-family: var(--font-body); font-size: 1rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; margin-top: 0.5rem;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .form-submit:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .form-note { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 0.75rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.5);
+      padding: 3rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      color: var(--white);
+    }
+    .footer-logo span { color: var(--green); }
+    footer p { font-size: 0.8rem; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * {
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge { animation-delay: 0.1s; }
+    h1 { animation-delay: 0.2s; }
+    .hero-sub { animation-delay: 0.3s; }
+    .hero-actions { animation-delay: 0.4s; }
+    .hero-visual { animation: fadeUp 0.7s 0.35s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+      .hero::before { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .servicios-grid, .testimonios-grid { grid-template-columns: 1fr; }
+      .proceso-steps { grid-template-columns: 1fr 1fr; }
+      .contacto-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-full { grid-column: span 1; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="nav-dot"></span>
+    Escala<span> Asesorías</span>
+  </a>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#testimonios">Resultados</a>
+    <a href="#proceso">Cómo trabajamos</a>
+    <a href="#contacto" class="nav-cta">Conversemos</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Consultoría para pymes — Santiago, Chile
+    </div>
+    <h1>Tu negocio,<br><em>en el siguiente</em><br>nivel</h1>
+    <p class="hero-sub">
+      Profesionalizamos la operación de tu empresa con procesos claros,
+      ventas digitalizadas y métricas que te dicen exactamente dónde estás y
+      hacia dónde vas.
+    </p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary">
+        Agenda una sesión gratuita
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">+30%</div>
+        <div class="stat-label">Incremento promedio en ventas digitales de clientes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Pymes acompañadas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Herramientas que el equipo puede operar solo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios" class="servicios">
+  <div class="servicios-header">
+    <div class="section-tag">Servicios</div>
+    <h2>Lo que hacemos<br>por tu negocio</h2>
+    <p class="section-lead">Intervenciones concretas, no informes. Cada proyecto termina con cambios visibles que tu equipo puede sostener solo.</p>
+  </div>
+  <div class="servicios-grid">
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h6v6h-6z"/><path d="M9 6h6M6 9v6M18 9v6M9 18h6"/></svg>
+      </div>
+      <div class="servicio-title">Mapeo y optimización de procesos</div>
+      <div class="servicio-desc">Identificamos los cuellos de botella que te están costando tiempo y plata. Rediseñamos el flujo para que tu operación sea predecible y escalable.</div>
+    </div>
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="servicio-title">Digitalización de ventas y CRM</div>
+      <div class="servicio-desc">Implementamos herramientas de CRM y automatización adaptadas a tu tamaño. Tu equipo de ventas deja de operar en planillas y empieza a cerrar más.</div>
+    </div>
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="servicio-title">KPIs y dashboards de gestión</div>
+      <div class="servicio-desc">Definimos los indicadores que realmente importan para tu negocio y los ponemos en un dashboard que puedes revisar en 5 minutos cada mañana.</div>
+    </div>
+    <div class="servicio-card">
+      <div class="servicio-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="servicio-title">Capacitación y acompañamiento</div>
+      <div class="servicio-desc">No desaparecemos al entregar el proyecto. Acompañamos a tu equipo hasta que los cambios estén internalizados y funcionando solos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="testimonios-header">
+    <div class="section-tag">Resultados reales</div>
+    <h2>Lo que dicen<br>quienes ya dieron el paso</h2>
+    <p class="section-lead">Casos de pymes de servicios que transformaron su operación.</p>
+  </div>
+  <div class="testimonios-grid">
+    <div class="testimonio-card">
+      <div class="stars">★★★★★</div>
+      <span class="quote-mark">"</span>
+      <p class="testimonio-text">Teníamos los procesos en la cabeza del dueño y en planillas que nadie entendía. Hoy el equipo opera solo y yo puedo enfocarme en crecer, no en apagar incendios.</p>
+      <div class="testimonio-author">
+        <div class="author-avatar">MV</div>
+        <div>
+          <div class="author-name">Marcela V.</div>
+          <div class="author-role">Gerente · Estudio jurídico</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonio-card">
+      <div class="stars">★★★★★</div>
+      <span class="quote-mark">"</span>
+      <p class="testimonio-text">Implementamos un CRM en 3 semanas. Las ventas del trimestre siguiente subieron 35%. Lo mejor fue que el equipo lo adoptó sin resistencia porque el proceso fue simple.</p>
+      <div class="testimonio-author">
+        <div class="author-avatar">RG</div>
+        <div>
+          <div class="author-name">Rodrigo G.</div>
+          <div class="author-role">Director Comercial · Empresa de servicios TI</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonio-card">
+      <div class="stars">★★★★★</div>
+      <span class="quote-mark">"</span>
+      <p class="testimonio-text">Por primera vez tengo un dashboard que me muestra en tiempo real cómo va el negocio. Antes tomaba decisiones con el estómago, ahora las tomo con datos.</p>
+      <div class="testimonio-author">
+        <div class="author-avatar">CP</div>
+        <div>
+          <div class="author-name">Carolina P.</div>
+          <div class="author-role">Fundadora · Consultora de RRHH</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso" class="proceso">
+  <div class="proceso-header">
+    <div class="section-tag">Cómo trabajamos</div>
+    <h2>Un proceso<br>sin sorpresas</h2>
+    <p class="section-lead">Cuatro etapas claras desde la primera conversación hasta que el cambio está consolidado.</p>
+  </div>
+  <div class="proceso-steps">
+    <div class="proceso-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Diagnóstico</div>
+      <div class="step-desc">Sesión gratuita de 45 min para entender tu negocio y detectar las palancas de mayor impacto.</div>
+    </div>
+    <div class="proceso-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Diseño</div>
+      <div class="step-desc">Propuesta concreta con alcance, herramientas, plazos y métricas de éxito. Sin letra chica.</div>
+    </div>
+    <div class="proceso-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Implementación</div>
+      <div class="step-desc">Ejecutamos contigo, no para ti. Tu equipo aprende mientras hacemos los cambios.</div>
+    </div>
+    <div class="proceso-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Consolidación</div>
+      <div class="step-desc">Seguimiento post-proyecto para asegurar que los cambios se sostienen y escalan.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="contacto">
+  <div class="contacto-inner">
+    <div class="contacto-info">
+      <div class="section-tag">Contacto</div>
+      <h2>Conversemos<br>sin compromiso</h2>
+      <p class="section-lead">La primera sesión es gratuita. En 45 minutos identificamos si podemos ayudarte y cómo.</p>
+
+      <div class="contact-detail">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-text">
+          <strong>hola@escalaasesorias.cl</strong>
+          Respondemos en menos de 24 horas
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-text">
+          <strong>Santiago, Chile</strong>
+          Atendemos presencial y remoto
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <!--
+        INSTRUCCIONES DE FORMSPREE:
+        1. Ve a https://formspree.io y crea una cuenta gratuita
+        2. Crea un nuevo formulario y copia tu endpoint (ej: https://formspree.io/f/xyzabcde)
+        3. Reemplaza action="TU_ENDPOINT_FORMSPREE" con tu URL real
+      -->
+      <form action="TU_ENDPOINT_FORMSPREE" method="POST">
+        <input type="hidden" name="_subject" value="Nuevo contacto desde Escala Asesorías" />
+        <input type="hidden" name="_next" value="https://tudominio.cl/gracias" />
+        <div class="form-grid">
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="field">
+            <label for="empresa">Empresa</label>
+            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" />
+          </div>
+          <div class="field">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" placeholder="tu@empresa.cl" required />
+          </div>
+          <div class="field">
+            <label for="telefono">Teléfono (opcional)</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="+56 9 XXXX XXXX" />
+          </div>
+          <div class="field form-full">
+            <label for="interes">¿Qué te interesa?</label>
+            <select id="interes" name="interes">
+              <option value="">Selecciona una opción</option>
+              <option value="procesos">Mapeo y optimización de procesos</option>
+              <option value="crm">Digitalización de ventas / CRM</option>
+              <option value="kpis">KPIs y dashboards</option>
+              <option value="capacitacion">Capacitación y acompañamiento</option>
+              <option value="general">No sé por dónde empezar</option>
+            </select>
+          </div>
+          <div class="field form-full">
+            <label for="mensaje">Cuéntanos brevemente tu situación</label>
+            <textarea id="mensaje" name="mensaje" placeholder="¿Cuál es el principal desafío que enfrentas hoy en tu negocio?"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="form-submit">
+          Enviar mensaje
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <p class="form-note">Sin spam. Tus datos son solo para coordinar la sesión.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Escala<span> Asesorías</span></div>
+  <p>© 2025 Escala Asesorías · Santiago, Chile</p>
+  <p style="font-size:0.75rem;">Procesos que crecen contigo</p>
+</footer>
+
+</body>
+</html>
