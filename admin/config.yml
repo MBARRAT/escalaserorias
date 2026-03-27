@@ -1,0 +1,132 @@
+backend:
+  name: github
+  repo: MBARRAT/escalaserorias       # ← tu repo de GitHub (usuario/repo)
+  branch: main
+  base_url: https://voren.cl         # ← tu dominio en Vercel (sin trailing slash)
+  auth_endpoint: api/auth            # ← apunta a tu función serverless
+
+media_folder: "assets/img"
+public_folder: "/assets/img"
+
+locale: "es"
+
+collections:
+
+  # ──────────────────────────────────────────
+  # BLOG POSTS
+  # ──────────────────────────────────────────
+  - name: "blog"
+    label: "Blog — Perspectivas"
+    label_singular: "Artículo"
+    folder: "_posts"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "blog/{{slug}}"
+    editor:
+      preview: false
+    fields:
+
+      - label: "Título"
+        name: "title"
+        widget: "string"
+        hint: "Máx. 70 caracteres para SEO."
+
+      - label: "Slug (URL)"
+        name: "slug"
+        widget: "string"
+        hint: "Solo minúsculas y guiones. Ej: mis-primeros-datos"
+        pattern: ['^[a-z0-9\-]+$', "Solo minúsculas, números y guiones"]
+
+      - label: "Fecha de publicación"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "DD/MM/YYYY"
+        time_format: false
+        default: ""
+
+      - label: "Categoría"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Gestión",                  value: "gestion" }
+          - { label: "Tecnología",               value: "tecnologia" }
+          - { label: "Procesos",                 value: "procesos" }
+          - { label: "Estrategia",               value: "estrategia" }
+          - { label: "Inteligencia de Negocios", value: "datos" }
+          - { label: "CRM & Growth",             value: "crm" }
+
+      - label: "Tiempo de lectura (minutos)"
+        name: "readtime"
+        widget: "number"
+        default: 4
+        value_type: "int"
+        min: 1
+        max: 30
+
+      - label: "Extracto"
+        name: "excerpt"
+        widget: "text"
+        hint: "1-2 oraciones. Aparece en la tarjeta del blog. Máx. 160 caracteres."
+
+      - label: "Artículo destacado"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Aparece en la posición principal del blog"
+
+      - label: "Imagen destacada"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+        hint: "Recomendado 1200x630px."
+
+      - label: "Contenido"
+        name: "body"
+        widget: "markdown"
+        hint: "Escribe el artículo completo aquí."
+
+      - label: "SEO"
+        name: "seo"
+        widget: "object"
+        collapsed: true
+        fields:
+          - label: "Meta título"
+            name: "meta_title"
+            widget: "string"
+            required: false
+            hint: "Si está vacío se usa el Título. Máx. 60 caracteres."
+          - label: "Meta descripción"
+            name: "meta_description"
+            widget: "text"
+            required: false
+            hint: "Entre 140-160 caracteres."
+          - label: "Palabras clave"
+            name: "keywords"
+            widget: "list"
+            required: false
+
+  # ──────────────────────────────────────────
+  # CONFIGURACIÓN DEL SITIO
+  # ──────────────────────────────────────────
+  - name: "settings"
+    label: "Configuración del sitio"
+    files:
+
+      - label: "Información general"
+        name: "general"
+        file: "_data/settings.json"
+        fields:
+          - { label: "Nombre del sitio",     name: "site_name",   widget: "string", default: "Vōren" }
+          - { label: "URL del sitio",         name: "site_url",    widget: "string", default: "https://voren.cl" }
+          - { label: "Email de contacto",     name: "email",       widget: "string", default: "hola@voren.cl" }
+          - { label: "LinkedIn URL",          name: "linkedin",    widget: "string", required: false }
+          - { label: "Descripción del sitio", name: "description", widget: "text" }
+
+      - label: "SEO Global"
+        name: "seo"
+        file: "_data/seo.json"
+        fields:
+          - { label: "Meta título base",      name: "title_base",  widget: "string" }
+          - { label: "Meta descripción base", name: "description", widget: "text" }
+          - { label: "Google Analytics ID",   name: "ga_id",       widget: "string", required: false, hint: "Ej: G-XXXXXXXXXX" }

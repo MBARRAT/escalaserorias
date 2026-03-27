@@ -1,15 +1,26 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+
+  "functions": {
+    "api/auth/index.js":    { "memory": 128, "maxDuration": 10 },
+    "api/auth/callback.js": { "memory": 128, "maxDuration": 10 }
+  },
+
+  "rewrites": [
+    { "source": "/api/auth",          "destination": "/api/auth/index.js"    },
+    { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" }
+  ],
+
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options",        "value": "nosniff" },
-        { "key": "X-Frame-Options",               "value": "SAMEORIGIN" },
-        { "key": "X-XSS-Protection",              "value": "1; mode=block" },
-        { "key": "Referrer-Policy",               "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy",            "value": "camera=(), microphone=(), geolocation=()" }
+        { "key": "X-Content-Type-Options",  "value": "nosniff" },
+        { "key": "X-Frame-Options",          "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection",         "value": "1; mode=block" },
+        { "key": "Referrer-Policy",          "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy",       "value": "camera=(), microphone=(), geolocation=()" }
       ]
     },
     {
@@ -21,11 +32,12 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
     }
   ],
+
   "redirects": [
-    { "source": "/blog/adherencia-procesos.html",  "destination": "/blog/adherencia-procesos",  "permanent": true },
-    { "source": "/blog/ia-vs-orden.html",          "destination": "/blog/ia-vs-orden",          "permanent": true },
+    { "source": "/blog/adherencia-procesos.html",   "destination": "/blog/adherencia-procesos",   "permanent": true },
+    { "source": "/blog/ia-vs-orden.html",           "destination": "/blog/ia-vs-orden",           "permanent": true },
     { "source": "/blog/importancia-documentar.html","destination": "/blog/importancia-documentar","permanent": true },
-    { "source": "/blog/index.html",                "destination": "/blog",                      "permanent": true },
-    { "source": "/index.html",                     "destination": "/",                          "permanent": true }
+    { "source": "/blog/index.html",                 "destination": "/blog",                       "permanent": true },
+    { "source": "/index.html",                      "destination": "/",                           "permanent": true }
   ]
 }
