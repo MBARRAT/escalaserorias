@@ -4,6 +4,16 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="robots" content="noindex, nofollow"/>
+  <!-- CSP permisiva para /admin — Decap CMS requiere unsafe-eval internamente -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;
+    script-src * 'unsafe-inline' 'unsafe-eval' blob:;
+    connect-src * data: blob:;
+    img-src * data: blob:;
+    frame-src *;
+    style-src * 'unsafe-inline';
+    font-src * data:;
+  "/>
   <title>Admin — Vōren</title>
 </head>
 <body>
