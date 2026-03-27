@@ -1,95 +1,50 @@
-backend:
-  name: github
-  repo: MBARRAT/escalaserorias
-  branch: main
-  base_url: https://escalaserorias-zv7c.vercel.app
-  auth_endpoint: api/auth
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
 
-media_folder: "assets/img"
-public_folder: "/assets/img"
+  "functions": {
+    "api/auth/index.js":    { "memory": 128, "maxDuration": 10 },
+    "api/auth/callback.js": { "memory": 128, "maxDuration": 10 }
+  },
 
-locale: "es"
+  "rewrites": [
+    { "source": "/api/auth",          "destination": "/api/auth/index.js"    },
+    { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" }
+  ],
 
-collections:
+  "headers": [
+    {
+      "source": "/admin/config.yml",
+      "headers": [
+        { "key": "Content-Type", "value": "text/yaml; charset=utf-8" },
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options",  "value": "nosniff" },
+        { "key": "X-Frame-Options",          "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection",         "value": "1; mode=block" },
+        { "key": "Referrer-Policy",          "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy",       "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(css|js|woff2?|ttf|otf|eot)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/(.*)\\.(jpg|jpeg|png|gif|webp|svg|ico)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    }
+  ],
 
-  - name: "blog"
-    label: "Blog — Perspectivas"
-    label_singular: "Artículo"
-    folder: "_posts"
-    create: true
-    slug: "{{slug}}"
-    editor:
-      preview: false
-    fields:
-
-      - label: "Título"
-        name: "title"
-        widget: "string"
-        hint: "Máx. 70 caracteres para SEO."
-
-      - label: "Slug (URL)"
-        name: "slug"
-        widget: "string"
-        hint: "Solo minúsculas y guiones. Ej: mis-primeros-datos"
-        pattern: ['^[a-z0-9\-]+$', "Solo minúsculas, números y guiones"]
-
-      - label: "Fecha de publicación"
-        name: "date"
-        widget: "datetime"
-        format: "YYYY-MM-DD"
-        date_format: "DD/MM/YYYY"
-        time_format: false
-
-      - label: "Categoría"
-        name: "category"
-        widget: "select"
-        options:
-          - { label: "Gestión",                  value: "gestion" }
-          - { label: "Tecnología",               value: "tecnologia" }
-          - { label: "Procesos",                 value: "procesos" }
-          - { label: "Estrategia",               value: "estrategia" }
-          - { label: "Inteligencia de Negocios", value: "datos" }
-          - { label: "CRM & Growth",             value: "crm" }
-
-      - label: "Tiempo de lectura (minutos)"
-        name: "readtime"
-        widget: "number"
-        default: 4
-        value_type: "int"
-        min: 1
-        max: 30
-
-      - label: "Extracto"
-        name: "excerpt"
-        widget: "text"
-        hint: "1-2 oraciones. Aparece en la tarjeta del blog."
-
-      - label: "Artículo destacado"
-        name: "featured"
-        widget: "boolean"
-        default: false
-
-      - label: "Contenido"
-        name: "body"
-        widget: "markdown"
-
-      - label: "SEO"
-        name: "seo"
-        widget: "object"
-        collapsed: true
-        fields:
-          - { label: "Meta título",       name: "meta_title",        widget: "string", required: false }
-          - { label: "Meta descripción",  name: "meta_description",  widget: "text",   required: false }
-          - { label: "Palabras clave",    name: "keywords",          widget: "list",   required: false }
-
-  - name: "settings"
-    label: "Configuración"
-    files:
-      - label: "Información general"
-        name: "general"
-        file: "_data/settings.json"
-        fields:
-          - { label: "Nombre del sitio",  name: "site_name",   widget: "string", default: "Vōren" }
-          - { label: "URL del sitio",      name: "site_url",    widget: "string", default: "https://voren.cl" }
-          - { label: "Email",              name: "email",       widget: "string", default: "hola@voren.cl" }
-          - { label: "LinkedIn URL",       name: "linkedin",    widget: "string", required: false }
+  "redirects": [
+    { "source": "/blog/adherencia-procesos.html",   "destination": "/blog/adherencia-procesos",   "permanent": true },
+    { "source": "/blog/ia-vs-orden.html",           "destination": "/blog/ia-vs-orden",           "permanent": true },
+    { "source": "/blog/importancia-documentar.html","destination": "/blog/importancia-documentar","permanent": true },
+    { "source": "/blog/index.html",                 "destination": "/blog",                       "permanent": true },
+    { "source": "/index.html",                      "destination": "/",                           "permanent": true }
+  ]
+}
