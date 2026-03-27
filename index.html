@@ -555,4 +555,11 @@ const cio = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(!e.isIntersecting)return;
     const el=e.target,target=+el.dataset.t,start=performance.now();
-    (function t(now){const p=Math.min((now-start)/1600,1),ease=1-Math.pow(1-p,3);el.textContent=Math.round(ease*target);if(p<1)requestAnimationFrame(t);else el.textContent=target;})(star
+    (function t(now){const p=Math.min((now-start)/1600,1),ease=1-Math.pow(1-p,3);el.textContent=Math.round(ease*target);if(p<1)requestAnimationFrame(t);else el.textContent=target;})(start);
+    cio.unobserve(el);
+  });
+},{threshold:0.4});
+document.querySelectorAll('.ctr').forEach(el=>cio.observe(el));
+</script>
+</body>
+</html>
