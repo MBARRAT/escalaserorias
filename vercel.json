@@ -1,4 +1,31 @@
 {
-  "buildCommand": null,
-  "outputDirectory": "."
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options",        "value": "nosniff" },
+        { "key": "X-Frame-Options",               "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection",              "value": "1; mode=block" },
+        { "key": "Referrer-Policy",               "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy",            "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(css|js|woff2?|ttf|otf|eot)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/(.*)\\.(jpg|jpeg|png|gif|webp|svg|ico)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    }
+  ],
+  "redirects": [
+    { "source": "/blog/adherencia-procesos.html",  "destination": "/blog/adherencia-procesos",  "permanent": true },
+    { "source": "/blog/ia-vs-orden.html",          "destination": "/blog/ia-vs-orden",          "permanent": true },
+    { "source": "/blog/importancia-documentar.html","destination": "/blog/importancia-documentar","permanent": true },
+    { "source": "/blog/index.html",                "destination": "/blog",                      "permanent": true },
+    { "source": "/index.html",                     "destination": "/",                          "permanent": true }
+  ]
 }
