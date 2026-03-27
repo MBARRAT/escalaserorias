@@ -11,50 +11,55 @@
   ],
   "headers": [
     {
-      "source": "/admin(.*)",
+      "source": "/admin",
       "headers": [
         { "key": "Content-Security-Policy", "value": "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' blob:; connect-src * data: blob:; img-src * data: blob:; frame-src *; style-src * 'unsafe-inline'; font-src * data:;" },
         { "key": "X-Frame-Options", "value": "ALLOWALL" }
       ]
     },
     {
-      "source": "/config.yml",
+      "source": "/admin/:path*",
       "headers": [
-        { "key": "Content-Type",  "value": "text/yaml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "no-cache, no-store" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
+        { "key": "Content-Security-Policy", "value": "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' blob:; connect-src * data: blob:; img-src * data: blob:; frame-src *; style-src * 'unsafe-inline'; font-src * data:;" },
+        { "key": "X-Frame-Options", "value": "ALLOWALL" }
       ]
     },
     {
-      "source": "/api/auth(.*)",
+      "source": "/api/auth",
       "headers": [
         { "key": "Access-Control-Allow-Origin",  "value": "*" },
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" }
       ]
     },
     {
-      "source": "/((?!admin).*)",
+      "source": "/api/auth/:path*",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin",  "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" }
+      ]
+    },
+    {
+      "source": "/:path*",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options",         "value": "SAMEORIGIN" },
         { "key": "X-XSS-Protection",        "value": "1; mode=block" },
         { "key": "Referrer-Policy",         "value": "strict-origin-when-cross-origin" }
       ]
     },
     {
-      "source": "/(.*)\\.(css|js|woff2?|ttf|otf|eot)",
+      "source": "/:path*.(css|js|woff2|woff|ttf|otf|eot)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
-      "source": "/(.*)\\.(jpg|jpeg|png|gif|webp|svg|ico)",
+      "source": "/:path*.(jpg|jpeg|png|gif|webp|svg|ico)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
     }
   ],
   "redirects": [
-    { "source": "/blog/adherencia-procesos.html",   "destination": "/blog/adherencia-procesos",   "permanent": true },
-    { "source": "/blog/ia-vs-orden.html",           "destination": "/blog/ia-vs-orden",           "permanent": true },
-    { "source": "/blog/importancia-documentar.html","destination": "/blog/importancia-documentar","permanent": true },
-    { "source": "/blog/index.html",                 "destination": "/blog",                       "permanent": true },
-    { "source": "/index.html",                      "destination": "/",                           "permanent": true }
+    { "source": "/blog/adherencia-procesos.html",    "destination": "/blog/adherencia-procesos",    "permanent": true },
+    { "source": "/blog/ia-vs-orden.html",            "destination": "/blog/ia-vs-orden",            "permanent": true },
+    { "source": "/blog/importancia-documentar.html", "destination": "/blog/importancia-documentar", "permanent": true },
+    { "source": "/blog/index.html",                  "destination": "/blog",                        "permanent": true },
+    { "source": "/index.html",                       "destination": "/",                            "permanent": true }
   ]
 }
