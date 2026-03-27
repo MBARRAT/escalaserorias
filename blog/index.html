@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog — Escala Asesorías | Gestión, procesos y tecnología para pymes</title>
+  <meta name="description" content="Artículos prácticos sobre optimización de procesos, digitalización de ventas y gestión de pymes en Chile. Sin tecnicismos innecesarios."/>
+  <link rel="canonical" href="https://escalaasesorias.cl/blog/"/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://escalaasesorias.cl/blog/"/>
+  <meta property="og:title" content="Blog — Escala Asesorías"/>
+  <meta property="og:description" content="Ideas prácticas sobre gestión, procesos y tecnología para pymes chilenas."/>
+  <meta property="og:locale" content="es_CL"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#FAF7F2;--s1:#F3EEE5;--s2:#EBE4D8;--s3:#DDD5C6;--green:#1B6B4A;--green-d:#124D35;--green-c:#C8EADA;--green-t:#EAF6EF;--ink:#1A1A18;--ink2:#3D3D38;--muted:#6B6960;--sh1:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.05);--sh2:0 4px 12px rgba(0,0,0,.08);--sh3:0 8px 24px rgba(0,0,0,.1);--rf:999px;--rxl:22px;--rlg:14px;--rmd:10px;--fs:'Plus Jakarta Sans',sans-serif;--ff:'Fraunces',serif}
+    html{scroll-behavior:smooth}body{font-family:var(--fs);background:var(--bg);color:var(--ink);font-weight:300;-webkit-font-smoothing:antialiased}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(250,247,242,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--s3)}
+    .nlogo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .npill{width:26px;height:26px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center}
+    .npill svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .nword{font-size:.93rem;font-weight:600;color:var(--ink)}.nword em{font-style:normal;color:var(--green)}
+    .nlinks{display:flex;align-items:center;gap:.15rem}
+    .nlinks a{font-size:.81rem;font-weight:400;color:var(--muted);text-decoration:none;padding:.44rem .82rem;border-radius:var(--rf);transition:background .18s,color .18s}
+    .nlinks a:hover,.nlinks a.active{background:var(--s2);color:var(--ink)}
+    .ncta{background:var(--green-c)!important;color:var(--green-d)!important;font-weight:600!important}
+    .ncta:hover{background:#b6deca!important}
+    .pw{max-width:1240px;margin:0 auto;padding:0 2.5rem}
+
+    .blog-hero{padding:100px 0 3.5rem;border-bottom:1px solid var(--s3)}
+    .chip{display:inline-flex;background:var(--s2);color:var(--muted);font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;border-radius:var(--rf);margin-bottom:.75rem}
+    .blog-hero h1{font-family:var(--ff);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-.02em;line-height:1.15;margin-bottom:.75rem}
+    .blog-hero p{font-size:.93rem;color:var(--muted);line-height:1.75;max-width:500px}
+
+    .filter-row{display:flex;gap:.5rem;flex-wrap:wrap;padding:1.75rem 0}
+    .ftag{background:var(--s1);color:var(--muted);font-size:.75rem;font-weight:500;padding:.4rem 1rem;border-radius:var(--rf);cursor:pointer;border:1px solid var(--s3);transition:background .18s,color .18s}
+    .ftag:hover,.ftag.on{background:var(--green);color:#fff;border-color:var(--green)}
+
+    .posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;padding-bottom:5rem}
+    .post-card{background:var(--bg);border-radius:var(--rxl);overflow:hidden;border:1px solid var(--s3);box-shadow:var(--sh1);display:flex;flex-direction:column;transition:box-shadow .22s,transform .22s;text-decoration:none}
+    .post-card:hover{box-shadow:var(--sh2);transform:translateY(-3px)}
+    .post-thumb{height:150px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-size:2.4rem}
+    .post-body{padding:1.4rem;flex:1;display:flex;flex-direction:column;gap:.6rem}
+    .post-tag{display:inline-flex;background:var(--green-t);color:var(--green-d);font-size:.64rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:var(--rf);align-self:flex-start}
+    .post-title{font-family:var(--ff);font-size:1.05rem;font-weight:400;color:var(--ink);line-height:1.4}
+    .post-excerpt{font-size:.81rem;color:var(--muted);line-height:1.65;flex:1}
+    .post-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.65rem;border-top:1px solid var(--s3);margin-top:auto}
+    .post-date{font-size:.68rem;color:var(--muted)}
+    .post-read{font-size:.68rem;font-weight:500;color:var(--green);display:flex;align-items:center;gap:3px}
+    .post-read svg{width:10px;height:10px;stroke:var(--green);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+    footer{background:var(--ink);color:rgba(250,247,242,.4);padding:2.5rem}
+    .fi{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .fbrand{font-size:.9rem;font-weight:600;color:var(--bg)}.fbrand em{font-style:normal;color:var(--green-c)}
+    footer p{font-size:.74rem}
+    .flinks{display:flex;gap:1.5rem}
+    .flinks a{font-size:.74rem;color:rgba(250,247,242,.4);text-decoration:none;transition:color .18s}
+    .flinks a:hover{color:var(--green-c)}
+
+    @media(max-width:760px){
+      nav{padding:0 1.25rem}.nlinks a:not(.ncta){display:none}
+      .pw{padding:0 1.25rem}
+      .posts-grid{grid-template-columns:1fr}
+      footer{padding:2rem 1.25rem}.fi{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nlogo"><div class="npill"><svg viewBox="0 0 24 24"><polyline points="4 17 9 12 13 16 19 8"/></svg></div><span class="nword">Escala <em>Asesorías</em></span></a>
+  <div class="nlinks">
+    <a href="/#servicios">Servicios</a>
+    <a href="/#resultados">Resultados</a>
+    <a href="/blog/" class="active">Blog</a>
+    <a href="/#contacto" class="ncta">Conversemos</a>
+  </div>
+</nav>
+
+<div class="pw">
+  <div class="blog-hero">
+    <div class="chip">Blog</div>
+    <h1>Ideas que mueven<br>negocios</h1>
+    <p>Reflexiones prácticas sobre gestión, procesos y tecnología para pymes. Sin tecnicismos innecesarios.</p>
+  </div>
+
+  <div class="filter-row">
+    <div class="ftag on" onclick="filter('all',this)">Todos</div>
+    <div class="ftag" onclick="filter('gestion',this)">Gestión</div>
+    <div class="ftag" onclick="filter('tecnologia',this)">Tecnología</div>
+    <div class="ftag" onclick="filter('procesos',this)">Procesos</div>
+  </div>
+
+  <div class="posts-grid" id="posts">
+    <a href="/blog/adherencia-procesos.html" class="post-card" data-cat="gestion">
+      <div class="post-thumb" style="background:#E8F5EE"><div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(27,107,74,.1) 1px,transparent 1px);background-size:22px 22px"></div><span style="position:relative">📋</span></div>
+      <div class="post-body"><span class="post-tag">Gestión</span><div class="post-title">La adherencia a los procesos no es opcional: es la diferencia entre crecer y sobrevivir</div><div class="post-excerpt">Documentar es el primer paso. El desafío real es que el equipo lo ejecute todos los días, sin que el dueño esté mirando.</div><div class="post-foot"><span class="post-date">Dic 2024 · 4 min</span><span class="post-read">Leer <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div>
+    </a>
+    <a href="/blog/ia-vs-orden.html" class="post-card" data-cat="tecnologia">
+      <div class="post-thumb" style="background:#C8EADA"><div style="position:absolute;inset:0;background-image:linear-gradient(45deg,rgba(27,107,74,.07) 25%,transparent 25%,transparent 75%,rgba(27,107,74,.07) 75%);background-size:18px 18px"></div><span style="position:relative">🤖</span></div>
+      <div class="post-body"><span class="post-tag">Tecnología</span><div class="post-title">No todo se soluciona con IA: a veces solo necesitas orden</div><div class="post-excerpt">Antes de automatizar el caos, hay que eliminarlo. La IA no puede compensar la falta de procesos claros en la operación.</div><div class="post-foot"><span class="post-date">Dic 2024 · 3 min</span><span class="post-read">Leer <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div>
+    </a>
+    <a href="/blog/importancia-documentar.html" class="post-card" data-cat="procesos">
+      <div class="post-thumb" style="background:#F3EEE5"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(27,107,74,.06) 0,rgba(27,107,74,.06) 1px,transparent 1px,transparent 26px)"></div><span style="position:relative">📝</span></div>
+      <div class="post-body"><span class="post-tag">Procesos</span><div class="post-title">Documentar no es burocracia: es la memoria operacional de tu empresa</div><div class="post-excerpt">Cuando el conocimiento vive solo en la cabeza de las personas, la empresa es frágil. Documentar es el acto de transferirlo.</div><div class="post-foot"><span class="post-date">Nov 2024 · 4 min</span><span class="post-read">Leer <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div>
+    </a>
+  </div>
+</div>
+
+<footer><div class="fi"><div class="fbrand">Escala <em>Asesorías</em></div><p>© 2025 Escala Asesorías · Santiago, Chile</p><div class="flinks"><a href="/blog/">Blog</a><a href="/#contacto">Contacto</a></div></div></footer>
+
+<script>
+function filter(cat,el){
+  document.querySelectorAll('.ftag').forEach(function(t){t.classList.remove('on')});
+  el.classList.add('on');
+  document.querySelectorAll('.post-card').forEach(function(c){
+    c.style.display=(cat==='all'||c.dataset.cat===cat)?'flex':'none';
+  });
+}
+</script>
+</body>
+</html>
