@@ -1,449 +1,325 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Escala Asesorías — Procesos que crecen contigo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Escala Asesorías — Optimización de procesos para pymes en Chile</title>
+  <meta name="description" content="Ayudamos a pymes chilenas a profesionalizar su operación, digitalizar sus ventas y medir lo que importa. Consultoría de procesos, CRM, KPIs en Santiago."/>
+  <meta name="keywords" content="consultoría pymes Chile, optimización procesos, digitalización ventas, CRM pymes, asesoría empresarial Santiago"/>
+  <link rel="canonical" href="https://escalaasesorias.cl/"/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://escalaasesorias.cl/"/>
+  <meta property="og:title" content="Escala Asesorías — Procesos que crecen contigo"/>
+  <meta property="og:description" content="Consultoría de procesos, digitalización de ventas y dashboards de gestión para pymes en Chile."/>
+  <meta property="og:image" content="https://escalaasesorias.cl/og-image.jpg"/>
+  <meta property="og:locale" content="es_CL"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Escala Asesorías — Procesos que crecen contigo"/>
+  <meta name="twitter:description" content="Consultoría de procesos, digitalización y KPIs para pymes chilenas."/>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Escala Asesorías","description":"Consultoría de procesos, digitalización de ventas y KPIs para pymes en Chile.","url":"https://escalaasesorias.cl","email":"hola@escalaasesorias.cl","address":{"@type":"PostalAddress","addressLocality":"Santiago","addressCountry":"CL"},"areaServed":"Chile","serviceType":["Consultoría de procesos","Digitalización de ventas","CRM","KPIs y dashboards"]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --md-primary: #1B6B4A;
-      --md-on-primary: #ffffff;
-      --md-primary-container: #A8F2CC;
-      --md-on-primary-container: #002114;
-      --md-secondary: #4E6356;
-      --md-on-secondary: #ffffff;
-      --md-secondary-container: #D0E8D8;
-      --md-on-secondary-container: #0B1F13;
-      --md-surface: #F6FBF4;
-      --md-surface-1: #EDF5EC;
-      --md-surface-2: #E3EFE1;
-      --md-surface-variant: #D0E8D8;
-      --md-on-surface: #191D1A;
-      --md-on-surface-variant: #404943;
-      --md-outline: #70796F;
-      --md-outline-variant: #C0C9C0;
-      --elev-1: rgba(27,107,74,0.05);
-      --elev-2: rgba(27,107,74,0.08);
-      --shadow-1: 0 1px 2px rgba(0,0,0,.08), 0 1px 3px 1px rgba(0,0,0,.04);
-      --shadow-2: 0 1px 2px rgba(0,0,0,.1), 0 2px 6px 2px rgba(0,0,0,.05);
-      --shadow-3: 0 4px 8px 3px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.09);
-      --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 28px; --r-full: 50px;
-      --font-sans: 'Plus Jakarta Sans', sans-serif;
-      --font-serif: 'Fraunces', serif;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#FAF7F2;
+      --s1:#F3EEE5;
+      --s2:#EBE4D8;
+      --s3:#DDD5C6;
+      --green:#1B6B4A;
+      --green-d:#124D35;
+      --green-c:#C8EADA;
+      --green-t:#EAF6EF;
+      --ink:#1A1A18;
+      --ink2:#3D3D38;
+      --muted:#6B6960;
+      --sh1:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.05);
+      --sh2:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.05);
+      --sh3:0 8px 24px rgba(0,0,0,.1),0 4px 8px rgba(0,0,0,.06);
+      --rf:999px;--rxl:22px;--rlg:14px;--rmd:10px;
+      --fs:'Plus Jakarta Sans',sans-serif;
+      --ff:'Fraunces',serif;
     }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font-sans); background: var(--md-surface); color: var(--md-on-surface); overflow-x: hidden; font-weight: 300; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--md-surface); }
-    ::-webkit-scrollbar-thumb { background: var(--md-outline-variant); border-radius: 3px; }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fs);background:var(--bg);color:var(--ink);overflow-x:hidden;font-weight:300;-webkit-font-smoothing:antialiased}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--s1)}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:3px}
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; height: 64px;
-      background: rgba(246,251,244,0.92);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--md-outline-variant);
-    }
-    .nav-logo { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--md-on-surface); text-decoration: none; display: flex; align-items: center; gap: 10px; }
-    .nav-logo-pill { width: 28px; height: 28px; background: var(--md-primary); border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; }
-    .nav-logo-pill svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-    .nav-logo em { font-style: normal; color: var(--md-primary); }
-    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
-    .nav-links a { font-size: 0.85rem; font-weight: 400; color: var(--md-on-surface-variant); text-decoration: none; padding: 0.5rem 0.875rem; border-radius: var(--r-full); transition: background 0.2s, color 0.2s; }
-    .nav-links a:hover { background: var(--elev-2); color: var(--md-on-surface); }
-    .nav-fab { background: var(--md-primary-container) !important; color: var(--md-on-primary-container) !important; font-weight: 600 !important; box-shadow: var(--shadow-1); }
-    .nav-fab:hover { box-shadow: var(--shadow-2); background: #9AE8BF !important; }
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(250,247,242,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--s3)}
+    .nlogo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .npill{width:26px;height:26px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center}
+    .npill svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .nword{font-size:.93rem;font-weight:600;color:var(--ink)}
+    .nword em{font-style:normal;color:var(--green)}
+    .nlinks{display:flex;align-items:center;gap:.15rem}
+    .nlinks a{font-size:.81rem;font-weight:400;color:var(--muted);text-decoration:none;padding:.44rem .82rem;border-radius:var(--rf);transition:background .18s,color .18s}
+    .nlinks a:hover{background:var(--s2);color:var(--ink)}
+    .ncta{background:var(--green-c)!important;color:var(--green-d)!important;font-weight:600!important}
+    .ncta:hover{background:#b6deca!important}
 
-    .page-wrap { max-width: 1280px; margin: 0 auto; }
+    .pw{max-width:1240px;margin:0 auto}
+    .hero{min-height:100vh;padding:60px 2.5rem 0;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:5rem}
+    .ey{display:inline-flex;align-items:center;gap:6px;background:var(--s2);color:var(--muted);font-size:.67rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 13px;border-radius:var(--rf);margin-bottom:1.75rem}
+    .eydot{width:5px;height:5px;background:var(--green);border-radius:50%}
+    .hero h1{font-family:var(--ff);font-weight:300;font-size:clamp(2.5rem,4.2vw,3.7rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:1.5rem}
+    .hero h1 strong{font-weight:400;font-style:italic;color:var(--green)}
+    .hsub{font-size:.97rem;color:var(--muted);line-height:1.8;max-width:460px;margin-bottom:2.5rem}
+    .hact{display:flex;gap:.75rem;flex-wrap:wrap}
+    .bf{background:var(--green);color:#fff;padding:.75rem 1.75rem;border-radius:var(--rf);font-size:.87rem;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--sh1);transition:background .15s,box-shadow .2s}
+    .bf:hover{background:var(--green-d);box-shadow:var(--sh3)}
+    .bt{background:var(--green-t);color:var(--green-d);padding:.75rem 1.75rem;border-radius:var(--rf);font-size:.87rem;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--green-c);transition:background .18s}
+    .bt:hover{background:var(--green-c)}
+    .hcards{display:flex;flex-direction:column;gap:1rem}
+    .hc{background:var(--bg);border-radius:var(--rxl);padding:1.5rem 1.75rem;box-shadow:var(--sh1);border:1px solid var(--s3);transition:box-shadow .22s}
+    .hc:hover{box-shadow:var(--sh2)}
+    .hc.acc{background:var(--green);border-color:transparent}
+    .hcn{font-family:var(--ff);font-size:2.5rem;font-weight:300;color:var(--green);line-height:1}
+    .hc.acc .hcn{color:#fff}
+    .hcl{font-size:.77rem;color:var(--muted);margin-top:3px;line-height:1.4}
+    .hc.acc .hcl{color:rgba(255,255,255,.65)}
+    .hcm{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 
-    .hero { min-height: 100vh; padding: 64px 2.5rem 0; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 5rem; }
-    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: var(--md-secondary-container); color: var(--md-on-secondary-container); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: var(--r-full); margin-bottom: 1.75rem; }
-    .eyebrow-dot { width: 5px; height: 5px; background: var(--md-primary); border-radius: 50%; }
-    .hero h1 { font-family: var(--font-serif); font-weight: 300; font-size: clamp(2.6rem, 4.5vw, 3.8rem); line-height: 1.1; color: var(--md-on-surface); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
-    .hero h1 strong { font-weight: 400; font-style: italic; color: var(--md-primary); }
-    .hero-body { font-size: 1rem; color: var(--md-on-surface-variant); line-height: 1.75; max-width: 460px; margin-bottom: 2.5rem; }
-    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-    .btn-filled { background: var(--md-primary); color: var(--md-on-primary); padding: 0.75rem 1.75rem; border-radius: var(--r-full); font-size: 0.9rem; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: var(--shadow-1); transition: box-shadow 0.2s, background 0.15s; }
-    .btn-filled:hover { box-shadow: var(--shadow-3); background: #155a3d; }
-    .btn-tonal { background: var(--md-secondary-container); color: var(--md-on-secondary-container); padding: 0.75rem 1.75rem; border-radius: var(--r-full); font-size: 0.9rem; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: background 0.2s; }
-    .btn-tonal:hover { background: #bcddc6; }
-    .hero-cards { display: flex; flex-direction: column; gap: 1rem; }
-    .hcard { background: var(--md-surface); border-radius: var(--r-xl); padding: 1.5rem 2rem; box-shadow: var(--shadow-1); border: 1px solid var(--md-outline-variant); transition: box-shadow 0.25s; }
-    .hcard:hover { box-shadow: var(--shadow-3); }
-    .hcard.tonal { background: var(--md-primary-container); border-color: transparent; }
-    .hcard-row { display: flex; align-items: flex-end; gap: 1rem; }
-    .hcard-num { font-family: var(--font-serif); font-size: 2.6rem; font-weight: 300; color: var(--md-primary); line-height: 1; }
-    .hcard.tonal .hcard-num { color: var(--md-on-primary-container); }
-    .hcard-label { font-size: 0.8rem; color: var(--md-on-surface-variant); padding-bottom: 4px; line-height: 1.4; }
-    .hcard.tonal .hcard-label { color: var(--md-on-primary-container); opacity: 0.7; }
-    .hcard-mini-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .sw{padding:5rem 2.5rem}
+    .sh{margin-bottom:2.75rem}
+    .chip{display:inline-flex;background:var(--s2);color:var(--muted);font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;border-radius:var(--rf);margin-bottom:.65rem}
+    h2{font-family:var(--ff);font-weight:300;font-size:clamp(1.8rem,2.8vw,2.5rem);line-height:1.2;letter-spacing:-.015em;margin-bottom:.7rem}
+    .lead{font-size:.92rem;color:var(--muted);line-height:1.75;max-width:500px}
 
-    .section-wrap { padding: 5rem 2.5rem; }
-    .section-header { margin-bottom: 3rem; }
-    .section-chip { display: inline-flex; align-items: center; background: var(--md-surface-variant); color: var(--md-on-surface-variant); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: var(--r-full); margin-bottom: 0.75rem; }
-    h2 { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.2; color: var(--md-on-surface); letter-spacing: -0.015em; margin-bottom: 0.75rem; }
-    .section-lead { font-size: 0.95rem; color: var(--md-on-surface-variant); line-height: 1.7; max-width: 520px; }
+    .sbg{background:var(--s1)}
+    .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .sc{background:var(--bg);border-radius:var(--rxl);padding:1.75rem;border:1px solid var(--s3);box-shadow:var(--sh1);transition:box-shadow .22s,transform .22s}
+    .sc:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+    .sico{width:44px;height:44px;background:var(--green-t);border-radius:var(--rlg);display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
+    .sico svg{width:20px;height:20px;stroke:var(--green);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .st{font-size:.94rem;font-weight:600;color:var(--ink);margin-bottom:.4rem}
+    .sd{font-size:.82rem;color:var(--muted);line-height:1.7}
 
-    .servicios-bg { background: var(--md-surface-1); }
-    .servicios-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-    .srv-card { background: var(--md-surface); border-radius: var(--r-xl); padding: 2rem; box-shadow: var(--shadow-1); border: 1px solid transparent; transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s; }
-    .srv-card:hover { box-shadow: var(--shadow-3); border-color: var(--md-outline-variant); transform: translateY(-2px); }
-    .srv-icon-wrap { width: 48px; height: 48px; border-radius: var(--r-lg); background: var(--md-secondary-container); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
-    .srv-icon-wrap svg { width: 22px; height: 22px; stroke: var(--md-primary); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-    .srv-title { font-size: 1rem; font-weight: 600; color: var(--md-on-surface); margin-bottom: 0.5rem; }
-    .srv-desc { font-size: 0.85rem; color: var(--md-on-surface-variant); line-height: 1.7; }
+    .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .tc{background:var(--s1);border-radius:var(--rxl);padding:1.6rem;border:1px solid var(--s3);box-shadow:var(--sh1);display:flex;flex-direction:column;gap:.85rem;transition:box-shadow .22s,transform .22s}
+    .tc:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+    .stars{display:flex;gap:3px}
+    .star{width:13px;height:13px;background:var(--green);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+    .tq{font-family:var(--ff);font-size:.87rem;font-style:italic;font-weight:300;color:var(--ink2);line-height:1.8;flex:1}
+    .thr{height:1px;background:var(--s3)}
+    .tau{display:flex;align-items:center;gap:9px}
+    .tav{width:35px;height:35px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:600;color:#fff;flex-shrink:0}
+    .tn{font-size:.82rem;font-weight:500;color:var(--ink)}
+    .tr{font-size:.71rem;color:var(--muted)}
 
-    .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .test-card { background: var(--md-surface); border-radius: var(--r-xl); padding: 1.75rem; box-shadow: var(--shadow-1); border: 1px solid var(--md-outline-variant); display: flex; flex-direction: column; gap: 1rem; transition: box-shadow 0.25s, transform 0.25s; }
-    .test-card:hover { box-shadow: var(--shadow-3); transform: translateY(-2px); }
-    .test-stars { display: flex; gap: 3px; }
-    .star { width: 14px; height: 14px; background: var(--md-primary); clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
-    .test-quote { font-family: var(--font-serif); font-size: 0.9rem; font-weight: 300; font-style: italic; color: var(--md-on-surface); line-height: 1.75; flex: 1; }
-    .test-divider { height: 1px; background: var(--md-outline-variant); }
-    .test-author { display: flex; align-items: center; gap: 10px; }
-    .test-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--md-primary); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: white; flex-shrink: 0; }
-    .test-name { font-size: 0.85rem; font-weight: 500; color: var(--md-on-surface); }
-    .test-role { font-size: 0.75rem; color: var(--md-on-surface-variant); margin-top: 1px; }
+    .pbg{background:var(--ink)}
+    .pbg h2{color:var(--bg)}
+    .pbg .chip{background:rgba(200,234,218,.1);color:var(--green-c)}
+    .pbg .lead{color:rgba(250,247,242,.38)}
+    .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:var(--rxl);overflow:hidden}
+    .ps{background:var(--ink);padding:2.25rem 1.6rem;transition:background .18s}
+    .ps:hover{background:#232820}
+    .pn{font-family:var(--ff);font-size:2.8rem;font-weight:300;color:rgba(200,234,218,.15);line-height:1;margin-bottom:1.1rem}
+    .pt{font-size:.87rem;font-weight:600;color:var(--bg);margin-bottom:.4rem}
+    .pd{font-size:.77rem;color:rgba(250,247,242,.38);line-height:1.65}
 
-    .proceso-bg { background: var(--md-on-surface); }
-    .proceso-bg h2 { color: var(--md-surface); }
-    .proceso-bg .section-chip { background: rgba(168,242,204,0.15); color: var(--md-primary-container); }
-    .proceso-bg .section-lead { color: rgba(246,251,244,0.5); }
-    .proceso-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.08); border-radius: var(--r-xl); overflow: hidden; }
-    .proc-step { background: var(--md-on-surface); padding: 2.5rem 1.75rem; transition: background 0.2s; }
-    .proc-step:hover { background: #262d27; }
-    .proc-num { font-family: var(--font-serif); font-size: 3rem; font-weight: 300; color: rgba(168,242,204,0.25); line-height: 1; margin-bottom: 1.25rem; }
-    .proc-title { font-size: 0.9rem; font-weight: 600; color: var(--md-surface); margin-bottom: 0.5rem; }
-    .proc-desc { font-size: 0.8rem; color: rgba(246,251,244,0.45); line-height: 1.65; }
+    .blbg{background:var(--s2)}
+    .blgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+    .blc{background:var(--bg);border-radius:var(--rxl);overflow:hidden;border:1px solid var(--s3);box-shadow:var(--sh1);display:flex;flex-direction:column;transition:box-shadow .22s,transform .22s;text-decoration:none}
+    .blc:hover{box-shadow:var(--sh2);transform:translateY(-3px)}
+    .blth{height:130px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-size:2.2rem}
+    .blbd{padding:1.3rem;flex:1;display:flex;flex-direction:column;gap:.55rem}
+    .bltag{display:inline-flex;background:var(--green-t);color:var(--green-d);font-size:.64rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:var(--rf);align-self:flex-start}
+    .bltit{font-family:var(--ff);font-size:.98rem;font-weight:400;color:var(--ink);line-height:1.4}
+    .blex{font-size:.79rem;color:var(--muted);line-height:1.65;flex:1}
+    .blft{display:flex;align-items:center;justify-content:space-between;padding-top:.6rem;border-top:1px solid var(--s3);margin-top:auto}
+    .bldate{font-size:.68rem;color:var(--muted)}
+    .blread{font-size:.68rem;font-weight:500;color:var(--green);display:flex;align-items:center;gap:3px}
+    .blread svg{width:10px;height:10px;stroke:var(--green);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .bl-more{text-align:center;margin-top:2rem}
 
-    .blog-bg { background: var(--md-surface-2); }
-    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .blog-card { background: var(--md-surface); border-radius: var(--r-xl); box-shadow: var(--shadow-1); overflow: hidden; border: 1px solid var(--md-outline-variant); display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s; cursor: pointer; }
-    .blog-card:hover { box-shadow: var(--shadow-3); transform: translateY(-3px); }
-    .blog-thumb { height: 160px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-    .blog-thumb-pattern { position: absolute; inset: 0; }
-    .blog-thumb-icon { position: relative; z-index: 1; font-size: 2.5rem; }
-    .blog-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
-    .blog-tag { display: inline-flex; background: var(--md-secondary-container); color: var(--md-on-secondary-container); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px; border-radius: var(--r-full); align-self: flex-start; }
-    .blog-title { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; color: var(--md-on-surface); line-height: 1.4; }
-    .blog-excerpt { font-size: 0.82rem; color: var(--md-on-surface-variant); line-height: 1.65; flex: 1; }
-    .blog-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid var(--md-outline-variant); margin-top: auto; }
-    .blog-date { font-size: 0.73rem; color: var(--md-on-surface-variant); }
-    .blog-read { font-size: 0.73rem; font-weight: 500; color: var(--md-primary); display: flex; align-items: center; gap: 4px; }
-    .blog-read svg { width: 12px; height: 12px; stroke: var(--md-primary); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .cgrid{display:grid;grid-template-columns:1fr 1.35fr;gap:5rem;align-items:start}
+    .cchips{display:flex;flex-direction:column;gap:.65rem;margin-top:1.75rem}
+    .cch{display:flex;align-items:center;gap:10px;background:var(--s1);border-radius:var(--rlg);padding:.85rem 1.1rem;border:1px solid var(--s3)}
+    .cchi{width:35px;height:35px;background:var(--green-t);border-radius:var(--rmd);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .cchi svg{width:15px;height:15px;stroke:var(--green);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .cch strong{font-size:.82rem;font-weight:500;color:var(--ink);display:block}
+    .cch span{font-size:.71rem;color:var(--muted)}
+    .fcard{background:var(--bg);border-radius:var(--rxl);padding:2.25rem;box-shadow:var(--sh2);border:1px solid var(--s3)}
+    .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+    .fful{grid-column:span 2}
+    .field{display:flex;flex-direction:column;gap:5px}
+    label{font-size:.73rem;font-weight:500;color:var(--ink2);letter-spacing:.02em}
+    input,textarea,select{font-family:var(--fs);font-size:.87rem;font-weight:300;color:var(--ink);background:var(--s1);border:1px solid var(--s3);border-radius:var(--rmd);padding:.68rem .92rem;outline:none;transition:border-color .18s,box-shadow .18s;width:100%}
+    input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(27,107,74,.1);background:var(--bg)}
+    textarea{resize:vertical;min-height:90px}
+    .fst{display:none;padding:.68rem .95rem;border-radius:var(--rmd);font-size:.81rem;margin-bottom:.85rem}
+    .fst.ok{display:block;background:var(--green-t);color:var(--green-d);border:1px solid var(--green-c)}
+    .fst.err{display:block;background:#FDECEA;color:#922;border:1px solid #f5c0bb}
+    .fsub{width:100%;background:var(--green);color:#fff;border:none;padding:.92rem;border-radius:var(--rf);font-family:var(--fs);font-size:.9rem;font-weight:500;cursor:pointer;box-shadow:var(--sh1);display:flex;align-items:center;justify-content:center;gap:7px;transition:background .15s,box-shadow .2s;margin-top:.45rem}
+    .fsub:hover{background:var(--green-d);box-shadow:var(--sh3)}
+    .fsub:disabled{opacity:.6;cursor:not-allowed}
+    .fnote{font-size:.69rem;color:var(--muted);text-align:center;margin-top:.6rem}
 
-    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; padding: 1.5rem; }
-    .modal-overlay.open { display: flex; }
-    .modal { background: var(--md-surface); border-radius: var(--r-xl); max-width: 640px; width: 100%; max-height: 85vh; overflow-y: auto; box-shadow: var(--shadow-3); animation: modalIn 0.25s ease; }
-    @keyframes modalIn { from { opacity:0; transform: translateY(16px) scale(0.98); } to { opacity:1; transform: none; } }
-    .modal-header { padding: 2rem 2rem 0; }
-    .modal-close { float: right; background: var(--md-surface-variant); border: none; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--md-on-surface-variant); font-size: 1.1rem; transition: background 0.2s; }
-    .modal-close:hover { background: var(--md-outline-variant); }
-    .modal-tag { display: inline-flex; background: var(--md-secondary-container); color: var(--md-on-secondary-container); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px; border-radius: var(--r-full); margin-bottom: 1rem; }
-    .modal h3 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 400; color: var(--md-on-surface); line-height: 1.3; margin-bottom: 0.5rem; }
-    .modal-meta { font-size: 0.75rem; color: var(--md-on-surface-variant); margin-bottom: 1.5rem; }
-    .modal-body { padding: 0 2rem 2rem; }
-    .modal-body p { font-size: 0.9rem; color: var(--md-on-surface-variant); line-height: 1.8; margin-bottom: 1.25rem; }
-    .modal-body h4 { font-size: 0.9rem; font-weight: 600; color: var(--md-on-surface); margin: 1.5rem 0 0.5rem; }
-    .modal-body ul { padding-left: 1.25rem; }
-    .modal-body li { font-size: 0.88rem; color: var(--md-on-surface-variant); line-height: 1.8; margin-bottom: 0.25rem; }
-    .modal-ig { background: var(--md-secondary-container); border-radius: var(--r-lg); padding: 1rem 1.25rem; display: flex; align-items: flex-start; gap: 10px; margin-top: 1.5rem; }
-    .modal-ig svg { width: 20px; height: 20px; stroke: var(--md-primary); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 2px; }
-    .modal-ig p { font-size: 0.78rem; color: var(--md-on-secondary-container); line-height: 1.6; margin: 0; }
+    footer{background:var(--ink);color:rgba(250,247,242,.4);padding:2.5rem 2.5rem}
+    .fi{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .fbrand{font-size:.9rem;font-weight:600;color:var(--bg)}
+    .fbrand em{font-style:normal;color:var(--green-c)}
+    footer p{font-size:.74rem}
+    .flinks{display:flex;gap:1.5rem}
+    .flinks a{font-size:.74rem;color:rgba(250,247,242,.4);text-decoration:none;transition:color .18s}
+    .flinks a:hover{color:var(--green-c)}
 
-    .contacto-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: start; }
-    .contact-chips { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
-    .contact-chip { display: flex; align-items: center; gap: 12px; background: var(--md-surface-1); border-radius: var(--r-lg); padding: 1rem 1.25rem; border: 1px solid var(--md-outline-variant); }
-    .chip-icon { width: 38px; height: 38px; background: var(--md-secondary-container); border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .chip-icon svg { width: 16px; height: 16px; stroke: var(--md-primary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .chip-strong { font-size: 0.875rem; font-weight: 500; color: var(--md-on-surface); display: block; }
-    .chip-sub { font-size: 0.75rem; color: var(--md-on-surface-variant); }
-    .form-surface { background: var(--md-surface); border-radius: var(--r-xl); padding: 2.5rem; box-shadow: var(--shadow-2); }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-full { grid-column: span 2; }
-    .field { display: flex; flex-direction: column; gap: 6px; }
-    label { font-size: 0.78rem; font-weight: 500; color: var(--md-on-surface-variant); letter-spacing: 0.02em; }
-    input, textarea, select { font-family: var(--font-sans); font-size: 0.9rem; font-weight: 300; color: var(--md-on-surface); background: var(--md-surface-1); border: 1px solid var(--md-outline-variant); border-radius: var(--r-md); padding: 0.75rem 1rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; }
-    input:focus, textarea:focus, select:focus { border-color: var(--md-primary); box-shadow: 0 0 0 2px rgba(27,107,74,0.15); background: var(--md-surface); }
-    textarea { resize: vertical; min-height: 100px; }
-    .form-status { display: none; padding: 0.75rem 1rem; border-radius: var(--r-md); font-size: 0.85rem; margin-bottom: 1rem; }
-    .form-status.success { display: block; background: var(--md-primary-container); color: var(--md-on-primary-container); }
-    .form-status.error { display: block; background: #FFDAD6; color: #410002; }
-    .btn-submit { width: 100%; background: var(--md-primary); color: var(--md-on-primary); border: none; padding: 1rem; border-radius: var(--r-full); font-family: var(--font-sans); font-size: 0.95rem; font-weight: 500; cursor: pointer; box-shadow: var(--shadow-1); display: flex; align-items: center; justify-content: center; gap: 8px; transition: box-shadow 0.2s, background 0.15s; margin-top: 0.5rem; }
-    .btn-submit:hover { box-shadow: var(--shadow-3); background: #155a3d; }
-    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-    .form-note { font-size: 0.73rem; color: var(--md-on-surface-variant); text-align: center; margin-top: 0.75rem; }
+    @keyframes fu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+    .hero>*{animation:fu .55s ease both}
+    .hero>*:nth-child(1){animation-delay:.05s}
+    .hero>*:nth-child(2){animation-delay:.22s}
 
-    footer { background: var(--md-on-surface); color: rgba(246,251,244,0.45); padding: 3rem 2.5rem; }
-    .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .footer-brand { font-size: 0.95rem; font-weight: 600; color: var(--md-surface); }
-    .footer-brand em { font-style: normal; color: var(--md-primary-container); }
-    footer p { font-size: 0.78rem; }
-
-    @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: none; } }
-    .hero > * { animation: fadeUp 0.55s ease both; }
-    .hero-eyebrow { animation-delay: 0.05s; }
-    .hero h1 { animation-delay: 0.15s; }
-    .hero-body { animation-delay: 0.22s; }
-    .hero-actions { animation-delay: 0.3s; }
-    .hero-cards { animation-delay: 0.25s; }
-
-    @media (max-width: 960px) {
-      nav { padding: 0 1.25rem; }
-      .nav-links a:not(.nav-fab) { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 80px 1.25rem 3rem; gap: 2.5rem; }
-      .section-wrap { padding: 3.5rem 1.25rem; }
-      .servicios-grid, .test-grid, .blog-grid { grid-template-columns: 1fr; }
-      .proceso-grid { grid-template-columns: 1fr 1fr; }
-      .contacto-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .form-grid { grid-template-columns: 1fr; }
-      .form-full { grid-column: span 1; }
-      .hcard-mini-row { grid-template-columns: 1fr; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
+    @media(max-width:960px){
+      nav{padding:0 1.25rem}
+      .nlinks a:not(.ncta){display:none}
+      .hero{grid-template-columns:1fr;padding:76px 1.25rem 3rem;gap:2.5rem}
+      .sw{padding:3.5rem 1.25rem}
+      .sgrid,.tgrid,.blgrid{grid-template-columns:1fr}
+      .pgrid{grid-template-columns:1fr 1fr}
+      .cgrid{grid-template-columns:1fr;gap:2rem}
+      .fgrid{grid-template-columns:1fr}
+      .fful{grid-column:span 1}
+      .hcm{grid-template-columns:1fr}
+      footer{padding:2rem 1.25rem}
+      .fi{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-pill"><svg viewBox="0 0 24 24"><polyline points="4 17 9 12 13 16 19 8"/></svg></div>
-    Escala <em>Asesorías</em>
+  <a href="/" class="nlogo">
+    <div class="npill"><svg viewBox="0 0 24 24"><polyline points="4 17 9 12 13 16 19 8"/></svg></div>
+    <span class="nword">Escala <em>Asesorías</em></span>
   </a>
-  <div class="nav-links">
+  <div class="nlinks">
     <a href="#servicios">Servicios</a>
     <a href="#resultados">Resultados</a>
-    <a href="#proceso">Cómo trabajamos</a>
-    <a href="#blog">Blog</a>
-    <a href="#contacto" class="nav-fab">Conversemos</a>
+    <a href="#proceso">Proceso</a>
+    <a href="/blog/">Blog</a>
+    <a href="#contacto" class="ncta">Conversemos</a>
   </div>
 </nav>
 
-<div class="page-wrap">
-  <section class="hero">
-    <div>
-      <div class="hero-eyebrow"><span class="eyebrow-dot"></span> Asesorías para pymes · Santiago, Chile</div>
-      <h1>Tu negocio,<br><strong>en el siguiente</strong><br>nivel</h1>
-      <p class="hero-body">Profesionalizamos la operación de tu empresa con procesos claros, ventas digitalizadas y métricas que te dicen exactamente dónde estás y hacia dónde vas.</p>
-      <div class="hero-actions">
-        <a href="#contacto" class="btn-filled">Agenda sesión gratuita <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <a href="#servicios" class="btn-tonal">Ver servicios</a>
-      </div>
+<div class="pw">
+<section class="hero">
+  <div>
+    <div class="ey"><span class="eydot"></span>Asesorías para pymes · Santiago, Chile</div>
+    <h1>Tu negocio,<br><strong>en el siguiente</strong><br>nivel</h1>
+    <p class="hsub">Profesionalizamos la operación de tu empresa con procesos claros, ventas digitalizadas y métricas que te dicen exactamente dónde estás y hacia dónde vas.</p>
+    <div class="hact">
+      <a href="#contacto" class="bf">Agenda sesión gratuita <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#servicios" class="bt">Ver servicios</a>
     </div>
-    <div class="hero-cards">
-      <div class="hcard tonal"><div class="hcard-row"><div class="hcard-num">+30%</div><div class="hcard-label">Incremento promedio en ventas digitales</div></div></div>
-      <div class="hcard-mini-row">
-        <div class="hcard"><div class="hcard-num">15+</div><div class="hcard-label">Pymes acompañadas</div></div>
-        <div class="hcard"><div class="hcard-num">100%</div><div class="hcard-label">Herramientas que tu equipo opera solo</div></div>
-      </div>
+  </div>
+  <div class="hcards">
+    <div class="hc acc"><div class="hcn">+30%</div><div class="hcl">Incremento promedio en ventas digitales de clientes</div></div>
+    <div class="hcm">
+      <div class="hc"><div class="hcn">15+</div><div class="hcl">Pymes acompañadas</div></div>
+      <div class="hc"><div class="hcn">100%</div><div class="hcl">Herramientas que tu equipo opera solo</div></div>
     </div>
-  </section>
+  </div>
+</section>
 </div>
 
-<div class="servicios-bg"><div class="page-wrap"><div id="servicios" class="section-wrap">
-  <div class="section-header">
-    <div class="section-chip">Servicios</div>
-    <h2>Lo que hacemos<br>por tu negocio</h2>
-    <p class="section-lead">Intervenciones concretas, no informes. Cada proyecto termina con cambios visibles que tu equipo puede sostener solo.</p>
-  </div>
-  <div class="servicios-grid">
-    <div class="srv-card"><div class="srv-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div class="srv-title">Mapeo y optimización de procesos</div><div class="srv-desc">Identificamos los cuellos de botella que te cuestan tiempo y dinero. Rediseñamos el flujo para que tu operación sea predecible y escalable.</div></div>
-    <div class="srv-card"><div class="srv-icon-wrap"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="srv-title">Digitalización de ventas y CRM</div><div class="srv-desc">Implementamos herramientas de CRM y automatización adaptadas a tu tamaño. Tu equipo deja de operar en planillas y empieza a cerrar más.</div></div>
-    <div class="srv-card"><div class="srv-icon-wrap"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="srv-title">KPIs y dashboards de gestión</div><div class="srv-desc">Definimos los indicadores que realmente importan y los ponemos en un dashboard que puedes revisar en 5 minutos cada mañana.</div></div>
-    <div class="srv-card"><div class="srv-icon-wrap"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="srv-title">Capacitación y acompañamiento</div><div class="srv-desc">No desaparecemos al entregar el proyecto. Acompañamos a tu equipo hasta que los cambios estén internalizados y funcionando solos.</div></div>
+<div class="sbg"><div class="pw"><div id="servicios" class="sw">
+  <div class="sh"><div class="chip">Servicios</div><h2>Lo que hacemos<br>por tu negocio</h2><p class="lead">Intervenciones concretas, no informes. Cada proyecto termina con cambios visibles que tu equipo puede sostener solo.</p></div>
+  <div class="sgrid">
+    <div class="sc"><div class="sico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div class="st">Mapeo y optimización de procesos</div><div class="sd">Identificamos los cuellos de botella que te cuestan tiempo y dinero. Rediseñamos el flujo para que tu operación sea predecible y escalable.</div></div>
+    <div class="sc"><div class="sico"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="st">Digitalización de ventas y CRM</div><div class="sd">Implementamos herramientas de CRM y automatización adaptadas a tu tamaño. Tu equipo deja de operar en planillas y empieza a cerrar más.</div></div>
+    <div class="sc"><div class="sico"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="st">KPIs y dashboards de gestión</div><div class="sd">Definimos los indicadores que realmente importan y los ponemos en un dashboard que puedes revisar en 5 minutos cada mañana.</div></div>
+    <div class="sc"><div class="sico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="st">Capacitación y acompañamiento</div><div class="sd">No desaparecemos al entregar el proyecto. Acompañamos a tu equipo hasta que los cambios estén internalizados y funcionando solos.</div></div>
   </div>
 </div></div></div>
 
-<div class="page-wrap"><div id="resultados" class="section-wrap">
-  <div class="section-header">
-    <div class="section-chip">Resultados reales</div>
-    <h2>Lo que dicen quienes<br>ya dieron el paso</h2>
-    <p class="section-lead">Casos de pymes de servicios que transformaron su operación.</p>
-  </div>
-  <div class="test-grid">
-    <div class="test-card"><div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><p class="test-quote">"Teníamos los procesos en la cabeza del dueño y en planillas que nadie entendía. Hoy el equipo opera solo y yo puedo enfocarme en crecer, no en apagar incendios."</p><div class="test-divider"></div><div class="test-author"><div class="test-avatar">MV</div><div><div class="test-name">Marcela V.</div><div class="test-role">Gerente · Estudio jurídico</div></div></div></div>
-    <div class="test-card"><div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><p class="test-quote">"Implementamos un CRM en 3 semanas. Las ventas del trimestre siguiente subieron 35%. Lo mejor fue que el equipo lo adoptó sin resistencia porque el proceso fue simple."</p><div class="test-divider"></div><div class="test-author"><div class="test-avatar">RG</div><div><div class="test-name">Rodrigo G.</div><div class="test-role">Director Comercial · Empresa TI</div></div></div></div>
-    <div class="test-card"><div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><p class="test-quote">"Por primera vez tengo un dashboard que me muestra en tiempo real cómo va el negocio. Antes tomaba decisiones con el estómago, ahora las tomo con datos."</p><div class="test-divider"></div><div class="test-author"><div class="test-avatar">CP</div><div><div class="test-name">Carolina P.</div><div class="test-role">Fundadora · Consultora de RRHH</div></div></div></div>
+<div class="pw"><div id="resultados" class="sw">
+  <div class="sh"><div class="chip">Resultados reales</div><h2>Lo que dicen quienes<br>ya dieron el paso</h2><p class="lead">Casos de pymes de servicios que transformaron su operación.</p></div>
+  <div class="tgrid">
+    <div class="tc"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><p class="tq">"Teníamos los procesos en la cabeza del dueño y en planillas que nadie entendía. Hoy el equipo opera solo y yo puedo enfocarme en crecer, no en apagar incendios."</p><div class="thr"></div><div class="tau"><div class="tav">MV</div><div><div class="tn">Marcela V.</div><div class="tr">Gerente · Estudio jurídico</div></div></div></div>
+    <div class="tc"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><p class="tq">"Implementamos un CRM en 3 semanas. Las ventas del trimestre siguiente subieron 35%. Lo mejor fue que el equipo lo adoptó sin resistencia porque el proceso fue simple."</p><div class="thr"></div><div class="tau"><div class="tav">RG</div><div><div class="tn">Rodrigo G.</div><div class="tr">Director Comercial · Empresa TI</div></div></div></div>
+    <div class="tc"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><p class="tq">"Por primera vez tengo un dashboard que me muestra en tiempo real cómo va el negocio. Antes tomaba decisiones con el estómago, ahora las tomo con datos."</p><div class="thr"></div><div class="tau"><div class="tav">CP</div><div><div class="tn">Carolina P.</div><div class="tr">Fundadora · Consultora RRHH</div></div></div></div>
   </div>
 </div></div>
 
-<div class="proceso-bg"><div class="page-wrap"><div id="proceso" class="section-wrap">
-  <div class="section-header">
-    <div class="section-chip">Cómo trabajamos</div>
-    <h2>Un proceso<br>sin sorpresas</h2>
-    <p class="section-lead">Cuatro etapas claras desde la primera conversación hasta que el cambio está consolidado.</p>
-  </div>
-  <div class="proceso-grid">
-    <div class="proc-step"><div class="proc-num">01</div><div class="proc-title">Diagnóstico</div><div class="proc-desc">Sesión gratuita de 45 min para entender tu negocio y detectar las palancas de mayor impacto.</div></div>
-    <div class="proc-step"><div class="proc-num">02</div><div class="proc-title">Diseño</div><div class="proc-desc">Propuesta concreta con alcance, herramientas, plazos y métricas de éxito. Sin letra chica.</div></div>
-    <div class="proc-step"><div class="proc-num">03</div><div class="proc-title">Implementación</div><div class="proc-desc">Ejecutamos contigo, no para ti. Tu equipo aprende mientras hacemos los cambios.</div></div>
-    <div class="proc-step"><div class="proc-num">04</div><div class="proc-title">Consolidación</div><div class="proc-desc">Seguimiento post-proyecto para asegurar que los cambios se sostienen y escalan.</div></div>
+<div class="pbg"><div class="pw"><div id="proceso" class="sw">
+  <div class="sh"><div class="chip">Cómo trabajamos</div><h2>Un proceso<br>sin sorpresas</h2><p class="lead">Cuatro etapas claras desde la primera conversación hasta que el cambio está consolidado.</p></div>
+  <div class="pgrid">
+    <div class="ps"><div class="pn">01</div><div class="pt">Diagnóstico</div><div class="pd">Sesión gratuita de 45 min para entender tu negocio y detectar las palancas de mayor impacto.</div></div>
+    <div class="ps"><div class="pn">02</div><div class="pt">Diseño</div><div class="pd">Propuesta concreta con alcance, herramientas, plazos y métricas de éxito. Sin letra chica.</div></div>
+    <div class="ps"><div class="pn">03</div><div class="pt">Implementación</div><div class="pd">Ejecutamos contigo, no para ti. Tu equipo aprende mientras hacemos los cambios.</div></div>
+    <div class="ps"><div class="pn">04</div><div class="pt">Consolidación</div><div class="pd">Seguimiento post-proyecto para asegurar que los cambios se sostienen y escalan.</div></div>
   </div>
 </div></div></div>
 
-<div class="blog-bg"><div class="page-wrap"><div id="blog" class="section-wrap">
-  <div class="section-header">
-    <div class="section-chip">Blog</div>
-    <h2>Ideas que mueven<br>negocios</h2>
-    <p class="section-lead">Reflexiones prácticas sobre gestión, procesos y tecnología para pymes. Sin tecnicismos innecesarios.</p>
+<div class="blbg"><div class="pw"><div id="blog" class="sw">
+  <div class="sh"><div class="chip">Blog</div><h2>Ideas que mueven<br>negocios</h2><p class="lead">Reflexiones prácticas sobre gestión, procesos y tecnología para pymes. Sin tecnicismos innecesarios.</p></div>
+  <div class="blgrid">
+    <a href="/blog/adherencia-procesos.html" class="blc">
+      <div class="blth" style="background:#E8F5EE;"><div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(27,107,74,.1) 1px,transparent 1px);background-size:22px 22px;"></div><span style="position:relative">📋</span></div>
+      <div class="blbd"><span class="bltag">Gestión</span><div class="bltit">La adherencia a los procesos no es opcional</div><div class="blex">Documentar es el primer paso. El desafío real es que el equipo lo ejecute todos los días, sin que el dueño esté mirando.</div><div class="blft"><span class="bldate">Dic 2024</span><span class="blread">Leer <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div>
+    </a>
+    <a href="/blog/ia-vs-orden.html" class="blc">
+      <div class="blth" style="background:#C8EADA;"><div style="position:absolute;inset:0;background-image:linear-gradient(45deg,rgba(27,107,74,.07) 25%,transparent 25%,transparent 75%,rgba(27,107,74,.07) 75%);background-size:18px 18px;"></div><span style="position:relative">🤖</span></div>
+      <div class="blbd"><span class="bltag">Tecnología</span><div class="bltit">No todo se soluciona con IA: a veces solo necesitas orden</div><div class="blex">Antes de automatizar el caos, hay que eliminarlo. La IA no puede compensar la falta de procesos claros.</div><div class="blft"><span class="bldate">Dic 2024</span><span class="blread">Leer <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div>
+    </a>
+    <a href="/blog/importancia-documentar.html" class="blc">
+      <div class="blth" style="background:#F3EEE5;"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(27,107,74,.06) 0,rgba(27,107,74,.06) 1px,transparent 1px,transparent 26px);"></div><span style="position:relative">📝</span></div>
+      <div class="blbd"><span class="bltag">Procesos</span><div class="bltit">Documentar no es burocracia: es la memoria de tu empresa</div><div class="blex">Cuando el conocimiento vive solo en la cabeza de las personas, la empresa es frágil.</div><div class="blft"><span class="bldate">Nov 2024</span><span class="blread">Leer <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div>
+    </a>
   </div>
-  <div class="blog-grid">
-    <div class="blog-card" onclick="openModal('post1')">
-      <div class="blog-thumb" style="background:#D0E8D8;"><div class="blog-thumb-pattern" style="background-image:radial-gradient(circle,rgba(27,107,74,0.12) 1px,transparent 1px);background-size:24px 24px;"></div><div class="blog-thumb-icon">📋</div></div>
-      <div class="blog-body"><span class="blog-tag">Gestión</span><div class="blog-title">La adherencia a los procesos no es opcional: es la diferencia entre crecer y sobrevivir</div><div class="blog-excerpt">Documentar un proceso es solo el primer paso. El verdadero desafío es que el equipo lo ejecute consistentemente, todos los días.</div><div class="blog-footer"><span class="blog-date">Diciembre 2024</span><span class="blog-read">Leer <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div>
-    </div>
-    <div class="blog-card" onclick="openModal('post2')">
-      <div class="blog-thumb" style="background:#A8F2CC;"><div class="blog-thumb-pattern" style="background-image:linear-gradient(45deg,rgba(27,107,74,0.08) 25%,transparent 25%,transparent 75%,rgba(27,107,74,0.08) 75%);background-size:20px 20px;"></div><div class="blog-thumb-icon">🤖</div></div>
-      <div class="blog-body"><span class="blog-tag">Tecnología</span><div class="blog-title">No todo se soluciona con IA: a veces solo necesitas orden</div><div class="blog-excerpt">Antes de automatizar el caos, hay que eliminarlo. La IA no puede compensar la falta de procesos claros en la operación.</div><div class="blog-footer"><span class="blog-date">Diciembre 2024</span><span class="blog-read">Leer <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div>
-    </div>
-    <div class="blog-card" onclick="openModal('post3')">
-      <div class="blog-thumb" style="background:#EDF5EC;"><div class="blog-thumb-pattern" style="background-image:repeating-linear-gradient(0deg,rgba(27,107,74,0.07) 0px,rgba(27,107,74,0.07) 1px,transparent 1px,transparent 28px);"></div><div class="blog-thumb-icon">📝</div></div>
-      <div class="blog-body"><span class="blog-tag">Procesos</span><div class="blog-title">Documentar no es burocracia: es la memoria operacional de tu empresa</div><div class="blog-excerpt">Cuando el conocimiento solo vive en la cabeza de las personas, la empresa es frágil. Documentar es el acto de transferirlo a la organización.</div><div class="blog-footer"><span class="blog-date">Noviembre 2024</span><span class="blog-read">Leer <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div>
-    </div>
-  </div>
+  <div class="bl-more"><a href="/blog/" class="bt">Ver todos los artículos</a></div>
 </div></div></div>
 
-<div class="page-wrap"><div id="contacto" class="section-wrap">
-  <div class="contacto-grid">
+<div class="pw"><div id="contacto" class="sw">
+  <div class="cgrid">
     <div>
-      <div class="section-chip">Contacto</div>
+      <div class="chip">Contacto</div>
       <h2>Conversemos<br>sin compromiso</h2>
-      <p class="section-lead">La primera sesión es gratuita. En 45 minutos identificamos si podemos ayudarte y cómo.</p>
-      <div class="contact-chips">
-        <div class="contact-chip"><div class="chip-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><span class="chip-strong">hola@escalaasesorias.cl</span><span class="chip-sub">Respondemos en menos de 24 horas</span></div></div>
-        <div class="contact-chip"><div class="chip-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><span class="chip-strong">Santiago, Chile</span><span class="chip-sub">Presencial y remoto</span></div></div>
+      <p class="lead">La primera sesión es gratuita. En 45 minutos identificamos si podemos ayudarte y cómo.</p>
+      <div class="cchips">
+        <div class="cch"><div class="cchi"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><strong>hola@escalaasesorias.cl</strong><span>Respondemos en menos de 24 horas</span></div></div>
+        <div class="cch"><div class="cchi"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><strong>Santiago, Chile</strong><span>Presencial y remoto</span></div></div>
       </div>
     </div>
-    <div class="form-surface">
-      <!--
-        SUPABASE SETUP:
-        1. Crea tabla "contactos" en Supabase con columnas: nombre, empresa, email, telefono, interes, mensaje
-        2. En Settings > API copia tu Project URL y anon key
-        3. Reemplaza TU_SUPABASE_URL y TU_SUPABASE_ANON_KEY abajo
-      -->
-      <div id="form-status" class="form-status"></div>
-      <form id="contactForm">
-        <div class="form-grid">
-          <div class="field"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required /></div>
-          <div class="field"><label>Empresa</label><input type="text" name="empresa" placeholder="Nombre de tu empresa" /></div>
-          <div class="field"><label>Correo electrónico</label><input type="email" name="email" placeholder="tu@empresa.cl" required /></div>
-          <div class="field"><label>Teléfono (opcional)</label><input type="tel" name="telefono" placeholder="+56 9 XXXX XXXX" /></div>
-          <div class="field form-full"><label>¿Qué te interesa?</label><select name="interes"><option value="">Selecciona una opción</option><option value="procesos">Mapeo y optimización de procesos</option><option value="crm">Digitalización de ventas / CRM</option><option value="kpis">KPIs y dashboards</option><option value="capacitacion">Capacitación y acompañamiento</option><option value="general">No sé por dónde empezar</option></select></div>
-          <div class="field form-full"><label>Cuéntanos tu situación</label><textarea name="mensaje" placeholder="¿Cuál es el principal desafío que enfrentas hoy?"></textarea></div>
+    <div class="fcard">
+      <div id="fst" class="fst"></div>
+      <form id="cf">
+        <div class="fgrid">
+          <div class="field"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required/></div>
+          <div class="field"><label>Empresa</label><input type="text" name="empresa" placeholder="Tu empresa"/></div>
+          <div class="field"><label>Correo</label><input type="email" name="email" placeholder="tu@empresa.cl" required/></div>
+          <div class="field"><label>Teléfono (opcional)</label><input type="tel" name="telefono" placeholder="+56 9 XXXX XXXX"/></div>
+          <div class="field fful"><label>¿Qué te interesa?</label><select name="interes"><option value="">Selecciona una opción</option><option value="procesos">Mapeo y optimización de procesos</option><option value="crm">Digitalización de ventas / CRM</option><option value="kpis">KPIs y dashboards</option><option value="capacitacion">Capacitación y acompañamiento</option><option value="general">No sé por dónde empezar</option></select></div>
+          <div class="field fful"><label>Cuéntanos tu situación</label><textarea name="mensaje" placeholder="¿Cuál es el principal desafío que enfrentas hoy?"></textarea></div>
         </div>
-        <button type="submit" class="btn-submit" id="submitBtn">Enviar mensaje <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-        <p class="form-note">Sin spam. Tus datos son solo para coordinar la sesión.</p>
+        <button type="submit" class="fsub" id="sb">Enviar mensaje <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <p class="fnote">Sin spam. Tus datos son solo para coordinar la sesión.</p>
       </form>
     </div>
   </div>
 </div></div>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">Escala <em>Asesorías</em></div>
+  <div class="fi">
+    <div class="fbrand">Escala <em>Asesorías</em></div>
     <p>© 2025 Escala Asesorías · Santiago, Chile</p>
-    <p>Procesos que crecen contigo</p>
+    <div class="flinks"><a href="/blog/">Blog</a><a href="#contacto">Contacto</a></div>
   </div>
 </footer>
 
-<!-- MODALS -->
-<div class="modal-overlay" id="modal-post1" onclick="if(event.target===this)closeModal('post1')">
-  <div class="modal">
-    <div class="modal-header"><button class="modal-close" onclick="closeModal('post1')">✕</button><span class="modal-tag">Gestión</span><h3>La adherencia a los procesos no es opcional: es la diferencia entre crecer y sobrevivir</h3><div class="modal-meta">Diciembre 2024 · 4 min de lectura</div></div>
-    <div class="modal-body">
-      <p>Muchas pymes invierten tiempo en diseñar sus procesos, los documentan, los presentan al equipo… y dos semanas después nadie los sigue. No porque el equipo sea malo, sino porque nadie gestionó la adopción.</p>
-      <p>La adherencia es la capacidad de una organización de ejecutar sus flujos de trabajo de manera consistente, independientemente de quién esté presente ese día. Y esa consistencia es lo que separa a las empresas que escalan de las que siempre dependen del dueño.</p>
-      <h4>¿Por qué cuesta tanto que se cumplan los procesos?</h4>
-      <ul><li>El proceso fue diseñado por alguien que no lo ejecuta.</li><li>No hay consecuencias visibles cuando no se sigue.</li><li>El proceso es más lento que "hacerlo como siempre".</li><li>Nadie mide si se cumple o no.</li></ul>
-      <h4>Qué funciona en la práctica</h4>
-      <p>La adherencia no se logra con más capacitación, sino con diseño. Un proceso que la gente realmente sigue es uno que está integrado en las herramientas que ya usan, que es más fácil de seguir que de saltarse, y que tiene un indicador simple que muestra si se cumplió.</p>
-      <p>El primer paso no es rediseñar todos los procesos. Es elegir uno —el más crítico o el más roto— y trabajarlo hasta que se ejecute solo. Eso construye el músculo organizacional para los siguientes.</p>
-      <div class="modal-ig"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg><p><strong>Para Instagram:</strong> "Un proceso que nadie sigue no es un proceso, es una intención. La adherencia es el activo más subestimado de una pyme." — ideal como carrusel con los 4 motivos de falla.</p></div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-post2" onclick="if(event.target===this)closeModal('post2')">
-  <div class="modal">
-    <div class="modal-header"><button class="modal-close" onclick="closeModal('post2')">✕</button><span class="modal-tag">Tecnología</span><h3>No todo se soluciona con IA: a veces solo necesitas orden</h3><div class="modal-meta">Diciembre 2024 · 3 min de lectura</div></div>
-    <div class="modal-body">
-      <p>Existe una presión enorme para que las empresas adopten inteligencia artificial. Y aunque muchas herramientas son poderosas, hay algo que no se dice suficientemente fuerte: la IA no puede ordenar lo que está desordenado.</p>
-      <p>Antes de automatizar, la empresa necesita condiciones básicas. Sin ellas, la tecnología solo acelera el caos.</p>
-      <h4>Las condiciones que la IA no puede reemplazar</h4>
-      <ul><li>Datos limpios y consistentes para que los algoritmos funcionen.</li><li>Procesos definidos que la automatización pueda replicar.</li><li>Un equipo que entienda qué hace la herramienta y por qué.</li><li>Métricas claras para saber si la herramienta está funcionando.</li></ul>
-      <h4>¿Cuándo sí tiene sentido usar IA?</h4>
-      <p>Cuando ya tienes procesos documentados y ejecutados, cuando tus datos son confiables, y cuando la herramienta resuelve un problema específico y medible. En ese contexto, la IA puede ser un multiplicador extraordinario.</p>
-      <p>Pero si tu empresa todavía pierde ventas por falta de seguimiento, opera sin indicadores claros o depende de una sola persona para funcionar, el problema no es de tecnología. Es de condiciones.</p>
-      <div class="modal-ig"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg><p><strong>Para Instagram:</strong> "Automatizar el caos solo produce caos más rápido. Antes de IA, necesitas orden." — ideal como post de texto con fondo verde o imagen minimalista.</p></div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-post3" onclick="if(event.target===this)closeModal('post3')">
-  <div class="modal">
-    <div class="modal-header"><button class="modal-close" onclick="closeModal('post3')">✕</button><span class="modal-tag">Procesos</span><h3>Documentar no es burocracia: es la memoria operacional de tu empresa</h3><div class="modal-meta">Noviembre 2024 · 4 min de lectura</div></div>
-    <div class="modal-body">
-      <p>Cuando alguien se va de una empresa y se lleva con él la forma de hacer las cosas, no se fue un empleado — se fue parte de la empresa. Ese es el costo real de no documentar.</p>
-      <p>Documentar los procesos no es hacer burocracia ni llenar formularios. Es transferir el conocimiento de las personas a la organización, para que la empresa pueda funcionar independientemente de quién esté.</p>
-      <h4>Qué pasa cuando no se documenta</h4>
-      <ul><li>Cada persona hace las cosas a su manera, con resultados inconsistentes.</li><li>La empresa no puede crecer porque no puede replicar lo que funciona.</li><li>El onboarding de nuevas personas tarda meses y depende de que alguien tenga tiempo.</li><li>El dueño termina siendo el manual de operaciones viviente.</li></ul>
-      <h4>Cómo empezar sin que sea abrumador</h4>
-      <p>No hay que documentar todo al mismo tiempo. La clave es empezar por los procesos críticos: los que se repiten más, los que más fallan, o los que solo una persona sabe hacer.</p>
-      <p>La documentación no es el destino — es el punto de partida para poder mejorar, delegar y escalar.</p>
-      <div class="modal-ig"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg><p><strong>Para Instagram:</strong> "Si solo tú sabes cómo se hace algo en tu empresa, eso no es un activo — es un riesgo." — ideal como frase destacada o inicio de carrusel.</p></div>
-    </div>
-  </div>
-</div>
-
 <script>
-function openModal(id) {
-  document.getElementById('modal-' + id).classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal(id) {
-  document.getElementById('modal-' + id).classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
-    document.body.style.overflow = '';
-  }
-});
-
-const SUPABASE_URL = 'TU_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY';
-
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
+const SB_URL='TU_SUPABASE_URL';
+const SB_KEY='TU_SUPABASE_ANON_KEY';
+document.getElementById('cf').addEventListener('submit',async function(e){
   e.preventDefault();
-  var btn = document.getElementById('submitBtn');
-  var status = document.getElementById('form-status');
-  var form = e.target;
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
-  status.className = 'form-status';
-  var data = { nombre: form.nombre.value, empresa: form.empresa.value, email: form.email.value, telefono: form.telefono.value, interes: form.interes.value, mensaje: form.mensaje.value };
-  try {
-    var res = await fetch(SUPABASE_URL + '/rest/v1/contactos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=minimal' },
-      body: JSON.stringify(data)
-    });
-    if (res.ok || res.status === 201) {
-      status.textContent = '¡Mensaje enviado! Te contactaremos en menos de 24 horas.';
-      status.className = 'form-status success';
-      form.reset();
-    } else { throw new Error('Error ' + res.status); }
-  } catch(err) {
-    status.textContent = 'Hubo un error. Escríbenos a hola@escalaasesorias.cl';
-    status.className = 'form-status error';
-  }
-  btn.disabled = false;
-  btn.innerHTML = 'Enviar mensaje <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+  var btn=document.getElementById('sb'),st=document.getElementById('fst'),f=e.target;
+  btn.disabled=true;btn.textContent='Enviando...';st.className='fst';
+  try{
+    var r=await fetch(SB_URL+'/rest/v1/contactos',{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},body:JSON.stringify({nombre:f.nombre.value,empresa:f.empresa.value,email:f.email.value,telefono:f.telefono.value,interes:f.interes.value,mensaje:f.mensaje.value})});
+    if(r.ok||r.status===201){st.textContent='¡Mensaje enviado! Te contactamos en menos de 24 horas.';st.className='fst ok';f.reset();}
+    else throw new Error();
+  }catch(e){st.textContent='Error al enviar. Escríbenos a hola@escalaasesorias.cl';st.className='fst err';}
+  btn.disabled=false;btn.innerHTML='Enviar mensaje <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
 });
 </script>
 </body>
