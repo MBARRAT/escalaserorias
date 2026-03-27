@@ -1,22 +1,19 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-
   "functions": {
     "api/auth/index.js":    { "memory": 128, "maxDuration": 10 },
     "api/auth/callback.js": { "memory": 128, "maxDuration": 10 }
   },
-
   "rewrites": [
     { "source": "/api/auth",          "destination": "/api/auth/index.js"    },
     { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" }
   ],
-
   "headers": [
     {
       "source": "/admin(.*)",
       "headers": [
-        { "key": "Content-Security-Policy", "value": "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src * data: blob:; frame-src *;" },
+        { "key": "Content-Security-Policy", "value": "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' blob:; connect-src * data: blob:; img-src * data: blob:; frame-src *; style-src * 'unsafe-inline'; font-src * data:;" },
         { "key": "X-Frame-Options", "value": "ALLOWALL" }
       ]
     },
@@ -53,26 +50,11 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
     }
   ],
-
   "redirects": [
     { "source": "/blog/adherencia-procesos.html",   "destination": "/blog/adherencia-procesos",   "permanent": true },
     { "source": "/blog/ia-vs-orden.html",           "destination": "/blog/ia-vs-orden",           "permanent": true },
     { "source": "/blog/importancia-documentar.html","destination": "/blog/importancia-documentar","permanent": true },
     { "source": "/blog/index.html",                 "destination": "/blog",                       "permanent": true },
     { "source": "/index.html",                      "destination": "/",                           "permanent": true }
-  ]
-}
-
-{
-  "headers": [
-    {
-      "source": "/admin/(.*)",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' blob:; connect-src * data: blob:; img-src * data: blob:; frame-src *; style-src * 'unsafe-inline'; font-src * data:;"
-        }
-      ]
-    }
   ]
 }
