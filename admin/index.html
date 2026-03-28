@@ -7,10 +7,10 @@
   <title>Admin — Vōren</title>
 </head>
 <body>
-  <script>window.CMS_MANUAL_INIT = true;</script>
   <script src="/assets/js/decap-cms.js"></script>
   <script>
-    window.addEventListener('load', function () {
+    // Esperar a que Decap registre su listener OAuth antes de init
+    setTimeout(function () {
       CMS.init({
         config: {
           backend: {
@@ -37,7 +37,7 @@
                 { label: 'Título',                  name: 'title',     widget: 'string',   hint: 'Máx. 70 caracteres para SEO.' },
                 { label: 'Slug (URL)',               name: 'slug',      widget: 'string',   hint: 'Solo minúsculas y guiones.', pattern: ['^[a-z0-9\\-]+$', 'Solo minúsculas, números y guiones'] },
                 { label: 'Fecha de publicación',     name: 'date',      widget: 'datetime', format: 'YYYY-MM-DD', date_format: 'DD/MM/YYYY', time_format: false, default: '' },
-                { label: 'Categoría',                name: 'category',  widget: 'select',   options: [
+                { label: 'Categoría',               name: 'category',  widget: 'select',   options: [
                     { label: 'Gestión',                  value: 'gestion'    },
                     { label: 'Tecnología',               value: 'tecnologia' },
                     { label: 'Procesos',                 value: 'procesos'   },
@@ -47,10 +47,10 @@
                   ]
                 },
                 { label: 'Tiempo de lectura (min)',  name: 'readtime',  widget: 'number',   default: 4, value_type: 'int', min: 1, max: 30 },
-                { label: 'Extracto',                 name: 'excerpt',   widget: 'text',     hint: '1-2 oraciones. Aparece en la tarjeta del blog.' },
-                { label: 'Artículo destacado',       name: 'featured',  widget: 'boolean',  default: false },
-                { label: 'Imagen destacada',         name: 'thumbnail', widget: 'image',    required: false, hint: 'Recomendado 1200x630px.' },
-                { label: 'Contenido',                name: 'body',      widget: 'markdown' },
+                { label: 'Extracto',                name: 'excerpt',   widget: 'text',     hint: '1-2 oraciones. Aparece en la tarjeta del blog.' },
+                { label: 'Artículo destacado',      name: 'featured',  widget: 'boolean',  default: false },
+                { label: 'Imagen destacada',        name: 'thumbnail', widget: 'image',    required: false, hint: 'Recomendado 1200x630px.' },
+                { label: 'Contenido',               name: 'body',      widget: 'markdown' },
                 { label: 'SEO', name: 'seo', widget: 'object', collapsed: true, fields: [
                     { label: 'Meta título',      name: 'meta_title',       widget: 'string', required: false },
                     { label: 'Meta descripción', name: 'meta_description', widget: 'text',   required: false },
@@ -90,7 +90,7 @@
           ]
         }
       });
-    });
+    }, 0);
   </script>
 </body>
 </html>
