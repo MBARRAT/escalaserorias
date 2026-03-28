@@ -36,19 +36,23 @@ export default async function handler(req, res) {
     });
     const data = await r.json();
     if (data.error) {
-      return renderMessage(res, origin, 'error', { message: data.error_description || data.error });
+      return renderMessage(res, origin, 'error', data.error_description || data.error);
     }
     token = data.access_token;
   } catch (err) {
-    return renderMessage(res, origin, 'error', { message: err.message });
+    return renderMessage(res, origin, 'error', err.message);
   }
 
-  return renderMessage(res, origin, 'success', { token, provider: 'github' });
+  return renderMessage(res, origin, 'success', token);
 }
 
-function renderMessage(res, origin, status, data) {
-  const content = JSON.stringify(data);
-  const message = `authorization:github:${status}:${content}`;
+function renderMessage(res, origin, status, tokenOrError) {
+  // Decap 3.x espera exactamente este formato de postMessage
+  const data = status === 'success'
+    ? JSON.stringify({ token: tokenOrError, provider: 'github' })
+    : JSON.stringify({ message: tokenOrError });
+
+  const message = `authorization:github:${status}:${data}`;
 
   res.setHeader('Content-Type', 'text/html');
   res.send(`<!DOCTYPE html>
@@ -60,28 +64,29 @@ function renderMessage(res, origin, status, data) {
   var msg    = ${JSON.stringify(message)};
   var origin = ${JSON.stringify(origin)};
 
+  console.log('[auth callback] sending postMessage:', msg);
+  console.log('[auth callback] target origin:', origin);
+
   function send() {
     if (window.opener) {
-      // Intentar con origin exacto primero, luego con wildcard
-      try { window.opener.postMessage(msg, origin); } catch(e) {}
-      try { window.opener.postMessage(msg, '*');     } catch(e) {}
+      window.opener.postMessage(msg, '*');
+      console.log('[auth callback] postMessage sent');
       setTimeout(function() { window.close(); }, 1000);
     } else {
+      console.log('[auth callback] no opener found, redirecting');
       window.location.replace('/admin');
     }
   }
 
-  // Intentar de inmediato y con delay por si el opener no está listo
   if (document.readyState === 'complete') {
     send();
   } else {
     window.addEventListener('load', send);
   }
-  setTimeout(send, 800);
 })();
 </script>
 <p style="font-family:sans-serif;padding:2rem;text-align:center">
-  Autenticando... si esto no cierra solo, <a href="/admin">vuelve al panel</a>.
+  Autenticando... si no cierra solo, <a href="/admin">vuelve al panel</a>.
 </p>
 </body>
 </html>`);
