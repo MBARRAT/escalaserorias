@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>CRM · Vōren</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0A0F1A; --bg2:#0F1628; --bg3:#141E35; --bg4:#1A2540;
+      --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.12);
+      --text:#E8EDF5; --muted:rgba(255,255,255,.4); --muted2:rgba(255,255,255,.2);
+      --blue:#1557B0; --blue-l:#3B7FD4; --sky:#5BA4F5;
+      --copper:#C8A055; --copper-l:#E5C07A;
+      --green:#22c55e; --yellow:#eab308; --red:#ef4444; --gray:rgba(255,255,255,.3);
+      --serif:'DM Serif Display',serif; --sans:'DM Sans',sans-serif;
+      --ease:cubic-bezier(.4,0,.2,1);
+    }
+    html{height:100%;}
+    body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;font-weight:300;}
+
+    /* ── AUTH ── */
+    #auth-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;}
+    .auth-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:3rem;width:360px;text-align:center;}
+    .auth-logo{font-family:var(--serif);font-size:2rem;color:var(--text);margin-bottom:.25rem;}
+    .auth-logo span{color:var(--copper);}
+    .auth-sub{font-size:.75rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem;}
+    .auth-btn{width:100%;background:var(--copper);color:#0A1628;border:none;padding:.9rem;border-radius:4px;font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;justify-content:center;gap:.6rem;transition:background .2s;}
+    .auth-btn:hover{background:var(--copper-l);}
+    .auth-btn svg{width:18px;height:18px;fill:currentColor;}
+    .auth-err{margin-top:1rem;font-size:.78rem;color:#fca5a5;display:none;}
+    .auth-err.show{display:block;}
+
+    /* ── LAYOUT ── */
+    #app{display:none;min-height:100vh;}
+    .sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;}
+    .sb-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--border);}
+    .sb-logo-name{font-family:var(--serif);font-size:1.2rem;color:var(--text);}
+    .sb-logo-name span{color:var(--copper);}
+    .sb-logo-tag{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.2rem;}
+    .sb-nav{flex:1;padding:1rem 0;}
+    .sb-link{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.25rem;font-size:.8rem;color:var(--muted);cursor:pointer;transition:color .2s,background .2s;border-left:2px solid transparent;}
+    .sb-link:hover{color:var(--text);background:rgba(255,255,255,.03);}
+    .sb-link.active{color:var(--copper-l);border-left-color:var(--copper);background:rgba(200,160,85,.06);}
+    .sb-link svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+    .sb-section{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);padding:.75rem 1.25rem .25rem;}
+    .sb-user{padding:1rem 1.25rem;border-top:1px solid var(--border);}
+    .sb-user-name{font-size:.78rem;color:var(--text);}
+    .sb-user-email{font-size:.68rem;color:var(--muted);margin-bottom:.6rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .sb-signout{font-size:.68rem;color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+    .sb-signout:hover{color:var(--text);}
+    .main{margin-left:220px;padding:2rem 2.5rem;min-height:100vh;}
+
+    /* ── TOPBAR ── */
+    .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;}
+    .topbar-title{font-family:var(--serif);font-size:1.6rem;color:var(--text);}
+    .topbar-actions{display:flex;gap:.75rem;align-items:center;}
+
+    /* ── STATS ── */
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+    .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;position:relative;overflow:hidden;}
+    .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+    .stat-card.c-cal::before{background:var(--green);}
+    .stat-card.c-pot::before{background:var(--yellow);}
+    .stat-card.c-no::before{background:var(--gray);}
+    .stat-card.c-tot::before{background:var(--blue-l);}
+    .stat-n{font-family:var(--serif);font-size:2.2rem;color:var(--text);line-height:1;margin-bottom:.25rem;}
+    .stat-l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+    .stat-sub{font-size:.68rem;color:var(--muted2);margin-top:.3rem;}
+
+    /* ── FILTERS ── */
+    .filters{display:flex;gap:.6rem;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;}
+    .filter-search{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.55rem .9rem;font-size:.8rem;color:var(--text);font-family:var(--sans);outline:none;transition:border-color .2s;}
+    .filter-search:focus{border-color:var(--copper);}
+    .filter-search::placeholder{color:var(--muted2);}
+    .fsel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.55rem .75rem;font-size:.75rem;color:var(--muted);font-family:var(--sans);outline:none;cursor:pointer;transition:border-color .2s;}
+    .fsel:focus{border-color:var(--copper);}
+    .fsel option{background:var(--bg2);color:var(--text);}
+    .btn-refresh{background:transparent;border:1px solid var(--border);border-radius:4px;padding:.55rem .9rem;font-size:.75rem;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .2s;display:flex;align-items:center;gap:.4rem;}
+    .btn-refresh:hover{border-color:var(--border2);color:var(--text);}
+    .btn-refresh svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+
+    /* ── TABLE ── */
+    .table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+    table{width:100%;border-collapse:collapse;}
+    thead{background:var(--bg3);}
+    th{padding:.75rem 1rem;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+    td{padding:.85rem 1rem;font-size:.8rem;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle;}
+    tr:last-child td{border-bottom:none;}
+    tr{transition:background .15s;cursor:pointer;}
+    tr:hover td{background:rgba(255,255,255,.02);}
+    .empty-row td{text-align:center;color:var(--muted);padding:3rem;cursor:default;}
+    .empty-row:hover td{background:transparent;}
+
+    /* Badges */
+    .badge{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .6rem;border-radius:3px;font-size:.68rem;font-weight:500;white-space:nowrap;}
+    .badge-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+    .b-cal{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.2);}
+    .b-cal .badge-dot{background:#4ade80;}
+    .b-pot{background:rgba(234,179,8,.08);color:#fde047;border:1px solid rgba(234,179,8,.2);}
+    .b-pot .badge-dot{background:#facc15;}
+    .b-no{background:rgba(255,255,255,.04);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);}
+    .b-no .badge-dot{background:rgba(255,255,255,.3);}
+    .b-nuevo{background:rgba(91,164,245,.1);color:#93c5fd;border:1px solid rgba(91,164,245,.2);}
+    .b-contactado{background:rgba(168,85,247,.1);color:#c4b5fd;border:1px solid rgba(168,85,247,.2);}
+    .b-proceso{background:rgba(234,179,8,.08);color:#fde047;border:1px solid rgba(234,179,8,.2);}
+    .b-cerrado{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.2);}
+    .b-descartado{background:rgba(239,68,68,.08);color:#fca5a5;border:1px solid rgba(239,68,68,.2);}
+
+    .score-bar{display:flex;align-items:center;gap:.5rem;}
+    .score-track{width:50px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;flex-shrink:0;}
+    .score-fill{height:100%;border-radius:2px;transition:width .5s var(--ease);}
+    .score-num{font-size:.72rem;color:var(--muted);}
+
+    /* ── DETAIL PANEL ── */
+    .panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
+    .panel-overlay.open{opacity:1;pointer-events:all;}
+    .detail-panel{position:fixed;top:0;right:0;bottom:0;width:480px;background:var(--bg2);border-left:1px solid var(--border);z-index:201;transform:translateX(100%);transition:transform .3s var(--ease);overflow-y:auto;}
+    .detail-panel.open{transform:translateX(0);}
+    .dp-head{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--bg2);z-index:1;}
+    .dp-name{font-family:var(--serif);font-size:1.3rem;color:var(--text);}
+    .dp-email{font-size:.78rem;color:var(--muted);margin-top:.2rem;}
+    .dp-close{background:transparent;border:1px solid var(--border);border-radius:4px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);flex-shrink:0;transition:all .2s;}
+    .dp-close:hover{border-color:var(--border2);color:var(--text);}
+    .dp-close svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+    .dp-body{padding:1.5rem;}
+    .dp-section{margin-bottom:1.75rem;}
+    .dp-section-title{font-size:.63rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+    .dp-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.6rem;}
+    .dp-label{font-size:.72rem;color:var(--muted);flex-shrink:0;}
+    .dp-value{font-size:.8rem;color:var(--text);text-align:right;}
+    .dp-msg{background:var(--bg3);border-radius:4px;padding:1rem;font-size:.8rem;color:var(--muted);line-height:1.7;font-style:italic;}
+    .dp-field{margin-bottom:1rem;}
+    .dp-field label{display:block;font-size:.63rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+    .dp-field select,.dp-field textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.65rem .85rem;font-size:.8rem;color:var(--text);font-family:var(--sans);outline:none;transition:border-color .2s;}
+    .dp-field select:focus,.dp-field textarea:focus{border-color:var(--copper);}
+    .dp-field select option{background:var(--bg2);}
+    .dp-field textarea{resize:none;min-height:80px;line-height:1.6;}
+    .dp-save{width:100%;background:var(--copper);color:#0A1628;border:none;padding:.8rem;border-radius:4px;font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:background .2s;}
+    .dp-save:hover{background:var(--copper-l);}
+    .dp-save:disabled{opacity:.5;cursor:not-allowed;}
+    .dp-saved{font-size:.72rem;color:#86efac;text-align:center;margin-top:.6rem;display:none;}
+    .dp-saved.show{display:block;}
+
+    /* UTM section */
+    .utm-tag{display:inline-flex;align-items:center;gap:.3rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:3px;padding:.2rem .5rem;font-size:.68rem;color:var(--muted);margin:.2rem;}
+    .utm-tag strong{color:var(--text);font-weight:400;}
+
+    /* Loading */
+    .loading{display:flex;align-items:center;justify-content:center;padding:4rem;color:var(--muted);font-size:.82rem;gap:.75rem;}
+    .spin{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--copper);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* UTM channel pill */
+    .channel{font-size:.68rem;color:var(--muted);display:flex;align-items:center;gap:.3rem;}
+    .channel-dot{width:5px;height:5px;border-radius:50%;background:var(--blue-l);flex-shrink:0;}
+  </style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">Vō<span>ren</span></div>
+    <div class="auth-sub">CRM · Panel interno</div>
+    <button class="auth-btn" onclick="loginGitHub()">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      Iniciar sesión con GitHub
+    </button>
+    <div class="auth-err" id="auth-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-name">Vō<span>ren</span></div>
+      <div class="sb-logo-tag">Panel CRM</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-section">Leads</div>
+      <div class="sb-link active" onclick="setView('todos')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Todos los contactos
+      </div>
+      <div class="sb-link" onclick="setView('calificado')">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Calificados
+      </div>
+      <div class="sb-link" onclick="setView('potencial')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Potenciales
+      </div>
+      <div class="sb-link" onclick="setView('no_calificado')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        No calificados
+      </div>
+      <div class="sb-section" style="margin-top:.5rem">Por estado</div>
+      <div class="sb-link" onclick="setView('nuevo')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Nuevos
+      </div>
+      <div class="sb-link" onclick="setView('en_proceso')">
+        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        En proceso
+      </div>
+    </nav>
+    <div class="sb-user">
+      <div class="sb-user-name" id="sb-name">—</div>
+      <div class="sb-user-email" id="sb-email">—</div>
+      <span class="sb-signout" onclick="logout()">Cerrar sesión</span>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="view-title">Todos los contactos</div>
+      <div class="topbar-actions">
+        <button class="btn-refresh" onclick="cargarLeads()">
+          <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Actualizar
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card c-tot"><div class="stat-n" id="s-total">—</div><div class="stat-l">Total leads</div></div>
+      <div class="stat-card c-cal"><div class="stat-n" id="s-cal">—</div><div class="stat-l">Calificados</div></div>
+      <div class="stat-card c-pot"><div class="stat-n" id="s-pot">—</div><div class="stat-l">Potenciales</div></div>
+      <div class="stat-card c-no"><div class="stat-n" id="s-no">—</div><div class="stat-l">No calificados</div></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <input class="filter-search" type="text" placeholder="Buscar por nombre, email o empresa..." id="search-input" oninput="filtrar()"/>
+      <select class="fsel" id="fil-estado" onchange="filtrar()">
+        <option value="">Todos los estados</option>
+        <option value="nuevo">Nuevo</option>
+        <option value="contactado">Contactado</option>
+        <option value="en_proceso">En proceso</option>
+        <option value="cerrado">Cerrado</option>
+        <option value="descartado">Descartado</option>
+      </select>
+      <select class="fsel" id="fil-area" onchange="filtrar()">
+        <option value="">Todas las áreas</option>
+        <option value="bi">Inteligencia de Negocios</option>
+        <option value="estrategia">Plan Estratégico</option>
+        <option value="procesos">Procesos</option>
+        <option value="crm">CRM y Ventas</option>
+        <option value="marketing">Marketing Digital</option>
+        <option value="digital">Digitalización</option>
+        <option value="otros">Otros</option>
+      </select>
+      <select class="fsel" id="fil-ord" onchange="filtrar()">
+        <option value="score">Mayor score</option>
+        <option value="reciente">Más reciente</option>
+        <option value="nombre">Nombre A-Z</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <div class="loading" id="loading"><div class="spin"></div> Cargando leads...</div>
+      <table id="leads-table" style="display:none">
+        <thead>
+          <tr>
+            <th>Contacto</th>
+            <th>Empresa</th>
+            <th>Área</th>
+            <th>Presupuesto</th>
+            <th>Score</th>
+            <th>Calificación</th>
+            <th>Estado</th>
+            <th>Canal</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="leads-body"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="panel-overlay" id="overlay" onclick="cerrarPanel()"></div>
+<div class="detail-panel" id="detail-panel">
+  <div class="dp-head">
+    <div>
+      <div class="dp-name" id="dp-name">—</div>
+      <div class="dp-email" id="dp-email">—</div>
+    </div>
+    <button class="dp-close" onclick="cerrarPanel()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="dp-body" id="dp-body"></div>
+</div>
+
+<script>
+const SB_URL = 'https://nmqatpcmwshdxlyefjni.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tcWF0cGNtd3NoZHhseWVmam5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNTI4MzgsImV4cCI6MjA3NjkyODgzOH0.e8tO1Ydw57xiyH7VIHYu1dDIYlkeHktNre6DtynnvXw';
+
+let SESSION = null;
+let todosLeads = [];
+let vistaActual = 'todos';
+let leadActual = null;
+
+// ── SUPABASE HELPERS ────────────────────────────────────
+function sbHeaders(token) {
+  return {
+    'Content-Type': 'application/json',
+    'apikey': SB_KEY,
+    'Authorization': `Bearer ${token || SB_KEY}`
+  };
+}
+
+// ── AUTH con GitHub OAuth via Supabase ──────────────────
+function loginGitHub() {
+  const redirectTo = window.location.origin + window.location.pathname;
+  window.location.href = `${SB_URL}/auth/v1/authorize?provider=github&redirect_to=${encodeURIComponent(redirectTo)}`;
+}
+
+async function checkSession() {
+  // Supabase escribe el token en el hash al volver del OAuth
+  const hash = window.location.hash;
+  if (hash.includes('access_token')) {
+    const params = new URLSearchParams(hash.slice(1));
+    const token = params.get('access_token');
+    const refresh = params.get('refresh_token');
+    if (token) {
+      sessionStorage.setItem('crm_token', token);
+      if (refresh) sessionStorage.setItem('crm_refresh', refresh);
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }
+
+  const token = sessionStorage.getItem('crm_token');
+  if (!token) return false;
+
+  // Verificar token con Supabase
+  try {
+    const res = await fetch(`${SB_URL}/auth/v1/user`, {
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) { sessionStorage.removeItem('crm_token'); return false; }
+    const user = await res.json();
+    SESSION = { token, user };
+    document.getElementById('sb-name').textContent = user.user_metadata?.full_name || user.email;
+    document.getElementById('sb-email').textContent = user.email;
+    return true;
+  } catch { return false; }
+}
+
+function logout() {
+  sessionStorage.removeItem('crm_token');
+  sessionStorage.removeItem('crm_refresh');
+  SESSION = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'flex';
+}
+
+// ── DATOS ───────────────────────────────────────────────
+async function cargarLeads() {
+  document.getElementById('loading').style.display = 'flex';
+  document.getElementById('leads-table').style.display = 'none';
+
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/contactos?select=*&order=created_at.desc`,
+      { headers: sbHeaders(SESSION?.token) }
+    );
+    if (!res.ok) throw new Error();
+    todosLeads = await res.json();
+    actualizarStats();
+    filtrar();
+  } catch {
+    document.getElementById('loading').innerHTML = '<span style="color:#fca5a5">Error al cargar. Verifica los permisos en Supabase.</span>';
+  }
+}
+
+function actualizarStats() {
+  const cal = todosLeads.filter(l => l.calificacion === 'calificado').length;
+  const pot = todosLeads.filter(l => l.calificacion === 'potencial').length;
+  const no  = todosLeads.filter(l => l.calificacion === 'no_calificado').length;
+  document.getElementById('s-total').textContent = todosLeads.length;
+  document.getElementById('s-cal').textContent = cal;
+  document.getElementById('s-pot').textContent = pot;
+  document.getElementById('s-no').textContent = no;
+}
+
+// ── VISTAS ──────────────────────────────────────────────
+const VISTA_LABELS = {
+  todos: 'Todos los contactos', calificado: 'Leads calificados',
+  potencial: 'Leads potenciales', no_calificado: 'No calificados',
+  nuevo: 'Leads nuevos', en_proceso: 'En proceso'
+};
+
+function setView(v) {
+  vistaActual = v;
+  document.querySelectorAll('.sb-link').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('view-title').textContent = VISTA_LABELS[v] || v;
+  filtrar();
+}
+
+// ── FILTROS ─────────────────────────────────────────────
+function filtrar() {
+  const q      = document.getElementById('search-input').value.toLowerCase();
+  const estado = document.getElementById('fil-estado').value;
+  const area   = document.getElementById('fil-area').value;
+  const ord    = document.getElementById('fil-ord').value;
+
+  let leads = [...todosLeads];
+
+  // Filtro de vista
+  if (['calificado','potencial','no_calificado'].includes(vistaActual))
+    leads = leads.filter(l => l.calificacion === vistaActual);
+  else if (['nuevo','contactado','en_proceso','cerrado','descartado'].includes(vistaActual))
+    leads = leads.filter(l => l.estado === vistaActual);
+
+  // Filtros adicionales
+  if (q) leads = leads.filter(l =>
+    (l.nombre||'').toLowerCase().includes(q) ||
+    (l.email||'').toLowerCase().includes(q) ||
+    (l.empresa||'').toLowerCase().includes(q)
+  );
+  if (estado) leads = leads.filter(l => l.estado === estado);
+  if (area)   leads = leads.filter(l => l.area === area);
+
+  // Ordenamiento
+  if (ord === 'score')    leads.sort((a,b) => (b.score||0) - (a.score||0));
+  if (ord === 'reciente') leads.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+  if (ord === 'nombre')   leads.sort((a,b) => (a.nombre||'').localeCompare(b.nombre||''));
+
+  renderTabla(leads);
+}
+
+// ── RENDER TABLA ─────────────────────────────────────────
+const AREAS = { bi:'Inteligencia BI', estrategia:'Estrategia', procesos:'Procesos', crm:'CRM y Ventas', marketing:'Marketing', digital:'Digitalización', otros:'Otros' };
+const PRESUP = { menos_500k:'< $500k', '500k_1.5M':'$500k–1.5M', '1.5M_5M':'$1.5M–5M', mas_5M:'> $5M' };
+
+function calBadge(c) {
+  const m = { calificado:['b-cal','Calificado'], potencial:['b-pot','Potencial'], no_calificado:['b-no','Sin calificar'] };
+  const [cls,txt] = m[c] || ['b-no','—'];
+  return `<span class="badge ${cls}"><span class="badge-dot"></span>${txt}</span>`;
+}
+function estadoBadge(e) {
+  const m = { nuevo:'b-nuevo', contactado:'b-contactado', en_proceso:'b-proceso', cerrado:'b-cerrado', descartado:'b-descartado' };
+  const labels = { nuevo:'Nuevo', contactado:'Contactado', en_proceso:'En proceso', cerrado:'Cerrado', descartado:'Descartado' };
+  return `<span class="badge ${m[e]||'b-no'}">${labels[e]||e||'—'}</span>`;
+}
+function scoreBar(s) {
+  const pct = Math.min(s||0, 100);
+  const color = pct>=55 ? '#4ade80' : pct>=25 ? '#facc15' : 'rgba(255,255,255,.2)';
+  return `<div class="score-bar"><div class="score-track"><div class="score-fill" style="width:${pct}%;background:${color}"></div></div><span class="score-num">${s||0}</span></div>`;
+}
+function canal(l) {
+  const src = l.utm_source || (l.referrer ? new URL(l.referrer).hostname : null) || '—';
+  return `<span class="channel"><span class="channel-dot"></span>${src}</span>`;
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('es-CL', { day:'2-digit', month:'short', year:'2-digit' });
+}
+
+function renderTabla(leads) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('leads-table').style.display = 'table';
+  const tbody = document.getElementById('leads-body');
+
+  if (!leads.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="9">Sin leads para mostrar</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = leads.map(l => `
+    <tr onclick="abrirPanel('${l.id}')">
+      <td>
+        <div style="font-weight:400;color:var(--text)">${l.nombre||'—'}</div>
+        <div style="font-size:.7rem;color:var(--muted)">${l.email||''}</div>
+      </td>
+      <td>${l.empresa||'<span style="color:var(--muted2)">—</span>'}</td>
+      <td>${AREAS[l.area]||l.area||'—'}</td>
+      <td>${PRESUP[l.presupuesto]||l.presupuesto||'—'}</td>
+      <td>${scoreBar(l.score)}</td>
+      <td>${calBadge(l.calificacion)}</td>
+      <td>${estadoBadge(l.estado)}</td>
+      <td>${canal(l)}</td>
+      <td style="color:var(--muted);font-size:.72rem">${fmtDate(l.created_at)}</td>
+    </tr>
+  `).join('');
+}
+
+// ── PANEL DETALLE ────────────────────────────────────────
+function abrirPanel(id) {
+  leadActual = todosLeads.find(l => l.id === id);
+  if (!leadActual) return;
+  const l = leadActual;
+
+  document.getElementById('dp-name').textContent = l.nombre || '—';
+  document.getElementById('dp-email').textContent = l.email || '—';
+
+  const utmTags = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
+    .filter(k => l[k])
+    .map(k => `<span class="utm-tag">${k.replace('utm_','')}: <strong>${l[k]}</strong></span>`)
+    .join('');
+
+  document.getElementById('dp-body').innerHTML = `
+    <div class="dp-section">
+      <div class="dp-section-title">Calificación</div>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.75rem">
+        ${calBadge(l.calificacion)}
+        ${scoreBar(l.score)}
+      </div>
+      <div class="dp-row"><span class="dp-label">Presupuesto</span><span class="dp-value">${PRESUP[l.presupuesto]||l.presupuesto||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Urgencia</span><span class="dp-value">${{inmediato:'Inmediato','1-3_meses':'1–3 meses',explorando:'Explorando'}[l.urgencia]||l.urgencia||'—'}</span></div>
+    </div>
+
+    <div class="dp-section">
+      <div class="dp-section-title">Datos del contacto</div>
+      <div class="dp-row"><span class="dp-label">Empresa</span><span class="dp-value">${l.empresa||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Tamaño empresa</span><span class="dp-value">${l.tamano||'—'} personas</span></div>
+      <div class="dp-row"><span class="dp-label">Área de interés</span><span class="dp-value">${AREAS[l.area]||l.area||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Fecha de contacto</span><span class="dp-value">${fmtDate(l.created_at)}</span></div>
+    </div>
+
+    ${l.mensaje ? `
+    <div class="dp-section">
+      <div class="dp-section-title">Mensaje</div>
+      <div class="dp-msg">"${l.mensaje}"</div>
+    </div>` : ''}
+
+    <div class="dp-section">
+      <div class="dp-section-title">Origen / UTMs</div>
+      <div class="dp-row"><span class="dp-label">Landing page</span><span class="dp-value" style="font-size:.72rem">${l.landing_page||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Referrer</span><span class="dp-value" style="font-size:.72rem">${l.referrer||'Directo'}</span></div>
+      ${utmTags ? `<div style="margin-top:.5rem">${utmTags}</div>` : '<div style="font-size:.72rem;color:var(--muted2)">Sin parámetros UTM</div>'}
+      ${l.gclid ? `<div style="margin-top:.4rem"><span class="utm-tag">Google Ads: <strong>${l.gclid.slice(0,12)}…</strong></span></div>` : ''}
+      ${l.fbclid ? `<div style="margin-top:.4rem"><span class="utm-tag">Meta Ads: <strong>${l.fbclid.slice(0,12)}…</strong></span></div>` : ''}
+    </div>
+
+    <div class="dp-section">
+      <div class="dp-section-title">Gestión CRM</div>
+      <div class="dp-field">
+        <label>Estado del lead</label>
+        <select id="dp-estado">
+          ${['nuevo','contactado','en_proceso','cerrado','descartado'].map(e =>
+            `<option value="${e}" ${l.estado===e?'selected':''}>${{nuevo:'Nuevo',contactado:'Contactado',en_proceso:'En proceso',cerrado:'Cerrado',descartado:'Descartado'}[e]}</option>`
+          ).join('')}
+        </select>
+      </div>
+      <div class="dp-field">
+        <label>Notas internas</label>
+        <textarea id="dp-notas" placeholder="Agrega notas, próximos pasos, contexto...">${l.notas||''}</textarea>
+      </div>
+      <button class="dp-save" onclick="guardarLead()">Guardar cambios</button>
+      <div class="dp-saved" id="dp-saved">✓ Guardado correctamente</div>
+    </div>
+  `;
+
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('detail-panel').classList.add('open');
+}
+
+function cerrarPanel() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('detail-panel').classList.remove('open');
+  leadActual = null;
+}
+
+async function guardarLead() {
+  if (!leadActual) return;
+  const btn = document.querySelector('.dp-save');
+  btn.disabled = true;
+  btn.textContent = 'Guardando...';
+
+  const updates = {
+    estado:        document.getElementById('dp-estado').value,
+    notas:         document.getElementById('dp-notas').value,
+    ultima_accion: new Date().toISOString()
+  };
+
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/contactos?id=eq.${leadActual.id}`,
+      {
+        method: 'PATCH',
+        headers: { ...sbHeaders(SESSION?.token), 'Prefer': 'return=minimal' },
+        body: JSON.stringify(updates)
+      }
+    );
+    if (!res.ok) throw new Error();
+    // Actualizar local
+    const idx = todosLeads.findIndex(l => l.id === leadActual.id);
+    if (idx >= 0) todosLeads[idx] = { ...todosLeads[idx], ...updates };
+    leadActual = { ...leadActual, ...updates };
+    actualizarStats();
+    filtrar();
+    document.getElementById('dp-saved').classList.add('show');
+    setTimeout(() => document.getElementById('dp-saved').classList.remove('show'), 2500);
+  } catch {
+    alert('Error al guardar. Intenta de nuevo.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Guardar cambios';
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────────
+(async () => {
+  const ok = await checkSession();
+  if (ok) {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    await cargarLeads();
+  }
+})();
+</script>
+</body>
+</html>
