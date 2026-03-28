@@ -427,7 +427,7 @@
       <h2 class="st reveal-l" style="transition-delay:.1s">Hablemos de<br>tu <em>empresa</em></h2>
       <p class="ct-desc reveal-l" style="transition-delay:.2s">La primera sesión es gratuita. Sin compromiso, sin pitch. Solo una conversación honesta sobre dónde estás y hacia dónde quieres ir.</p>
       <div class="ct-info reveal-l" style="transition-delay:.3s">
-        <div class="ci"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="ci-text">hola@voren.cl</div></div>
+        <div class="ci"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="ci-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1870777479586e776a7d76367b74">[email&#160;protected]</a></div></div>
         <div class="ci"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="ci-text">Santiago, Chile</div></div>
         <div class="ci"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div class="ci-text">LinkedIn · Vōren</div></div>
       </div>
@@ -447,7 +447,7 @@
         <div class="fs-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="fs-title">¡Mensaje recibido!</div>
         <div class="fs-sub">Te contactaremos dentro de las próximas 24 horas hábiles para coordinar tu sesión gratuita.</div>
-        <div class="fs-badge" id="fs-badge"></div>
+
       </div>
 
       <div id="fp-panels">
@@ -521,15 +521,15 @@
     <div><div class="fb-name">Vō<span>ren</span></div><div class="fb-tag">Inteligencia estratégica para empresas que crecen con orden.</div></div>
     <div class="fc"><div class="fc-hd">Servicios</div><a href="#servicios">Inteligencia de Negocios</a><a href="#servicios">Plan Estratégico</a><a href="#servicios">Procesos</a><a href="#servicios">CRM y Growth</a></div>
     <div class="fc"><div class="fc-hd">Empresa</div><a href="#nosotros">Por qué Vōren</a><a href="/blog/">Perspectivas</a><a href="#contacto">Contacto</a></div>
-    <div class="fc"><div class="fc-hd">Contacto</div><a href="mailto:hola@voren.cl">hola@voren.cl</a><a href="#">LinkedIn</a><a href="#">Santiago, Chile</a></div>
+    <div class="fc"><div class="fc-hd">Contacto</div><a href="/cdn-cgi/l/email-protection#6800070409281e071a0d06460b04"><span class="__cf_email__" data-cfemail="ea8285868baa9c85988f84c48986">[email&#160;protected]</span></a><a href="#">LinkedIn</a><a href="#">Santiago, Chile</a></div>
   </div>
   <div class="fb"><div class="fb-copy">© 2025 Vōren · Todos los derechos reservados</div><div class="fb-legal"><a href="#">Privacidad</a><a href="#">Términos</a></div></div>
 </div></footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── SUPABASE ────────────────────────────────────────────
-const SB_URL = 'https://rpduicqgelrhhptvyhpp.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwZHVpY3FnZWxyaGhwdHZ5aHBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NDcwOTksImV4cCI6MjA5MDIyMzA5OX0.XSrjkgVH2ZPl2ePaMAJCO3J9i0W6pRGfMYlHme0Mg8E';
+const SB_URL = 'https://nmqatpcmwshdxlyefjni.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tcWF0cGNtd3NoZHhseWVmam5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNTI4MzgsImV4cCI6MjA3NjkyODgzOH0.e8tO1Ydw57xiyH7VIHYu1dDIYlkeHktNre6DtynnvXw';
 
 // ── UTM TRACKING ────────────────────────────────────────
 // Captura UTMs de la URL y los persiste en sessionStorage
@@ -707,14 +707,6 @@ async function enviar() {
     const success = document.getElementById('form-success');
     success.classList.add('show');
 
-    const bc = {
-      calificado:    { bg:'rgba(34,197,94,.1)',  border:'rgba(34,197,94,.2)',  color:'#86efac', txt:'✓ Lead calificado — respuesta prioritaria en 24h' },
-      potencial:     { bg:'rgba(234,179,8,.08)', border:'rgba(234,179,8,.2)',  color:'#fde047', txt:'◎ Lead potencial — te contactaremos para explorar' },
-      no_calificado: { bg:'rgba(255,255,255,.04)', border:'rgba(255,255,255,.1)', color:'rgba(255,255,255,.4)', txt:'○ Recibido — te orientaremos en la dirección correcta' }
-    }[calificacion];
-    const badge = document.getElementById('fs-badge');
-    badge.style.cssText = `background:${bc.bg};border:1px solid ${bc.border};color:${bc.color};border-radius:2px;`;
-    badge.textContent = bc.txt;
 
   } catch (err) {
     errEl.className = 'ferr show';
