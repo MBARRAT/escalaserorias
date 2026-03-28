@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Panel · Vōren</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0A0F1A; --bg2:#0F1628; --bg3:#141E35; --bg4:#1A2540;
+      --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.12);
+      --text:#E8EDF5; --muted:rgba(255,255,255,.4); --muted2:rgba(255,255,255,.2);
+      --blue:#1557B0; --blue-l:#3B7FD4;
+      --copper:#C8A055; --copper-l:#E5C07A;
+      --green:#22c55e; --yellow:#eab308;
+      --serif:'DM Serif Display',serif; --sans:'DM Sans',sans-serif;
+      --ease:cubic-bezier(.4,0,.2,1);
+    }
+    html,body{height:100%;}
+    body{font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;font-weight:300;}
+
+    /* ── AUTH ── */
+    #auth-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;}
+    .auth-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:3rem;width:380px;text-align:center;}
+    .auth-logo{font-family:var(--serif);font-size:2.2rem;color:var(--text);margin-bottom:.2rem;}
+    .auth-logo span{color:var(--copper);}
+    .auth-sub{font-size:.7rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:2.5rem;}
+    .auth-btn{width:100%;background:var(--copper);color:#0A1628;border:none;padding:1rem;border-radius:6px;font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;justify-content:center;gap:.7rem;transition:background .2s,transform .15s;}
+    .auth-btn:hover{background:var(--copper-l);transform:translateY(-1px);}
+    .auth-btn svg{width:18px;height:18px;fill:currentColor;flex-shrink:0;}
+    .auth-desc{font-size:.75rem;color:var(--muted2);margin-top:1.25rem;line-height:1.6;}
+
+    /* ── LAYOUT ── */
+    #app{display:none;min-height:100vh;display:grid;grid-template-columns:220px 1fr;grid-template-rows:1fr;}
+
+    /* ── SIDEBAR ── */
+    .sidebar{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;}
+    .sb-logo{padding:1.5rem 1.25rem 1.25rem;border-bottom:1px solid var(--border);}
+    .sb-logo-name{font-family:var(--serif);font-size:1.3rem;color:var(--text);}
+    .sb-logo-name span{color:var(--copper);}
+    .sb-logo-tag{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-top:.2rem;}
+    .sb-nav{flex:1;padding:.75rem 0;overflow-y:auto;}
+    .sb-section{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);padding:.85rem 1.25rem .3rem;}
+    .sb-link{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.25rem;font-size:.8rem;color:var(--muted);cursor:pointer;transition:color .2s,background .2s;border-left:2px solid transparent;text-decoration:none;user-select:none;}
+    .sb-link:hover{color:var(--text);background:rgba(255,255,255,.03);}
+    .sb-link.active{color:var(--copper-l);border-left-color:var(--copper);background:rgba(200,160,85,.06);}
+    .sb-link svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+    .sb-link .sb-badge{margin-left:auto;background:rgba(200,160,85,.15);color:var(--copper-l);border-radius:10px;padding:.1rem .45rem;font-size:.62rem;font-weight:500;}
+    .sb-divider{height:1px;background:var(--border);margin:.5rem 1.25rem;}
+    .sb-ext{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.25rem;font-size:.78rem;color:var(--muted);cursor:pointer;transition:color .2s;border-left:2px solid transparent;}
+    .sb-ext:hover{color:var(--text);}
+    .sb-ext svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+    .sb-ext .ext-ico{margin-left:auto;opacity:.4;}
+    .sb-ext .ext-ico svg{width:11px;height:11px;}
+    .sb-user{padding:1rem 1.25rem;border-top:1px solid var(--border);}
+    .sb-avatar{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);margin-bottom:.5rem;}
+    .sb-user-name{font-size:.78rem;color:var(--text);font-weight:400;}
+    .sb-user-email{font-size:.68rem;color:var(--muted);margin-bottom:.5rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .sb-signout{font-size:.68rem;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--sans);padding:0;transition:color .2s;}
+    .sb-signout:hover{color:var(--text);}
+
+    /* ── MAIN ── */
+    .main{overflow:auto;height:100vh;}
+
+    /* ── VIEWS ── */
+    .view{display:none;height:100%;}
+    .view.active{display:flex;flex-direction:column;}
+
+    /* ── HOME VIEW ── */
+    .home-wrap{padding:2.5rem 3rem;flex:1;}
+    .home-head{margin-bottom:2.5rem;}
+    .home-greeting{font-family:var(--serif);font-size:2rem;color:var(--text);margin-bottom:.25rem;}
+    .home-sub{font-size:.88rem;color:var(--muted);line-height:1.6;}
+    .home-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-bottom:2rem;}
+    .hcard{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.75rem;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
+    .hcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transition:opacity .2s;}
+    .hcard.h-crm::before{background:linear-gradient(90deg,var(--green),var(--blue-l));}
+    .hcard.h-blog::before{background:linear-gradient(90deg,var(--copper),var(--copper-l));}
+    .hcard:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
+    .hcard-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;}
+    .hcard.h-crm .hcard-icon{background:rgba(34,197,94,.1);}
+    .hcard.h-blog .hcard-icon{background:rgba(200,160,85,.1);}
+    .hcard-icon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+    .hcard.h-crm .hcard-icon svg{stroke:var(--green);}
+    .hcard.h-blog .hcard-icon svg{stroke:var(--copper);}
+    .hcard-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:.35rem;}
+    .hcard-desc{font-size:.78rem;color:var(--muted);line-height:1.65;}
+    .hcard-action{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:500;margin-top:1rem;}
+    .hcard.h-crm .hcard-action{color:var(--green);}
+    .hcard.h-blog .hcard-action{color:var(--copper-l);}
+    .hcard-action svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;}
+
+    .home-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+    .hs-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem;}
+    .hs-n{font-family:var(--serif);font-size:2rem;color:var(--text);line-height:1;margin-bottom:.25rem;}
+    .hs-l{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+
+    .home-recent{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+    .home-recent-head{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .home-recent-title{font-size:.8rem;font-weight:500;color:var(--text);}
+    .home-recent-link{font-size:.72rem;color:var(--copper);cursor:pointer;transition:color .2s;}
+    .home-recent-link:hover{color:var(--copper-l);}
+    .recent-row{display:grid;grid-template-columns:1fr auto auto;gap:1rem;align-items:center;padding:.85rem 1.25rem;border-bottom:1px solid var(--border);transition:background .15s;cursor:pointer;}
+    .recent-row:last-child{border-bottom:none;}
+    .recent-row:hover{background:rgba(255,255,255,.02);}
+    .rr-name{font-size:.82rem;color:var(--text);}
+    .rr-email{font-size:.7rem;color:var(--muted);}
+    .rr-date{font-size:.7rem;color:var(--muted2);white-space:nowrap;}
+
+    /* ── CRM VIEW (iframe) ── */
+    .iframe-wrap{flex:1;display:flex;flex-direction:column;}
+    .iframe-bar{padding:.75rem 1.5rem;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;}
+    .iframe-title{font-size:.78rem;color:var(--muted);flex:1;}
+    .iframe-open{font-size:.7rem;color:var(--copper);cursor:pointer;display:flex;align-items:center;gap:.3rem;transition:color .2s;text-decoration:none;}
+    .iframe-open:hover{color:var(--copper-l);}
+    .iframe-open svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+    iframe{flex:1;border:none;width:100%;height:100%;}
+
+    /* badges */
+    .badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .55rem;border-radius:3px;font-size:.67rem;font-weight:500;}
+    .badge-dot{width:5px;height:5px;border-radius:50%;}
+    .b-cal{background:rgba(34,197,94,.1);color:#86efac;}
+    .b-cal .badge-dot{background:#4ade80;}
+    .b-pot{background:rgba(234,179,8,.08);color:#fde047;}
+    .b-pot .badge-dot{background:#facc15;}
+    .b-no{background:rgba(255,255,255,.04);color:rgba(255,255,255,.35);}
+    .b-no .badge-dot{background:rgba(255,255,255,.2);}
+
+    /* loading */
+    .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--copper);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">Vō<span>ren</span></div>
+    <div class="auth-sub">Panel interno</div>
+    <button class="auth-btn" onclick="loginGitHub()">
+      <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      Continuar con GitHub
+    </button>
+    <div class="auth-desc">Solo usuarios autorizados del repositorio pueden acceder.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none">
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-name">Vō<span>ren</span></div>
+      <div class="sb-logo-tag">Panel interno</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-section">General</div>
+      <div class="sb-link active" onclick="setView('home', this)">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Inicio
+      </div>
+
+      <div class="sb-section">Leads</div>
+      <div class="sb-link" onclick="setView('crm', this)">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        CRM
+        <span class="sb-badge" id="sb-badge-total">—</span>
+      </div>
+      <div class="sb-link" onclick="setView('crm-cal', this)">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Calificados
+        <span class="sb-badge" id="sb-badge-cal" style="background:rgba(34,197,94,.15);color:#86efac">—</span>
+      </div>
+
+      <div class="sb-section">Contenido</div>
+      <div class="sb-link" onclick="setView('admin', this)">
+        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Blog admin
+      </div>
+
+      <div class="sb-divider"></div>
+
+      <div class="sb-ext" onclick="window.open('/', '_blank')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Ver sitio público
+        <span class="ext-ico"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+      </div>
+      <div class="sb-ext" onclick="window.open('/blog/', '_blank')">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Ver blog
+        <span class="ext-ico"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+      </div>
+    </nav>
+    <div class="sb-user">
+      <img class="sb-avatar" id="sb-avatar" src="" alt=""/>
+      <div class="sb-user-name" id="sb-name">—</div>
+      <div class="sb-user-email" id="sb-email">—</div>
+      <button class="sb-signout" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- HOME -->
+    <div class="view active" id="view-home">
+      <div class="home-wrap">
+        <div class="home-head">
+          <div class="home-greeting" id="home-greeting">Bienvenido</div>
+          <div class="home-sub">Desde aquí gestionas los leads y el contenido del sitio.</div>
+        </div>
+
+        <div class="home-stats" id="home-stats">
+          <div class="hs-card"><div class="hs-n" id="hs-total"><div class="spin"></div></div><div class="hs-l">Total leads</div></div>
+          <div class="hs-card"><div class="hs-n" id="hs-cal">—</div><div class="hs-l">Calificados</div></div>
+          <div class="hs-card"><div class="hs-n" id="hs-pot">—</div><div class="hs-l">Potenciales</div></div>
+          <div class="hs-card"><div class="hs-n" id="hs-new">—</div><div class="hs-l">Sin contactar</div></div>
+        </div>
+
+        <div class="home-cards">
+          <div class="hcard h-crm" onclick="setView('crm', document.querySelector('.sb-link:nth-child(3)'))">
+            <div class="hcard-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="hcard-title">CRM de leads</div>
+            <div class="hcard-desc">Revisa, filtra y gestiona todos los contactos que han llegado desde el formulario del sitio.</div>
+            <div class="hcard-action">Abrir CRM <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+          <div class="hcard h-blog" onclick="setView('admin', document.querySelector('.sb-link:nth-child(8)'))">
+            <div class="hcard-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+            <div class="hcard-title">Blog admin</div>
+            <div class="hcard-desc">Crea, edita y publica artículos para el blog de perspectivas directamente desde el panel.</div>
+            <div class="hcard-action">Abrir admin <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+
+        <div class="home-recent">
+          <div class="home-recent-head">
+            <div class="home-recent-title">Últimos leads recibidos</div>
+            <div class="home-recent-link" onclick="setView('crm', null)">Ver todos →</div>
+          </div>
+          <div id="recent-list"><div style="padding:1.5rem;text-align:center;color:var(--muted);font-size:.8rem"><div class="spin" style="margin:0 auto"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRM -->
+    <div class="view" id="view-crm">
+      <div class="iframe-bar">
+        <span class="iframe-title">CRM · Gestión de leads</span>
+        <a class="iframe-open" href="/crm" target="_blank">
+          Abrir en nueva pestaña
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <iframe id="crm-frame" src="" title="CRM"></iframe>
+    </div>
+
+    <!-- ADMIN -->
+    <div class="view" id="view-admin">
+      <div class="iframe-bar">
+        <span class="iframe-title">Blog admin · Sveltia CMS</span>
+        <a class="iframe-open" href="/admin" target="_blank">
+          Abrir en nueva pestaña
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <iframe id="admin-frame" src="" title="Admin"></iframe>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const SB_URL = 'https://nmqatpcmwshdxlyefjni.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tcWF0cGNtd3NoZHhseWVmam5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNTI4MzgsImV4cCI6MjA3NjkyODgzOH0.e8tO1Ydw57xiyH7VIHYu1dDIYlkeHktNre6DtynnvXw';
+
+let SESSION = null;
+let vistaActual = 'home';
+let crmCargado = false;
+let adminCargado = false;
+
+// ── AUTH ────────────────────────────────────────────────
+function loginGitHub() {
+  const redirectTo = window.location.origin + window.location.pathname;
+  window.location.href = `${SB_URL}/auth/v1/authorize?provider=github&redirect_to=${encodeURIComponent(redirectTo)}`;
+}
+
+async function checkSession() {
+  const hash = window.location.hash;
+  if (hash.includes('access_token')) {
+    const params = new URLSearchParams(hash.slice(1));
+    const token = params.get('access_token');
+    if (token) {
+      sessionStorage.setItem('panel_token', token);
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }
+  const token = sessionStorage.getItem('panel_token');
+  if (!token) return false;
+  try {
+    const res = await fetch(`${SB_URL}/auth/v1/user`, {
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) { sessionStorage.removeItem('panel_token'); return false; }
+    const user = await res.json();
+    SESSION = { token, user };
+    // UI de usuario
+    document.getElementById('sb-name').textContent = user.user_metadata?.full_name || user.email;
+    document.getElementById('sb-email').textContent = user.email;
+    const avatar = user.user_metadata?.avatar_url;
+    const avatarEl = document.getElementById('sb-avatar');
+    if (avatar) { avatarEl.src = avatar; } else { avatarEl.style.display = 'none'; }
+    // Saludo
+    const hora = new Date().getHours();
+    const saludo = hora < 12 ? 'Buenos días' : hora < 19 ? 'Buenas tardes' : 'Buenas noches';
+    const nombre = user.user_metadata?.name?.split(' ')[0] || 'bienvenido';
+    document.getElementById('home-greeting').textContent = `${saludo}, ${nombre}`;
+    return true;
+  } catch { return false; }
+}
+
+function logout() {
+  sessionStorage.removeItem('panel_token');
+  SESSION = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'flex';
+}
+
+// ── NAVEGACIÓN ──────────────────────────────────────────
+function setView(id, linkEl) {
+  // Desactivar vista y link activos
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+
+  // Activar nueva vista
+  const viewId = id.startsWith('crm') ? 'crm' : id;
+  document.getElementById(`view-${viewId}`).classList.add('active');
+  if (linkEl) linkEl.classList.add('active');
+
+  vistaActual = id;
+
+  // Cargar iframes solo una vez (lazy)
+  if (viewId === 'crm' && !crmCargado) {
+    document.getElementById('crm-frame').src = '/crm';
+    crmCargado = true;
+  }
+  if (viewId === 'admin' && !adminCargado) {
+    document.getElementById('admin-frame').src = '/admin';
+    adminCargado = true;
+  }
+
+  // Si es vista de CRM filtrada, comunicárselo al iframe cuando cargue
+  if (id === 'crm-cal' && crmCargado) {
+    // El iframe del CRM standalone maneja sus propios filtros
+  }
+}
+
+// ── DATOS HOME ──────────────────────────────────────────
+async function cargarHome() {
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/contactos?select=id,nombre,email,calificacion,estado,created_at&order=created_at.desc`,
+      { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SESSION.token}` } }
+    );
+    if (!res.ok) throw new Error();
+    const leads = await res.json();
+
+    // Stats
+    const cal = leads.filter(l => l.calificacion === 'calificado').length;
+    const pot = leads.filter(l => l.calificacion === 'potencial').length;
+    const nw  = leads.filter(l => l.estado === 'nuevo').length;
+    document.getElementById('hs-total').textContent = leads.length;
+    document.getElementById('hs-cal').textContent = cal;
+    document.getElementById('hs-pot').textContent = pot;
+    document.getElementById('hs-new').textContent = nw;
+
+    // Sidebar badges
+    document.getElementById('sb-badge-total').textContent = leads.length;
+    document.getElementById('sb-badge-cal').textContent = cal;
+
+    // Recientes (últimos 5)
+    const recientes = leads.slice(0, 5);
+    const calBadge = c => {
+      const m = { calificado:'b-cal', potencial:'b-pot', no_calificado:'b-no' };
+      const t = { calificado:'Calificado', potencial:'Potencial', no_calificado:'Sin calif.' };
+      return `<span class="badge ${m[c]||'b-no'}"><span class="badge-dot"></span>${t[c]||'—'}</span>`;
+    };
+    const fmtDate = d => new Date(d).toLocaleDateString('es-CL', { day:'2-digit', month:'short' });
+
+    document.getElementById('recent-list').innerHTML = recientes.length
+      ? recientes.map(l => `
+          <div class="recent-row" onclick="setView('crm', document.querySelectorAll('.sb-link')[2])">
+            <div><div class="rr-name">${l.nombre||'—'}</div><div class="rr-email">${l.email||''}</div></div>
+            ${calBadge(l.calificacion)}
+            <div class="rr-date">${fmtDate(l.created_at)}</div>
+          </div>`).join('')
+      : '<div style="padding:2rem;text-align:center;color:var(--muted);font-size:.8rem">Aún no hay leads</div>';
+
+  } catch {
+    document.getElementById('hs-total').textContent = '—';
+    document.getElementById('recent-list').innerHTML = '<div style="padding:1.5rem;text-align:center;color:var(--muted2);font-size:.78rem">Error al cargar datos</div>';
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────────
+(async () => {
+  const ok = await checkSession();
+  if (ok) {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'grid';
+    await cargarHome();
+  }
+})();
+</script>
+</body>
+</html>
