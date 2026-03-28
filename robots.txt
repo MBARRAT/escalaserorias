@@ -1,7 +1,10 @@
 User-agent: *
 Allow: /
-
 Disallow: /admin/
 Disallow: /admin
+Disallow: /crm/
+Disallow: /crm
+Disallow: /panel/
+Disallow: /panel
 
-Sitemap: https://voren.cl/sitemap.xml
+Sitemap: https://vorenconsultores.cl/sitemap.xml
