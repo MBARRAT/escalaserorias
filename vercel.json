@@ -25,6 +25,19 @@
       ]
     },
     {
+      "source": "/crm",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Content-Security-Policy", "value": "frame-ancestors 'self' https://escalaserorias-zv7c.vercel.app" }
+      ]
+    },
+    {
+      "source": "/panel",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" }
+      ]
+    },
+    {
       "source": "/api/auth",
       "headers": [
         { "key": "Access-Control-Allow-Origin",  "value": "*" },
