@@ -5,24 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="robots" content="noindex, nofollow"/>
   <title>Panel · Vōren</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     :root{
-      --bg:#0A0F1A; --bg2:#0F1628; --bg3:#141E35; --bg4:#1A2540;
-      --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.12);
-      --text:#E8EDF5; --muted:rgba(255,255,255,.4); --muted2:rgba(255,255,255,.2);
-      --blue:#1557B0; --blue-l:#3B7FD4;
-      --copper:#C8A055; --copper-l:#E5C07A;
-      --green:#22c55e; --yellow:#eab308;
-      --serif:'DM Serif Display',serif; --sans:'DM Sans',sans-serif;
+      --bg:#0A0F1A;--bg2:#0F1628;--bg3:#141E35;--bg4:#1A2540;
+      --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+      --text:#E8EDF5;--muted:rgba(255,255,255,.4);--muted2:rgba(255,255,255,.2);
+      --blue:#1557B0;--blue-l:#3B7FD4;
+      --copper:#C8A055;--copper-l:#E5C07A;
+      --green:#22c55e;--yellow:#eab308;--red:#ef4444;
+      --serif:'DM Serif Display',serif;--sans:'DM Sans',sans-serif;
       --ease:cubic-bezier(.4,0,.2,1);
     }
     html,body{height:100%;}
     body{font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;font-weight:300;}
 
-    /* ── AUTH ── */
+    /* AUTH */
     #auth-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;}
     .auth-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:3rem;width:380px;text-align:center;}
     .auth-logo{font-family:var(--serif);font-size:2.2rem;color:var(--text);margin-bottom:.2rem;}
@@ -33,10 +34,10 @@
     .auth-btn svg{width:18px;height:18px;fill:currentColor;flex-shrink:0;}
     .auth-desc{font-size:.75rem;color:var(--muted2);margin-top:1.25rem;line-height:1.6;}
 
-    /* ── LAYOUT ── */
-    #app{display:none;min-height:100vh;display:grid;grid-template-columns:220px 1fr;grid-template-rows:1fr;}
+    /* LAYOUT */
+    #app{display:none;min-height:100vh;display:grid;grid-template-columns:220px 1fr;}
 
-    /* ── SIDEBAR ── */
+    /* SIDEBAR */
     .sidebar{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;}
     .sb-logo{padding:1.5rem 1.25rem 1.25rem;border-bottom:1px solid var(--border);}
     .sb-logo-name{font-family:var(--serif);font-size:1.3rem;color:var(--text);}
@@ -44,17 +45,18 @@
     .sb-logo-tag{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-top:.2rem;}
     .sb-nav{flex:1;padding:.75rem 0;overflow-y:auto;}
     .sb-section{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);padding:.85rem 1.25rem .3rem;}
-    .sb-link{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.25rem;font-size:.8rem;color:var(--muted);cursor:pointer;transition:color .2s,background .2s;border-left:2px solid transparent;text-decoration:none;user-select:none;}
+    .sb-link{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.25rem;font-size:.8rem;color:var(--muted);cursor:pointer;transition:color .2s,background .2s;border-left:2px solid transparent;user-select:none;}
     .sb-link:hover{color:var(--text);background:rgba(255,255,255,.03);}
     .sb-link.active{color:var(--copper-l);border-left-color:var(--copper);background:rgba(200,160,85,.06);}
     .sb-link svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
-    .sb-link .sb-badge{margin-left:auto;background:rgba(200,160,85,.15);color:var(--copper-l);border-radius:10px;padding:.1rem .45rem;font-size:.62rem;font-weight:500;}
+    .sb-badge{margin-left:auto;background:rgba(200,160,85,.15);color:var(--copper-l);border-radius:10px;padding:.1rem .45rem;font-size:.62rem;font-weight:500;}
+    .sb-badge.green{background:rgba(34,197,94,.15);color:#86efac;}
     .sb-divider{height:1px;background:var(--border);margin:.5rem 1.25rem;}
-    .sb-ext{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.25rem;font-size:.78rem;color:var(--muted);cursor:pointer;transition:color .2s;border-left:2px solid transparent;}
+    .sb-ext{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.25rem;font-size:.78rem;color:var(--muted);cursor:pointer;transition:color .2s;}
     .sb-ext:hover{color:var(--text);}
     .sb-ext svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
-    .sb-ext .ext-ico{margin-left:auto;opacity:.4;}
-    .sb-ext .ext-ico svg{width:11px;height:11px;}
+    .sb-ext-ico{margin-left:auto;opacity:.35;}
+    .sb-ext-ico svg{width:11px;height:11px;}
     .sb-user{padding:1rem 1.25rem;border-top:1px solid var(--border);}
     .sb-avatar{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);margin-bottom:.5rem;}
     .sb-user-name{font-size:.78rem;color:var(--text);font-weight:400;}
@@ -62,21 +64,37 @@
     .sb-signout{font-size:.68rem;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--sans);padding:0;transition:color .2s;}
     .sb-signout:hover{color:var(--text);}
 
-    /* ── MAIN ── */
+    /* MAIN */
     .main{overflow:auto;height:100vh;}
+    .view{display:none;min-height:100%;}
+    .view.active{display:block;}
 
-    /* ── VIEWS ── */
-    .view{display:none;height:100%;}
-    .view.active{display:flex;flex-direction:column;}
+    /* ADMIN VIEW (iframe) */
+    .admin-view{display:none;height:100vh;flex-direction:column;}
+    .admin-view.active{display:flex;}
+    .iframe-bar{padding:.75rem 1.5rem;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;flex-shrink:0;}
+    .iframe-title{font-size:.78rem;color:var(--muted);flex:1;}
+    .iframe-open{font-size:.7rem;color:var(--copper);cursor:pointer;display:flex;align-items:center;gap:.3rem;transition:color .2s;text-decoration:none;}
+    .iframe-open:hover{color:var(--copper-l);}
+    .iframe-open svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+    iframe{flex:1;border:none;width:100%;}
 
-    /* ── HOME VIEW ── */
-    .home-wrap{padding:2.5rem 3rem;flex:1;}
-    .home-head{margin-bottom:2.5rem;}
+    /* HOME */
+    .home-wrap{padding:2.5rem 3rem;}
     .home-greeting{font-family:var(--serif);font-size:2rem;color:var(--text);margin-bottom:.25rem;}
-    .home-sub{font-size:.88rem;color:var(--muted);line-height:1.6;}
-    .home-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-bottom:2rem;}
+    .home-sub{font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:2rem;}
+    .home-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+    .hs-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem;position:relative;overflow:hidden;}
+    .hs-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+    .hs-card.c-tot::before{background:var(--blue-l);}
+    .hs-card.c-cal::before{background:var(--green);}
+    .hs-card.c-pot::before{background:var(--yellow);}
+    .hs-card.c-new::before{background:var(--copper);}
+    .hs-n{font-family:var(--serif);font-size:2rem;color:var(--text);line-height:1;margin-bottom:.25rem;}
+    .hs-l{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+    .home-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:2rem;}
     .hcard{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.75rem;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
-    .hcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transition:opacity .2s;}
+    .hcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
     .hcard.h-crm::before{background:linear-gradient(90deg,var(--green),var(--blue-l));}
     .hcard.h-blog::before{background:linear-gradient(90deg,var(--copper),var(--copper-l));}
     .hcard:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
@@ -92,16 +110,10 @@
     .hcard.h-crm .hcard-action{color:var(--green);}
     .hcard.h-blog .hcard-action{color:var(--copper-l);}
     .hcard-action svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;}
-
-    .home-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
-    .hs-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem;}
-    .hs-n{font-family:var(--serif);font-size:2rem;color:var(--text);line-height:1;margin-bottom:.25rem;}
-    .hs-l{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
-
     .home-recent{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
     .home-recent-head{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
     .home-recent-title{font-size:.8rem;font-weight:500;color:var(--text);}
-    .home-recent-link{font-size:.72rem;color:var(--copper);cursor:pointer;transition:color .2s;}
+    .home-recent-link{font-size:.72rem;color:var(--copper);cursor:pointer;}
     .home-recent-link:hover{color:var(--copper-l);}
     .recent-row{display:grid;grid-template-columns:1fr auto auto;gap:1rem;align-items:center;padding:.85rem 1.25rem;border-bottom:1px solid var(--border);transition:background .15s;cursor:pointer;}
     .recent-row:last-child{border-bottom:none;}
@@ -110,28 +122,92 @@
     .rr-email{font-size:.7rem;color:var(--muted);}
     .rr-date{font-size:.7rem;color:var(--muted2);white-space:nowrap;}
 
-    /* ── CRM VIEW (iframe) ── */
-    .iframe-wrap{flex:1;display:flex;flex-direction:column;}
-    .iframe-bar{padding:.75rem 1.5rem;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;}
-    .iframe-title{font-size:.78rem;color:var(--muted);flex:1;}
-    .iframe-open{font-size:.7rem;color:var(--copper);cursor:pointer;display:flex;align-items:center;gap:.3rem;transition:color .2s;text-decoration:none;}
-    .iframe-open:hover{color:var(--copper-l);}
-    .iframe-open svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
-    iframe{flex:1;border:none;width:100%;height:100%;}
-
-    /* badges */
-    .badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .55rem;border-radius:3px;font-size:.67rem;font-weight:500;}
-    .badge-dot{width:5px;height:5px;border-radius:50%;}
-    .b-cal{background:rgba(34,197,94,.1);color:#86efac;}
+    /* CRM VIEW */
+    .crm-wrap{padding:2rem 2.5rem;}
+    .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+    .topbar-title{font-family:var(--serif);font-size:1.6rem;color:var(--text);}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;}
+    .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;position:relative;overflow:hidden;}
+    .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+    .stat-card.c-cal::before{background:var(--green);}
+    .stat-card.c-pot::before{background:var(--yellow);}
+    .stat-card.c-no::before{background:rgba(255,255,255,.2);}
+    .stat-card.c-tot::before{background:var(--blue-l);}
+    .stat-n{font-family:var(--serif);font-size:2.2rem;color:var(--text);line-height:1;margin-bottom:.25rem;}
+    .stat-l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+    .filters{display:flex;gap:.6rem;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;}
+    .filter-search{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.55rem .9rem;font-size:.8rem;color:var(--text);font-family:var(--sans);outline:none;transition:border-color .2s;}
+    .filter-search:focus{border-color:var(--copper);}
+    .filter-search::placeholder{color:var(--muted2);}
+    .fsel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.55rem .75rem;font-size:.75rem;color:var(--muted);font-family:var(--sans);outline:none;cursor:pointer;}
+    .fsel:focus{border-color:var(--copper);}
+    .fsel option{background:var(--bg2);color:var(--text);}
+    .btn-refresh{background:transparent;border:1px solid var(--border);border-radius:4px;padding:.55rem .9rem;font-size:.75rem;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .2s;display:flex;align-items:center;gap:.4rem;}
+    .btn-refresh:hover{border-color:var(--border2);color:var(--text);}
+    .btn-refresh svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+    .table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+    table{width:100%;border-collapse:collapse;}
+    thead{background:var(--bg3);}
+    th{padding:.75rem 1rem;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+    td{padding:.85rem 1rem;font-size:.8rem;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle;}
+    tr:last-child td{border-bottom:none;}
+    tr{transition:background .15s;cursor:pointer;}
+    tr:hover td{background:rgba(255,255,255,.02);}
+    .empty-row td{text-align:center;color:var(--muted);padding:3rem;cursor:default;}
+    .empty-row:hover td{background:transparent;}
+    .badge{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .6rem;border-radius:3px;font-size:.68rem;font-weight:500;white-space:nowrap;}
+    .badge-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+    .b-cal{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.2);}
     .b-cal .badge-dot{background:#4ade80;}
-    .b-pot{background:rgba(234,179,8,.08);color:#fde047;}
+    .b-pot{background:rgba(234,179,8,.08);color:#fde047;border:1px solid rgba(234,179,8,.2);}
     .b-pot .badge-dot{background:#facc15;}
-    .b-no{background:rgba(255,255,255,.04);color:rgba(255,255,255,.35);}
-    .b-no .badge-dot{background:rgba(255,255,255,.2);}
+    .b-no{background:rgba(255,255,255,.04);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);}
+    .b-no .badge-dot{background:rgba(255,255,255,.3);}
+    .b-nuevo{background:rgba(91,164,245,.1);color:#93c5fd;border:1px solid rgba(91,164,245,.2);}
+    .b-contactado{background:rgba(168,85,247,.1);color:#c4b5fd;border:1px solid rgba(168,85,247,.2);}
+    .b-proceso{background:rgba(234,179,8,.08);color:#fde047;border:1px solid rgba(234,179,8,.2);}
+    .b-cerrado{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.2);}
+    .b-descartado{background:rgba(239,68,68,.08);color:#fca5a5;border:1px solid rgba(239,68,68,.2);}
+    .score-bar{display:flex;align-items:center;gap:.5rem;}
+    .score-track{width:50px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;flex-shrink:0;}
+    .score-fill{height:100%;border-radius:2px;}
+    .score-num{font-size:.72rem;color:var(--muted);}
+    .channel{font-size:.68rem;color:var(--muted);}
 
-    /* loading */
+    /* DETAIL PANEL */
+    .panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
+    .panel-overlay.open{opacity:1;pointer-events:all;}
+    .detail-panel{position:fixed;top:0;right:0;bottom:0;width:480px;background:var(--bg2);border-left:1px solid var(--border);z-index:201;transform:translateX(100%);transition:transform .3s var(--ease);overflow-y:auto;}
+    .detail-panel.open{transform:translateX(0);}
+    .dp-head{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--bg2);z-index:1;}
+    .dp-name{font-family:var(--serif);font-size:1.3rem;color:var(--text);}
+    .dp-email{font-size:.78rem;color:var(--muted);margin-top:.2rem;}
+    .dp-close{background:transparent;border:1px solid var(--border);border-radius:4px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);flex-shrink:0;transition:all .2s;}
+    .dp-close:hover{border-color:var(--border2);color:var(--text);}
+    .dp-close svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+    .dp-body{padding:1.5rem;}
+    .dp-section{margin-bottom:1.75rem;}
+    .dp-section-title{font-size:.63rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+    .dp-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.6rem;}
+    .dp-label{font-size:.72rem;color:var(--muted);flex-shrink:0;}
+    .dp-value{font-size:.8rem;color:var(--text);text-align:right;}
+    .dp-msg{background:var(--bg3);border-radius:4px;padding:1rem;font-size:.8rem;color:var(--muted);line-height:1.7;font-style:italic;}
+    .dp-field{margin-bottom:1rem;}
+    .dp-field label{display:block;font-size:.63rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+    .dp-field select,.dp-field textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.65rem .85rem;font-size:.8rem;color:var(--text);font-family:var(--sans);outline:none;transition:border-color .2s;}
+    .dp-field select:focus,.dp-field textarea:focus{border-color:var(--copper);}
+    .dp-field select option{background:var(--bg2);}
+    .dp-field textarea{resize:none;min-height:80px;line-height:1.6;}
+    .dp-save{width:100%;background:var(--copper);color:#0A1628;border:none;padding:.8rem;border-radius:4px;font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:background .2s;}
+    .dp-save:hover{background:var(--copper-l);}
+    .dp-save:disabled{opacity:.5;cursor:not-allowed;}
+    .dp-saved{font-size:.72rem;color:#86efac;text-align:center;margin-top:.6rem;display:none;}
+    .dp-saved.show{display:block;}
+    .utm-tag{display:inline-flex;align-items:center;gap:.3rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:3px;padding:.2rem .5rem;font-size:.68rem;color:var(--muted);margin:.2rem;}
+    .utm-tag strong{color:var(--text);font-weight:400;}
     .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--copper);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;}
     @keyframes spin{to{transform:rotate(360deg)}}
+    .loading{display:flex;align-items:center;justify-content:center;padding:4rem;color:var(--muted);font-size:.82rem;gap:.75rem;}
   </style>
 </head>
 <body>
@@ -145,7 +221,7 @@
       <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
       Continuar con GitHub
     </button>
-    <div class="auth-desc">Solo usuarios autorizados del repositorio pueden acceder.</div>
+    <div class="auth-desc">Solo usuarios autorizados pueden acceder.</div>
   </div>
 </div>
 
@@ -158,44 +234,40 @@
     </div>
     <nav class="sb-nav">
       <div class="sb-section">General</div>
-      <div class="sb-link active" onclick="setView('home', this)">
+      <div class="sb-link active" id="nav-home" onclick="setView('home')">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         Inicio
       </div>
-
       <div class="sb-section">Leads</div>
-      <div class="sb-link" onclick="setView('crm', this)">
+      <div class="sb-link" id="nav-crm" onclick="setView('crm')">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         CRM
         <span class="sb-badge" id="sb-badge-total">—</span>
       </div>
-      <div class="sb-link" onclick="setView('crm-cal', this)">
+      <div class="sb-link" id="nav-crm-cal" onclick="setView('crm','calificado')">
         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         Calificados
-        <span class="sb-badge" id="sb-badge-cal" style="background:rgba(34,197,94,.15);color:#86efac">—</span>
+        <span class="sb-badge green" id="sb-badge-cal">—</span>
       </div>
-
       <div class="sb-section">Contenido</div>
-      <div class="sb-link" onclick="setView('admin', this)">
+      <div class="sb-link" id="nav-admin" onclick="setView('admin')">
         <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         Blog admin
       </div>
-
       <div class="sb-divider"></div>
-
-      <div class="sb-ext" onclick="window.open('/', '_blank')">
+      <div class="sb-ext" onclick="window.open('/','_blank')">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         Ver sitio público
-        <span class="ext-ico"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+        <span class="sb-ext-ico"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
       </div>
-      <div class="sb-ext" onclick="window.open('/blog/', '_blank')">
+      <div class="sb-ext" onclick="window.open('/blog/','_blank')">
         <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         Ver blog
-        <span class="ext-ico"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+        <span class="sb-ext-ico"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
       </div>
     </nav>
     <div class="sb-user">
-      <img class="sb-avatar" id="sb-avatar" src="" alt=""/>
+      <img class="sb-avatar" id="sb-avatar" src="" alt="" style="display:none"/>
       <div class="sb-user-name" id="sb-name">—</div>
       <div class="sb-user-email" id="sb-email">—</div>
       <button class="sb-signout" onclick="logout()">Cerrar sesión</button>
@@ -203,61 +275,88 @@
   </aside>
 
   <main class="main">
-
     <!-- HOME -->
     <div class="view active" id="view-home">
       <div class="home-wrap">
-        <div class="home-head">
-          <div class="home-greeting" id="home-greeting">Bienvenido</div>
-          <div class="home-sub">Desde aquí gestionas los leads y el contenido del sitio.</div>
+        <div class="home-greeting" id="home-greeting">Bienvenido</div>
+        <div class="home-sub">Desde aquí gestionas los leads y el contenido del sitio.</div>
+        <div class="home-stats">
+          <div class="hs-card c-tot"><div class="hs-n" id="hs-total"><div class="spin"></div></div><div class="hs-l">Total leads</div></div>
+          <div class="hs-card c-cal"><div class="hs-n" id="hs-cal">—</div><div class="hs-l">Calificados</div></div>
+          <div class="hs-card c-pot"><div class="hs-n" id="hs-pot">—</div><div class="hs-l">Potenciales</div></div>
+          <div class="hs-card c-new"><div class="hs-n" id="hs-new">—</div><div class="hs-l">Sin contactar</div></div>
         </div>
-
-        <div class="home-stats" id="home-stats">
-          <div class="hs-card"><div class="hs-n" id="hs-total"><div class="spin"></div></div><div class="hs-l">Total leads</div></div>
-          <div class="hs-card"><div class="hs-n" id="hs-cal">—</div><div class="hs-l">Calificados</div></div>
-          <div class="hs-card"><div class="hs-n" id="hs-pot">—</div><div class="hs-l">Potenciales</div></div>
-          <div class="hs-card"><div class="hs-n" id="hs-new">—</div><div class="hs-l">Sin contactar</div></div>
-        </div>
-
         <div class="home-cards">
-          <div class="hcard h-crm" onclick="setView('crm', document.querySelector('.sb-link:nth-child(3)'))">
+          <div class="hcard h-crm" onclick="setView('crm')">
             <div class="hcard-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
             <div class="hcard-title">CRM de leads</div>
             <div class="hcard-desc">Revisa, filtra y gestiona todos los contactos que han llegado desde el formulario del sitio.</div>
             <div class="hcard-action">Abrir CRM <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-          <div class="hcard h-blog" onclick="setView('admin', document.querySelector('.sb-link:nth-child(8)'))">
+          <div class="hcard h-blog" onclick="setView('admin')">
             <div class="hcard-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
             <div class="hcard-title">Blog admin</div>
             <div class="hcard-desc">Crea, edita y publica artículos para el blog de perspectivas directamente desde el panel.</div>
             <div class="hcard-action">Abrir admin <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
-
         <div class="home-recent">
           <div class="home-recent-head">
             <div class="home-recent-title">Últimos leads recibidos</div>
-            <div class="home-recent-link" onclick="setView('crm', null)">Ver todos →</div>
+            <div class="home-recent-link" onclick="setView('crm')">Ver todos →</div>
           </div>
-          <div id="recent-list"><div style="padding:1.5rem;text-align:center;color:var(--muted);font-size:.8rem"><div class="spin" style="margin:0 auto"></div></div></div>
+          <div id="recent-list"><div class="loading"><div class="spin"></div></div></div>
         </div>
       </div>
     </div>
 
-    <!-- CRM -->
+    <!-- CRM (nativo, sin iframe) -->
     <div class="view" id="view-crm">
-      <div class="iframe-bar">
-        <span class="iframe-title">CRM · Gestión de leads</span>
-        <a class="iframe-open" href="/crm" target="_blank">
-          Abrir en nueva pestaña
-          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
+      <div class="crm-wrap">
+        <div class="topbar">
+          <div class="topbar-title" id="crm-title">Todos los contactos</div>
+          <button class="btn-refresh" onclick="cargarLeads()">
+            <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            Actualizar
+          </button>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card c-tot"><div class="stat-n" id="s-total">—</div><div class="stat-l">Total</div></div>
+          <div class="stat-card c-cal"><div class="stat-n" id="s-cal">—</div><div class="stat-l">Calificados</div></div>
+          <div class="stat-card c-pot"><div class="stat-n" id="s-pot">—</div><div class="stat-l">Potenciales</div></div>
+          <div class="stat-card c-no"><div class="stat-n" id="s-no">—</div><div class="stat-l">No calificados</div></div>
+        </div>
+        <div class="filters">
+          <input class="filter-search" type="text" placeholder="Buscar por nombre, email o empresa..." id="search-input" oninput="filtrar()"/>
+          <select class="fsel" id="fil-estado" onchange="filtrar()">
+            <option value="">Todos los estados</option>
+            <option value="nuevo">Nuevo</option>
+            <option value="contactado">Contactado</option>
+            <option value="en_proceso">En proceso</option>
+            <option value="cerrado">Cerrado</option>
+            <option value="descartado">Descartado</option>
+          </select>
+          <select class="fsel" id="fil-ord" onchange="filtrar()">
+            <option value="score">Mayor score</option>
+            <option value="reciente">Más reciente</option>
+            <option value="nombre">Nombre A-Z</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <div class="loading" id="crm-loading"><div class="spin"></div> Cargando leads...</div>
+          <table id="leads-table" style="display:none">
+            <thead><tr>
+              <th>Contacto</th><th>Empresa</th><th>Área</th><th>Presupuesto</th>
+              <th>Score</th><th>Calificación</th><th>Estado</th><th>Canal</th><th>Fecha</th>
+            </tr></thead>
+            <tbody id="leads-body"></tbody>
+          </table>
+        </div>
       </div>
-      <iframe id="crm-frame" src="" title="CRM"></iframe>
     </div>
 
-    <!-- ADMIN -->
-    <div class="view" id="view-admin">
+    <!-- ADMIN (iframe — funciona porque el usuario ya está logueado en Sveltia con GitHub) -->
+    <div class="admin-view" id="view-admin">
       <div class="iframe-bar">
         <span class="iframe-title">Blog admin · Sveltia CMS</span>
         <a class="iframe-open" href="/admin" target="_blank">
@@ -267,8 +366,17 @@
       </div>
       <iframe id="admin-frame" src="" title="Admin"></iframe>
     </div>
-
   </main>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="panel-overlay" id="overlay" onclick="cerrarPanel()"></div>
+<div class="detail-panel" id="detail-panel">
+  <div class="dp-head">
+    <div><div class="dp-name" id="dp-name">—</div><div class="dp-email" id="dp-email">—</div></div>
+    <button class="dp-close" onclick="cerrarPanel()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="dp-body" id="dp-body"></div>
 </div>
 
 <script>
@@ -276,8 +384,10 @@ const SB_URL = 'https://rpduicqgelrhhptvyhpp.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwZHVpY3FnZWxyaGhwdHZ5aHBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NDcwOTksImV4cCI6MjA5MDIyMzA5OX0.XSrjkgVH2ZPl2ePaMAJCO3J9i0W6pRGfMYlHme0Mg8E';
 
 let SESSION = null;
+let todosLeads = [];
+let leadActual = null;
 let vistaActual = 'home';
-let crmCargado = false;
+let filtroCal = null;
 let adminCargado = false;
 
 // ── AUTH ────────────────────────────────────────────────
@@ -291,30 +401,22 @@ async function checkSession() {
   if (hash.includes('access_token')) {
     const params = new URLSearchParams(hash.slice(1));
     const token = params.get('access_token');
-    if (token) {
-      sessionStorage.setItem('panel_token', token);
-      window.history.replaceState(null, '', window.location.pathname);
-    }
+    if (token) { sessionStorage.setItem('panel_token', token); window.history.replaceState(null,'',window.location.pathname); }
   }
   const token = sessionStorage.getItem('panel_token');
   if (!token) return false;
   try {
-    const res = await fetch(`${SB_URL}/auth/v1/user`, {
-      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${token}` }
-    });
+    const res = await fetch(`${SB_URL}/auth/v1/user`, { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${token}` } });
     if (!res.ok) { sessionStorage.removeItem('panel_token'); return false; }
     const user = await res.json();
     SESSION = { token, user };
-    // UI de usuario
     document.getElementById('sb-name').textContent = user.user_metadata?.full_name || user.email;
     document.getElementById('sb-email').textContent = user.email;
     const avatar = user.user_metadata?.avatar_url;
-    const avatarEl = document.getElementById('sb-avatar');
-    if (avatar) { avatarEl.src = avatar; } else { avatarEl.style.display = 'none'; }
-    // Saludo
+    if (avatar) { const av = document.getElementById('sb-avatar'); av.src = avatar; av.style.display = 'block'; }
     const hora = new Date().getHours();
     const saludo = hora < 12 ? 'Buenos días' : hora < 19 ? 'Buenas tardes' : 'Buenas noches';
-    const nombre = user.user_metadata?.name?.split(' ')[0] || 'bienvenido';
+    const nombre = (user.user_metadata?.name||user.email).split(' ')[0];
     document.getElementById('home-greeting').textContent = `${saludo}, ${nombre}`;
     return true;
   } catch { return false; }
@@ -328,79 +430,219 @@ function logout() {
 }
 
 // ── NAVEGACIÓN ──────────────────────────────────────────
-function setView(id, linkEl) {
-  // Desactivar vista y link activos
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+function setView(id, cal) {
+  filtroCal = cal || null;
+  vistaActual = id;
+  document.querySelectorAll('.view,.admin-view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
 
-  // Activar nueva vista
-  const viewId = id.startsWith('crm') ? 'crm' : id;
-  document.getElementById(`view-${viewId}`).classList.add('active');
-  if (linkEl) linkEl.classList.add('active');
-
-  vistaActual = id;
-
-  // Cargar iframes solo una vez (lazy)
-  if (viewId === 'crm' && !crmCargado) {
-    document.getElementById('crm-frame').src = '/crm';
-    crmCargado = true;
-  }
-  if (viewId === 'admin' && !adminCargado) {
-    document.getElementById('admin-frame').src = '/admin';
-    adminCargado = true;
-  }
-
-  // Si es vista de CRM filtrada, comunicárselo al iframe cuando cargue
-  if (id === 'crm-cal' && crmCargado) {
-    // El iframe del CRM standalone maneja sus propios filtros
+  if (id === 'admin') {
+    document.getElementById('view-admin').classList.add('active');
+    document.getElementById('nav-admin').classList.add('active');
+    if (!adminCargado) { document.getElementById('admin-frame').src = '/admin'; adminCargado = true; }
+  } else if (id === 'crm') {
+    document.getElementById('view-crm').classList.add('active');
+    document.getElementById(cal === 'calificado' ? 'nav-crm-cal' : 'nav-crm').classList.add('active');
+    document.getElementById('crm-title').textContent = cal === 'calificado' ? 'Leads calificados' : 'Todos los contactos';
+    if (!todosLeads.length) cargarLeads(); else filtrar();
+  } else {
+    document.getElementById('view-home').classList.add('active');
+    document.getElementById('nav-home').classList.add('active');
   }
 }
 
-// ── DATOS HOME ──────────────────────────────────────────
+// ── DATOS ───────────────────────────────────────────────
+function sbH() { return { 'apikey': SB_KEY, 'Authorization': `Bearer ${SESSION.token}` }; }
+
+async function cargarLeads() {
+  document.getElementById('crm-loading').style.display = 'flex';
+  document.getElementById('leads-table').style.display = 'none';
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/contactos?select=*&order=created_at.desc`, { headers: sbH() });
+    if (!res.ok) throw new Error();
+    todosLeads = await res.json();
+    actualizarStats();
+    filtrar();
+    renderRecientes();
+  } catch {
+    document.getElementById('crm-loading').innerHTML = '<span style="color:#fca5a5">Error al cargar. Verifica los permisos RLS en Supabase.</span>';
+  }
+}
+
 async function cargarHome() {
   try {
-    const res = await fetch(
-      `${SB_URL}/rest/v1/contactos?select=id,nombre,email,calificacion,estado,created_at&order=created_at.desc`,
-      { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SESSION.token}` } }
-    );
+    const res = await fetch(`${SB_URL}/rest/v1/contactos?select=id,nombre,email,calificacion,estado,created_at&order=created_at.desc`, { headers: sbH() });
     if (!res.ok) throw new Error();
-    const leads = await res.json();
-
-    // Stats
-    const cal = leads.filter(l => l.calificacion === 'calificado').length;
-    const pot = leads.filter(l => l.calificacion === 'potencial').length;
-    const nw  = leads.filter(l => l.estado === 'nuevo').length;
-    document.getElementById('hs-total').textContent = leads.length;
+    todosLeads = await res.json();
+    const cal = todosLeads.filter(l => l.calificacion === 'calificado').length;
+    const pot = todosLeads.filter(l => l.calificacion === 'potencial').length;
+    const nw  = todosLeads.filter(l => l.estado === 'nuevo').length;
+    document.getElementById('hs-total').textContent = todosLeads.length;
     document.getElementById('hs-cal').textContent = cal;
     document.getElementById('hs-pot').textContent = pot;
     document.getElementById('hs-new').textContent = nw;
-
-    // Sidebar badges
-    document.getElementById('sb-badge-total').textContent = leads.length;
+    document.getElementById('sb-badge-total').textContent = todosLeads.length;
     document.getElementById('sb-badge-cal').textContent = cal;
-
-    // Recientes (últimos 5)
-    const recientes = leads.slice(0, 5);
-    const calBadge = c => {
-      const m = { calificado:'b-cal', potencial:'b-pot', no_calificado:'b-no' };
-      const t = { calificado:'Calificado', potencial:'Potencial', no_calificado:'Sin calif.' };
-      return `<span class="badge ${m[c]||'b-no'}"><span class="badge-dot"></span>${t[c]||'—'}</span>`;
-    };
-    const fmtDate = d => new Date(d).toLocaleDateString('es-CL', { day:'2-digit', month:'short' });
-
-    document.getElementById('recent-list').innerHTML = recientes.length
-      ? recientes.map(l => `
-          <div class="recent-row" onclick="setView('crm', document.querySelectorAll('.sb-link')[2])">
-            <div><div class="rr-name">${l.nombre||'—'}</div><div class="rr-email">${l.email||''}</div></div>
-            ${calBadge(l.calificacion)}
-            <div class="rr-date">${fmtDate(l.created_at)}</div>
-          </div>`).join('')
-      : '<div style="padding:2rem;text-align:center;color:var(--muted);font-size:.8rem">Aún no hay leads</div>';
-
+    renderRecientes();
   } catch {
     document.getElementById('hs-total').textContent = '—';
-    document.getElementById('recent-list').innerHTML = '<div style="padding:1.5rem;text-align:center;color:var(--muted2);font-size:.78rem">Error al cargar datos</div>';
+    document.getElementById('recent-list').innerHTML = '<div style="padding:1.5rem;text-align:center;color:var(--muted2);font-size:.78rem">Error al cargar</div>';
   }
+}
+
+function actualizarStats() {
+  const cal = todosLeads.filter(l => l.calificacion === 'calificado').length;
+  const pot = todosLeads.filter(l => l.calificacion === 'potencial').length;
+  const no  = todosLeads.filter(l => l.calificacion === 'no_calificado').length;
+  document.getElementById('s-total').textContent = todosLeads.length;
+  document.getElementById('s-cal').textContent = cal;
+  document.getElementById('s-pot').textContent = pot;
+  document.getElementById('s-no').textContent = no;
+  document.getElementById('sb-badge-total').textContent = todosLeads.length;
+  document.getElementById('sb-badge-cal').textContent = cal;
+  document.getElementById('hs-total').textContent = todosLeads.length;
+  document.getElementById('hs-cal').textContent = cal;
+  document.getElementById('hs-pot').textContent = pot;
+  document.getElementById('hs-new').textContent = todosLeads.filter(l=>l.estado==='nuevo').length;
+}
+
+function renderRecientes() {
+  const calBadge = c => {
+    const m = { calificado:'b-cal', potencial:'b-pot', no_calificado:'b-no' };
+    const t = { calificado:'Calificado', potencial:'Potencial', no_calificado:'Sin calif.' };
+    return `<span class="badge ${m[c]||'b-no'}"><span class="badge-dot"></span>${t[c]||'—'}</span>`;
+  };
+  const fmtDate = d => new Date(d).toLocaleDateString('es-CL', { day:'2-digit', month:'short' });
+  const recientes = todosLeads.slice(0,5);
+  document.getElementById('recent-list').innerHTML = recientes.length
+    ? recientes.map(l => `<div class="recent-row" onclick="setView('crm')"><div><div class="rr-name">${l.nombre||'—'}</div><div class="rr-email">${l.email||''}</div></div>${calBadge(l.calificacion)}<div class="rr-date">${fmtDate(l.created_at)}</div></div>`).join('')
+    : '<div style="padding:2rem;text-align:center;color:var(--muted);font-size:.8rem">Aún no hay leads</div>';
+}
+
+// ── FILTROS y TABLA ─────────────────────────────────────
+const AREAS = { bi:'Inteligencia BI', estrategia:'Estrategia', procesos:'Procesos', crm:'CRM y Ventas', marketing:'Marketing', digital:'Digitalización', otros:'Otros' };
+const PRESUP = { menos_500k:'< $500k', '500k_1.5M':'$500k–1.5M', '1.5M_5M':'$1.5M–5M', mas_5M:'> $5M' };
+
+function filtrar() {
+  const q      = document.getElementById('search-input').value.toLowerCase();
+  const estado = document.getElementById('fil-estado').value;
+  const ord    = document.getElementById('fil-ord').value;
+  let leads = [...todosLeads];
+  if (filtroCal) leads = leads.filter(l => l.calificacion === filtroCal);
+  if (q) leads = leads.filter(l => (l.nombre||'').toLowerCase().includes(q)||(l.email||'').toLowerCase().includes(q)||(l.empresa||'').toLowerCase().includes(q));
+  if (estado) leads = leads.filter(l => l.estado === estado);
+  if (ord === 'score') leads.sort((a,b)=>(b.score||0)-(a.score||0));
+  if (ord === 'reciente') leads.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  if (ord === 'nombre') leads.sort((a,b)=>(a.nombre||'').localeCompare(b.nombre||''));
+  renderTabla(leads);
+}
+
+function calBadge(c) {
+  const m = { calificado:'b-cal', potencial:'b-pot', no_calificado:'b-no' };
+  const t = { calificado:'Calificado', potencial:'Potencial', no_calificado:'Sin calif.' };
+  return `<span class="badge ${m[c]||'b-no'}"><span class="badge-dot"></span>${t[c]||'—'}</span>`;
+}
+function estadoBadge(e) {
+  const m = { nuevo:'b-nuevo', contactado:'b-contactado', en_proceso:'b-proceso', cerrado:'b-cerrado', descartado:'b-descartado' };
+  const t = { nuevo:'Nuevo', contactado:'Contactado', en_proceso:'En proceso', cerrado:'Cerrado', descartado:'Descartado' };
+  return `<span class="badge ${m[e]||'b-no'}">${t[e]||e||'—'}</span>`;
+}
+function scoreBar(s) {
+  const pct = Math.min(s||0,100);
+  const color = pct>=55?'#4ade80':pct>=25?'#facc15':'rgba(255,255,255,.2)';
+  return `<div class="score-bar"><div class="score-track"><div class="score-fill" style="width:${pct}%;background:${color}"></div></div><span class="score-num">${s||0}</span></div>`;
+}
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'2-digit'}) : '—'; }
+function canal(l) { return l.utm_source || (l.referrer ? (() => { try { return new URL(l.referrer).hostname; } catch { return l.referrer; } })() : 'Directo'); }
+
+function renderTabla(leads) {
+  document.getElementById('crm-loading').style.display = 'none';
+  document.getElementById('leads-table').style.display = 'table';
+  document.getElementById('leads-body').innerHTML = leads.length
+    ? leads.map(l => `<tr onclick="abrirPanel('${l.id}')">
+        <td><div style="font-weight:400">${l.nombre||'—'}</div><div style="font-size:.7rem;color:var(--muted)">${l.email||''}</div></td>
+        <td>${l.empresa||'<span style="color:var(--muted2)">—</span>'}</td>
+        <td>${AREAS[l.area]||l.area||'—'}</td>
+        <td>${PRESUP[l.presupuesto]||l.presupuesto||'—'}</td>
+        <td>${scoreBar(l.score)}</td>
+        <td>${calBadge(l.calificacion)}</td>
+        <td>${estadoBadge(l.estado)}</td>
+        <td style="font-size:.72rem;color:var(--muted)">${canal(l)}</td>
+        <td style="color:var(--muted);font-size:.72rem">${fmtDate(l.created_at)}</td>
+      </tr>`).join('')
+    : '<tr class="empty-row"><td colspan="9">Sin leads para mostrar</td></tr>';
+}
+
+// ── PANEL DETALLE ────────────────────────────────────────
+function abrirPanel(id) {
+  leadActual = todosLeads.find(l => l.id === id);
+  if (!leadActual) return;
+  const l = leadActual;
+  document.getElementById('dp-name').textContent = l.nombre||'—';
+  document.getElementById('dp-email').textContent = l.email||'—';
+  const utmTags = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].filter(k=>l[k]).map(k=>`<span class="utm-tag">${k.replace('utm_','')}: <strong>${l[k]}</strong></span>`).join('');
+  const urgLabels = { inmediato:'Inmediato','1-3_meses':'1–3 meses', explorando:'Explorando' };
+  document.getElementById('dp-body').innerHTML = `
+    <div class="dp-section">
+      <div class="dp-section-title">Calificación</div>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.75rem">${calBadge(l.calificacion)} ${scoreBar(l.score)}</div>
+      <div class="dp-row"><span class="dp-label">Presupuesto</span><span class="dp-value">${PRESUP[l.presupuesto]||l.presupuesto||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Urgencia</span><span class="dp-value">${urgLabels[l.urgencia]||l.urgencia||'—'}</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Datos del contacto</div>
+      <div class="dp-row"><span class="dp-label">Empresa</span><span class="dp-value">${l.empresa||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Tamaño</span><span class="dp-value">${l.tamano||'—'} personas</span></div>
+      <div class="dp-row"><span class="dp-label">Área</span><span class="dp-value">${AREAS[l.area]||l.area||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Fecha</span><span class="dp-value">${fmtDate(l.created_at)}</span></div>
+    </div>
+    ${l.mensaje?`<div class="dp-section"><div class="dp-section-title">Mensaje</div><div class="dp-msg">"${l.mensaje}"</div></div>`:''}
+    <div class="dp-section">
+      <div class="dp-section-title">Origen / UTMs</div>
+      <div class="dp-row"><span class="dp-label">Landing</span><span class="dp-value" style="font-size:.72rem">${l.landing_page||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Referrer</span><span class="dp-value" style="font-size:.72rem">${l.referrer||'Directo'}</span></div>
+      ${utmTags?`<div style="margin-top:.5rem">${utmTags}</div>`:'<div style="font-size:.72rem;color:var(--muted2)">Sin parámetros UTM</div>'}
+      ${l.gclid?`<div style="margin-top:.4rem"><span class="utm-tag">Google Ads: <strong>${l.gclid.slice(0,12)}…</strong></span></div>`:''}
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Gestión CRM</div>
+      <div class="dp-field"><label>Estado</label>
+        <select id="dp-estado">${['nuevo','contactado','en_proceso','cerrado','descartado'].map(e=>`<option value="${e}" ${l.estado===e?'selected':''}>${{nuevo:'Nuevo',contactado:'Contactado',en_proceso:'En proceso',cerrado:'Cerrado',descartado:'Descartado'}[e]}</option>`).join('')}</select>
+      </div>
+      <div class="dp-field"><label>Notas internas</label><textarea id="dp-notas" placeholder="Próximos pasos, contexto...">${l.notas||''}</textarea></div>
+      <button class="dp-save" onclick="guardarLead()">Guardar cambios</button>
+      <div class="dp-saved" id="dp-saved">✓ Guardado correctamente</div>
+    </div>`;
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('detail-panel').classList.add('open');
+}
+
+function cerrarPanel() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('detail-panel').classList.remove('open');
+  leadActual = null;
+}
+
+async function guardarLead() {
+  if (!leadActual) return;
+  const btn = document.querySelector('.dp-save');
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  const updates = { estado: document.getElementById('dp-estado').value, notas: document.getElementById('dp-notas').value, ultima_accion: new Date().toISOString() };
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/contactos?id=eq.${leadActual.id}`, {
+      method: 'PATCH',
+      headers: { ...sbH(), 'Content-Type':'application/json', 'Prefer':'return=minimal' },
+      body: JSON.stringify(updates)
+    });
+    if (!res.ok) throw new Error();
+    const idx = todosLeads.findIndex(l => l.id === leadActual.id);
+    if (idx >= 0) todosLeads[idx] = { ...todosLeads[idx], ...updates };
+    leadActual = { ...leadActual, ...updates };
+    actualizarStats(); filtrar();
+    document.getElementById('dp-saved').classList.add('show');
+    setTimeout(() => document.getElementById('dp-saved').classList.remove('show'), 2500);
+  } catch { alert('Error al guardar.'); }
+  finally { btn.disabled = false; btn.textContent = 'Guardar cambios'; }
 }
 
 // ── INIT ─────────────────────────────────────────────────
