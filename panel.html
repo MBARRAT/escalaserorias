@@ -392,7 +392,7 @@ let adminCargado = false;
 
 // ── AUTH ────────────────────────────────────────────────
 function loginGitHub() {
-  const redirectTo = window.location.origin + window.location.pathname;
+  const redirectTo = 'https://vorenconsultores.cl/panel';
   window.location.href = `${SB_URL}/auth/v1/authorize?provider=github&redirect_to=${encodeURIComponent(redirectTo)}`;
 }
 
