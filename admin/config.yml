@@ -31,7 +31,7 @@ collections:
       - label: "Slug (URL)"
         name: "slug"
         widget: "string"
-        hint: "Solo minúsculas y guiones. Ej: mis-primeros-datos"
+        hint: "Solo minúsculas y guiones."
         pattern: ['^[a-z0-9\-]+$', "Solo minúsculas, números y guiones"]
 
       - label: "Fecha de publicación"
@@ -46,12 +46,12 @@ collections:
         name: "category"
         widget: "select"
         options:
-          - { label: "Gestión",                  value: "gestion" }
+          - { label: "Gestión",                  value: "gestion"    }
           - { label: "Tecnología",               value: "tecnologia" }
-          - { label: "Procesos",                 value: "procesos" }
+          - { label: "Procesos",                 value: "procesos"   }
           - { label: "Estrategia",               value: "estrategia" }
-          - { label: "Inteligencia de Negocios", value: "datos" }
-          - { label: "CRM & Growth",             value: "crm" }
+          - { label: "Inteligencia de Negocios", value: "datos"      }
+          - { label: "CRM & Growth",             value: "crm"        }
 
       - label: "Tiempo de lectura (minutos)"
         name: "readtime"
@@ -122,5 +122,5 @@ collections:
         file: "_data/seo.json"
         fields:
           - { label: "Meta título base",      name: "title_base",  widget: "string" }
-          - { label: "Meta descripción base", name: "description", widget: "text" }
+          - { label: "Meta descripción base", name: "description", widget: "text"   }
           - { label: "Google Analytics ID",   name: "ga_id",       widget: "string", required: false, hint: "Ej: G-XXXXXXXXXX" }
