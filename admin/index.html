@@ -7,7 +7,14 @@
   <title>Admin — Vōren</title>
 </head>
 <body>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
   <script src="/assets/js/decap-cms.js"></script>
-  <!-- La configuración se carga automáticamente desde admin/config.yml -->
+  <script>
+    window.addEventListener('load', function () {
+      CMS.init({ config: { load_config_file: '/admin/config.yml' } });
+    });
+  </script>
 </body>
 </html>
