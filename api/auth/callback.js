@@ -15,8 +15,7 @@ export default async function handler(req, res) {
     origin = Buffer.from(state, 'base64').toString('utf8');
     if (!origin.startsWith('http')) throw new Error('invalid');
   } catch {
-    const host = req.headers.host;
-    origin = `https://${host}`;
+    origin = 'https://vorenconsultores.cl';
   }
 
   let token;
@@ -36,18 +35,17 @@ export default async function handler(req, res) {
     });
     const data = await r.json();
     if (data.error) {
-      return renderMessage(res, origin, 'error', data.error_description || data.error);
+      return renderMessage(res, 'error', data.error_description || data.error);
     }
     token = data.access_token;
   } catch (err) {
-    return renderMessage(res, origin, 'error', err.message);
+    return renderMessage(res, 'error', err.message);
   }
 
-  return renderMessage(res, origin, 'success', token);
+  return renderMessage(res, 'success', token);
 }
 
-function renderMessage(res, origin, status, tokenOrError) {
-  // Decap 3.x espera exactamente este formato de postMessage
+function renderMessage(res, status, tokenOrError) {
   const data = status === 'success'
     ? JSON.stringify({ token: tokenOrError, provider: 'github' })
     : JSON.stringify({ message: tokenOrError });
@@ -61,19 +59,13 @@ function renderMessage(res, origin, status, tokenOrError) {
 <body>
 <script>
 (function() {
-  var msg    = ${JSON.stringify(message)};
-  var origin = ${JSON.stringify(origin)};
-
-  console.log('[auth callback] sending postMessage:', msg);
-  console.log('[auth callback] target origin:', origin);
+  var msg = ${JSON.stringify(message)};
 
   function send() {
     if (window.opener) {
       window.opener.postMessage(msg, '*');
-      console.log('[auth callback] postMessage sent');
       setTimeout(function() { window.close(); }, 1000);
     } else {
-      console.log('[auth callback] no opener found, redirecting');
       window.location.replace('/admin');
     }
   }
@@ -84,7 +76,7 @@ function renderMessage(res, origin, status, tokenOrError) {
     window.addEventListener('load', send);
   }
 })();
-</script>
+<\/script>
 <p style="font-family:sans-serif;padding:2rem;text-align:center">
   Autenticando... si no cierra solo, <a href="/admin">vuelve al panel</a>.
 </p>
