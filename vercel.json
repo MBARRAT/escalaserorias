@@ -28,7 +28,7 @@
       "source": "/crm",
       "headers": [
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Content-Security-Policy", "value": "frame-ancestors 'self' https://escalaserorias-zv7c.vercel.app" }
+        { "key": "Content-Security-Policy", "value": "frame-ancestors 'self' https://vorenconsultores.cl https://www.vorenconsultores.cl" }
       ]
     },
     {
@@ -55,13 +55,17 @@
       "source": "/:path*",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-XSS-Protection",        "value": "1; mode=block" },
-        { "key": "Referrer-Policy",         "value": "strict-origin-when-cross-origin" }
+        { "key": "X-XSS-Protection",       "value": "1; mode=block" },
+        { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" }
       ]
     },
     {
-      "source": "/:path*.(css|js|woff2|woff|ttf|otf|eot)",
+      "source": "/:path*.(css|woff2|woff|ttf|otf|eot)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/:path*.(js)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
     },
     {
       "source": "/:path*.(jpg|jpeg|png|gif|webp|svg|ico)",
