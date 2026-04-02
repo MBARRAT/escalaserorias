@@ -462,6 +462,57 @@ function updateBlogIndex(posts) {
   console.log(`✅ blog/index.html updated — ${posts.length} posts, cursor removed, thumbnails injected`);
 }
 
+
+// ── Update sitemap.xml ────────────────────────────────────────────────────────
+function updateSitemap(posts) {
+  const SITEMAP = join(__dirname, 'sitemap.xml');
+  if (!existsSync(SITEMAP)) {
+    console.log('⚠️  sitemap.xml not found — skipping');
+    return;
+  }
+
+  const today = new Date().toISOString().split('T')[0];
+
+  // Static pages — always present
+  const staticUrls = `  <!-- Home -->
+  <url>
+    <loc>https://vorenconsultores.cl/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <!-- Blog index -->
+  <url>
+    <loc>https://vorenconsultores.cl/blog</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>`;
+
+  // Dynamic blog posts
+  const postUrls = posts.map(post => {
+    const lastmod = new Date(post.date).toISOString().split('T')[0];
+    return `  <url>
+    <loc>https://vorenconsultores.cl/blog/${post.slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+  }).join('\n');
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${staticUrls}
+  <!-- Blog posts -->
+${postUrls}
+</urlset>`;
+
+  writeFileSync(SITEMAP, sitemap, 'utf8');
+  console.log(`✅ sitemap.xml updated — ${posts.length} posts indexed`);
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 async function main() {
   console.log('📚 Reading posts from _posts/...');
@@ -494,6 +545,9 @@ async function main() {
 
   // Update root index.html blog preview
   updateRootIndex(posts);
+
+  // Update sitemap.xml
+  updateSitemap(posts);
 
   console.log('\n🎉 Build complete!');
 }
