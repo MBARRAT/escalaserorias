@@ -1,14 +1,15 @@
 ---
-title: "El sistema se come al diseño: por qué tus procesos no sobreviven al contacto con la realidad"
+title: 'El sistema se come al diseño: por qué tus procesos no sobreviven al contacto con la realidad'
 slug: el-sistema-se-come-al-diseno
 date: 2026-02-20
 category: procesos
 readtime: 7
-excerpt: "Diseñar un proceso toma días. Que sobreviva al primer mes de operación real es otro problema completamente distinto. Las organizaciones que logran procesos que se sostienen no diseñan mejor — entienden de manera diferente qué es un proceso."
+excerpt: Diseñar un proceso toma días. Que sobreviva al primer mes de operación real es otro problema completamente distinto. Las organizaciones que logran procesos que se sostienen no diseñan mejor — entienden de manera diferente qué es un proceso.
 featured: false
+thumbnail: /assets/img/035e7b30-b736-4ff2-be0f-8c10359e4ffc.png
 seo:
-  meta_title: "Por qué fallan los procesos organizacionales y cómo evitarlo"
-  meta_description: "Los procesos no fallan por mala ejecución. Fallan porque fueron diseñados como si la organización fuera un sistema cerrado y predecible. Una lectura desde la complejidad para directivos."
+  meta_title: Por qué fallan los procesos organizacionales y cómo evitarlo
+  meta_description: Los procesos no fallan por mala ejecución. Fallan porque fueron diseñados como si la organización fuera un sistema cerrado y predecible. Una lectura desde la complejidad para directivos.
   keywords:
     - procesos organizacionales, diseño de procesos, gestión operacional, sistemas complejos, teoría de sistemas
 ---
@@ -19,7 +20,7 @@ Nadie toma la decisión de abandonarlo. No hay una reunión donde se vote en su 
 
 La respuesta organizacional habitual: más capacitación, más control, más versiones del mismo documento con más detalle. La respuesta que realmente funciona es más difícil: entender por qué los procesos fallan de manera sistémica, no individual.
 
----
+***
 
 ## El error de diseño más común
 
@@ -31,7 +32,7 @@ Un sistema **complejo** tiene partes que interactúan de maneras no lineales, qu
 
 Cuando se diseña un proceso para un sistema complejo como si fuera complicado, el resultado es siempre el mismo: el proceso funciona bien en condiciones ideales y falla sistemáticamente cuando la realidad se desvía de esas condiciones. Lo cual ocurre, por definición, todo el tiempo.
 
----
+***
 
 ## Lo que la cibernética lleva décadas explicando
 
@@ -43,7 +44,7 @@ Los procesos organizacionales que sobreviven al contacto con la realidad tienen 
 
 Los que fallan son los que solo tienen la instrucción inicial, sin el sensor.
 
----
+***
 
 ## Tres razones sistémicas por las que los procesos mueren
 
@@ -59,7 +60,7 @@ Hay una diferencia crítica entre aprobar un proceso y ser responsable de que fu
 
 Si el único indicador de un proceso es su resultado final — la venta cerrada, el proyecto entregado, el cliente satisfecho — no hay manera de saber si el proceso está siendo seguido o si el resultado llegó a pesar de que no lo fue. Medir solo outputs es como evaluar la salud de una persona solo por su peso: una métrica que puede estar bien aunque el sistema subyacente esté deteriorándose.
 
----
+***
 
 ## La paradoja del control
 
@@ -71,7 +72,7 @@ La alternativa no es eliminar la estructura. Es diseñar estructura que pueda ad
 
 Un proceso que no puede ser cuestionado por quien lo ejecuta no es un sistema de trabajo. Es una declaración de intenciones con fecha de vencimiento.
 
----
+***
 
 ## Complejidad requiada: el principio que cambia el diseño
 
@@ -83,7 +84,7 @@ La implicación práctica es que parte del diseño de cualquier proceso debe inc
 
 Esto requiere un tipo de confianza organizacional que muchos líderes encuentran incómoda. Pero es matemáticamente necesaria. La alternativa — intentar prever y prescribir todas las variaciones posibles — produce el ciclo de fragilidad descrito antes.
 
----
+***
 
 ## Lo que cambia cuando se diseña con complejidad en mente
 
@@ -97,4 +98,4 @@ Segundo, diseñar la revisión como parte del proceso mismo, no como una activid
 
 Tercero, tratar los desvíos como información, no como fracasos. Cada vez que alguien se sale del proceso para resolver una situación real, eso es una señal sobre los límites del diseño. Las organizaciones que aprenden de esas señales tienen procesos que mejoran. Las que los tratan como indisciplina tienen procesos que mueren.
 
-*El proceso perfecto no es el que nadie puede romper. Es el que se repara a sí mismo.*
+_El proceso perfecto no es el que nadie puede romper. Es el que se repara a sí mismo._
