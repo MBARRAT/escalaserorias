@@ -3,11 +3,15 @@
   "trailingSlash": false,
   "functions": {
     "api/auth/index.js":    { "memory": 128, "maxDuration": 10 },
-    "api/auth/callback.js": { "memory": 128, "maxDuration": 10 }
+    "api/auth/callback.js": { "memory": 128, "maxDuration": 10 },
+    "api/newsletter.js":    { "memory": 128, "maxDuration": 10 }
+
   },
   "rewrites": [
     { "source": "/api/auth",          "destination": "/api/auth/index.js"    },
-    { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" }
+    { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" },
+    { "source": "/api/newsletter",    "destination": "/api/newsletter.js"    }
+
   ],
   "headers": [
     {
