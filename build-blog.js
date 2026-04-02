@@ -518,6 +518,111 @@ ${postUrls}
   console.log(`✅ sitemap.xml updated — ${posts.length} posts indexed`);
 }
 
+
+// ── Patch blog/index.html: compact hero + card images + newsletter ────────────
+function patchBlogIndex(posts) {
+  const INDEX_FILE = join(__dirname, 'blog', 'index.html');
+  if (!existsSync(INDEX_FILE)) return;
+  let html = readFileSync(INDEX_FILE, 'utf8');
+
+  // A) Compact hero — reduce min-height from 90vh to 52vh
+  html = html.replace(
+    '.hero{min-height:90vh;',
+    '.hero{min-height:52vh;'
+  );
+  // Remove hero-sub paragraph (too much text for compact hero)
+  html = html.replace(
+    /<p class="hero-sub">[\s\S]*?<\/p>/,
+    ''
+  );
+
+  // B) Card images — inject thumbnail as background on art-card-visual
+  // This is handled per-card in updateBlogIndex already via visualStyle
+  // Just ensure the CSS supports background-size:cover on art-card-visual
+  html = html.replace(
+    '.art-card-visual{height:180px;background:var(--navy);position:relative;overflow:hidden}',
+    '.art-card-visual{height:180px;background:var(--navy);position:relative;overflow:hidden;background-size:cover;background-position:center}'
+  );
+
+  // C) Newsletter — replace static form with connected version
+  const newNewsletter = `<section class="newsletter-section">
+  <div class="pw">
+    <div class="newsletter-inner">
+      <div class="reveal">
+        <div class="nl-eyebrow"><div class="nl-eyebrow-line"></div><span>Perspectivas directas</span></div>
+        <h2 class="nl-title">Ideas que llegan<br><em>a tu bandeja</em></h2>
+        <p class="nl-sub">Una perspectiva por semana. Sin ruido, sin ventas. Solo ideas accionables sobre estrategia, datos y procesos para empresas que crecen.</p>
+      </div>
+      <div class="reveal rd2">
+        <div class="nl-form" id="nl-form">
+          <input class="nl-input" type="email" id="nl-email" placeholder="tu@empresa.cl" autocomplete="email"/>
+          <button class="nl-btn" id="nl-btn" onclick="suscribir()">Suscribirse</button>
+        </div>
+        <p id="nl-msg" style="font-size:.67rem;color:rgba(255,255,255,.2);margin-top:.85rem;line-height:1.6">Sin spam. Puedes darte de baja cuando quieras.</p>
+      </div>
+    </div>
+  </div>
+</section>`;
+
+  html = html.replace(
+    /(<section class="newsletter-section">)[\s\S]*?(<\/section>)/,
+    newNewsletter
+  );
+
+  // D) Add newsletter JS before closing </script>
+  const nlScript = `
+function suscribir() {
+  const email = document.getElementById('nl-email').value.trim();
+  const btn   = document.getElementById('nl-btn');
+  const msg   = document.getElementById('nl-msg');
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Por favor ingresa un email válido.';
+    msg.style.color = 'rgba(200,169,110,.8)';
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  fetch('/api/newsletter', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email,
+      fuente: 'blog',
+      utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+      utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+      utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok) {
+      document.getElementById('nl-form').innerHTML = '<p style="font-size:.9rem;color:var(--copper-l);font-weight:500;">¡Listo! Te escribimos pronto.</p>';
+      msg.style.display = 'none';
+    } else {
+      msg.textContent = data.error || 'Hubo un error. Intenta de nuevo.';
+      msg.style.color = 'rgba(200,169,110,.8)';
+      btn.disabled = false;
+      btn.textContent = 'Suscribirse';
+    }
+  })
+  .catch(() => {
+    msg.textContent = 'Error de conexión. Intenta de nuevo.';
+    msg.style.color = 'rgba(200,169,110,.8)';
+    btn.disabled = false;
+    btn.textContent = 'Suscribirse';
+  });
+}`;
+
+  // Insert before last </script>
+  const lastScript = html.lastIndexOf('</script>');
+  if (lastScript !== -1) {
+    html = html.slice(0, lastScript) + nlScript + '\n</script>' + html.slice(lastScript + 9);
+  }
+
+  writeFileSync(INDEX_FILE, html, 'utf8');
+  console.log('✅ blog/index.html patched — compact hero, card images CSS, newsletter connected');
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 async function main() {
   console.log('📚 Reading posts from _posts/...');
@@ -547,6 +652,9 @@ async function main() {
 
   // Update blog index
   updateBlogIndex(posts);
+
+  // Patch blog index extras
+  patchBlogIndex(posts);
 
   // Update root index.html blog preview
   updateRootIndex(posts);
