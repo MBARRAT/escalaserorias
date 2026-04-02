@@ -245,9 +245,14 @@ function generateArticleHTML(post, allPosts) {
         <div class="related-card-arrow">→</div>
       </a>`).join('\n');
 
-  const thumbnailMeta = post.thumbnail
-    ? `<meta property="og:image" content="https://vorenconsultores.cl${post.thumbnail}"/>`
-    : '';
+  const ogImage = post.thumbnail
+    ? `https://vorenconsultores.cl${post.thumbnail}`
+    : 'https://vorenconsultores.cl/assets/img/og-default.png';
+  const thumbnailMeta = `<meta property="og:image" content="${ogImage}"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="${ogImage}"/>`;
 
   return `<!DOCTYPE html>
 <html lang="es">
