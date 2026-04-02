@@ -504,7 +504,42 @@ async function main() {
   // Update blog index
   updateBlogIndex(posts);
 
+  // Update root index.html blog preview
+  updateRootIndex(posts);
+
   console.log('\n🎉 Build complete!');
+}
+
+// ── Update root index.html blog preview section ──────────────────────────────
+function updateRootIndex(posts) {
+  const ROOT_INDEX = join(__dirname, 'index.html');
+  if (!existsSync(ROOT_INDEX)) {
+    console.log('⚠️  root index.html not found — skipping');
+    return;
+  }
+
+  let html = readFileSync(ROOT_INDEX, 'utf8');
+
+  // Show 3 most recent posts
+  const recent = posts.slice(0, 3);
+
+  const cards = recent.map((post, i) => {
+    const catLabel = CAT_LABEL[post.category] || post.category;
+    const d = new Date(post.date);
+    const shortDate = d.toLocaleDateString('es-CL', { month: 'short', year: 'numeric' })
+      .replace(/^./, c => c.toUpperCase());
+    const delay = ((i + 1) * 0.1).toFixed(1);
+    return `<a href="/blog/${post.slug}" class="blog-card reveal" style="transition-delay:${delay}s"><div class="bc-bar"></div><div class="bc-body"><span class="bc-tag">${catLabel}</span><div class="bc-title">${post.title}</div><div class="bc-exc">${post.excerpt}</div><div class="bc-foot"><span class="bc-date">${shortDate} · ${post.readtime} min</span><span class="bc-read">Leer <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></div></a>`;
+  }).join('\n    ');
+
+  // Replace the blog-grid content
+  html = html.replace(
+    /(<div class="blog-grid">)([\s\S]*?)(<\/div>\s*\n<\/div><\/section>)/,
+    `$1\n    ${cards}\n  $3`
+  );
+
+  writeFileSync(ROOT_INDEX, html, 'utf8');
+  console.log(`✅ root index.html updated — showing ${recent.length} recent posts`);
 }
 
 main().catch(err => { console.error('❌ Build failed:', err); process.exit(1); });
