@@ -381,23 +381,37 @@ function updateBlogIndex(posts) {
 
   let html = readFileSync(INDEX_FILE, 'utf8');
 
-  // Update article count in hero
+  // 1. Remove custom cursor HTML divs and JS
+  html = html.replace(/<div class="cursor"[^>]*><\/div>\s*/g, '');
+  html = html.replace(/<div class="cursor-ring"[^>]*><\/div>\s*/g, '');
+  // Remove the full cursor JS block from /* Cursor */ through the IIFE closing
+  html = html.replace(/\/\* Cursor \*\/[\s\S]*?\}\)\(\);\s*\n/g, '\n');
+  // Remove cursor hover listeners block
+  html = html.replace(/document\.querySelectorAll\('a,button[\s\S]{0,300}borderColor='rgba\(200,169,110,\.4\)';\s*\}\);\s*\}\);\s*\n/g, '');
+
+  // 2. Update article count
   html = html.replace(
-    /(<div class="hero-count"[^>]*>)\d+(<\/div>)/,
+    /(<div class="hero-count"[^>]*>)[^<]*(<\/div>)/,
     `$1${String(posts.length).padStart(2,'0')}$2`
   );
   html = html.replace(
-    /(<span id="count-num">)\d+(<\/span>)/,
+    /(<span id="count-num">)[^<]*(< \/span>|<\/span>)/,
     `$1${posts.length}$2`
   );
 
-  // Featured card (first post marked as featured, or just first post)
+  // 3. Featured card
   const featured = posts.find(p => p.featured) || posts[0];
   if (featured) {
     const catLabel  = CAT_LABEL[featured.category] || featured.category;
     const dateLabel = formatDate(featured.date);
-    const featuredCard = `      <a href="/blog/${featured.slug}" class="featured-card reveal" data-cat="${featured.category}">
-        <div class="featured-visual">
+
+    // Thumbnail: show as background image on the visual panel if present
+    const visualStyle = featured.thumbnail
+      ? ` style="background:url('${featured.thumbnail}') center/cover no-repeat, var(--navy)"`
+      : '';
+
+    const featuredCard = `<a href="/blog/${featured.slug}" class="featured-card reveal" data-cat="${featured.category}">
+        <div class="featured-visual"${visualStyle}>
           <div class="featured-visual-grid"></div>
           <div class="featured-visual-glow"></div>
           <div class="featured-visual-label">01</div>
@@ -414,20 +428,27 @@ function updateBlogIndex(posts) {
         </div>
       </a>`;
 
+    // Replace everything between <section class="featured-section"> and </section>
     html = html.replace(
-      /(<section class="featured-section">[\s\S]*?<\/section>)/,
-      `<section class="featured-section">\n${featuredCard}\n  </section>`
+      /(<section class="featured-section">)([\s\S]*?)(<\/section>)/,
+      `$1\n    ${featuredCard}\n  $3`
     );
   }
 
-  // Grid cards (all posts except featured)
-  const gridPosts = posts.filter(p => p.slug !== (featured?.slug));
+  // 4. Grid cards (all posts except featured, sorted by date)
+  const featured_slug = featured?.slug;
+  const gridPosts = posts.filter(p => p.slug !== featured_slug);
+
   const gridCards = gridPosts.map((post, i) => {
     const catLabel  = CAT_LABEL[post.category] || post.category;
     const dateLabel = formatDate(post.date);
+    // Card visual: use thumbnail as background if present
+    const visualStyle = post.thumbnail
+      ? ` style="background:url('${post.thumbnail}') center/cover no-repeat, var(--navy)"`
+      : '';
     return `
       <a href="/blog/${post.slug}" class="art-card reveal rd${i+1}" data-cat="${post.category}">
-        <div class="art-card-visual">
+        <div class="art-card-visual"${visualStyle}>
           <div class="art-card-visual-grid"></div>
           <div class="art-card-visual-num">${String(i+2).padStart(2,'0')}</div>
           <div class="art-card-tag">${catLabel}</div>
@@ -443,14 +464,14 @@ function updateBlogIndex(posts) {
       </a>`;
   }).join('\n');
 
-  // Replace the articles-grid content
+  // Replace articles-grid content using id anchor
   html = html.replace(
-    /(<div class="articles-grid"[^>]*>)([\s\S]*?)(<\/div>\s*<\/section>)/,
-    `$1\n${gridCards}\n    </div>\n  </section>`
+    /(<div class="articles-grid"[^>]*id="articles-grid"[^>]*>)([\s\S]*?)(<\/div>\s*\n\s*<\/section>)/,
+    `$1\n${gridCards}\n\n    </div>\n  </section>`
   );
 
   writeFileSync(INDEX_FILE, html, 'utf8');
-  console.log(`✅ blog/index.html updated (${posts.length} posts)`);
+  console.log(`✅ blog/index.html updated — ${posts.length} posts, cursor removed, thumbnails injected`);
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
