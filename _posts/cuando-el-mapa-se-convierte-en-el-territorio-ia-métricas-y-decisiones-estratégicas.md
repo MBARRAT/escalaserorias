@@ -20,7 +20,7 @@ La trampa es esta: en algún momento, sin una decisión explícita, la organizac
 
 Con inteligencia artificial en el circuito, ese momento llega más rápido. Y sus consecuencias se escalan con la misma eficiencia con que el sistema escala todo lo demás.
 
----
+***
 
 ## La Ley que nadie menciona en el dashboard
 
@@ -34,7 +34,7 @@ En el mundo empresarial, esto ocurre constantemente. Una empresa mide la satisfa
 
 Nadie mintió. El sistema simplemente aprendió a optimizar lo que se mide, no lo que importa.
 
----
+***
 
 ## Aquí entra Maturana. Y cambia todo.
 
@@ -48,7 +48,7 @@ Aplicado a una organización: cuando el ciclo completo de definir métricas, rec
 
 Y la inteligencia artificial, lejos de romper ese circuito, lo perfecciona.
 
----
+***
 
 ## El circuito cerrado con IA adentro
 
@@ -62,7 +62,7 @@ El sistema no está siendo malicioso. Está siendo perfectamente autopoiético: 
 
 El resultado práctico: la empresa se vuelve extraordinariamente eficiente en el mercado que ya tiene, mientras pierde gradualmente la capacidad de percibir el mercado que viene.
 
----
+***
 
 ## Las métricas convenientes tienen algo en común
 
@@ -76,7 +76,7 @@ Las organizaciones no eligen métricas convenientes por deshonestidad. Las elige
 
 Esas preguntas no tienen respuesta en un dashboard. Requieren contacto con el exterior del sistema.
 
----
+***
 
 ## Tres señales de que tu organización está en clausura operacional
 
@@ -88,7 +88,7 @@ No son señales de crisis. Son señales de comodidad sistémica, que es más dif
 
 \*\*La IA recomienda y el equipo valida.\*\* Si el flujo habitual es que el modelo sugiere y los equipos buscan argumentos para sostener la sugerencia —en lugar de interrogarla— el sistema ya delegó el criterio. No en la tecnología. En la comodidad de no tener que defender una posición propia.
 
----
+***
 
 ## La perturbación que el sistema evitará por diseño
 
@@ -100,7 +100,7 @@ La perturbación necesaria es todo aquello que el sistema no puede generar desde
 
 La pregunta estratégica no es cómo mejorar las métricas. Es cómo institucionalizar las perturbaciones que el sistema, por su propia naturaleza, tenderá a evitar.
 
----
+***
 
 ## La pregunta que el sistema no puede hacerse a sí mismo
 
@@ -114,6 +114,6 @@ Porque si es lo segundo, la IA se encargará de optimizarlo con una eficiencia q
 
 Y esa es exactamente la naturaleza del problema.
 
----
+***
 
 \*Un sistema que solo puede verse a sí mismo no está midiendo la realidad. Está produciendo una versión de ella que confirma que todo está bien.\*
