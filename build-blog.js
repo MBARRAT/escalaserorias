@@ -55,8 +55,6 @@ const SHARED_CSS = `
     :root{--navy:#0D2B5E;--navy-d:#071428;--navy-m:#1a4fa0;--navy-l:#2563cc;--copper:#C8A96E;--copper-l:#E8C98E;--copper-d:#A07840;--ink:#1A2540;--ink2:#2D3A52;--muted:#6B7794;--bg:#F4F6FA;--bg2:#ECF0F8;--bg3:#E0E6F0;--white:#FFFFFF;--ff-d:'DM Serif Display',serif;--ff-s:'Cormorant Garamond',serif;--ff:'DM Sans',sans-serif}
     html{scroll-behavior:smooth}
     body{font-family:var(--ff);background:var(--bg);color:var(--ink);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    .cursor{position:fixed;width:8px;height:8px;background:var(--copper);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply}
-    .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(200,169,110,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .18s}
     nav{position:fixed;top:0;left:0;right:0;z-index:100;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 3.5rem;transition:background .4s,box-shadow .4s}
     nav.scrolled{background:rgba(244,246,250,.97);backdrop-filter:blur(24px);box-shadow:0 1px 0 rgba(13,43,94,.08)}
     .nlogo{display:flex;align-items:center;gap:10px;text-decoration:none}
@@ -177,14 +175,6 @@ const ARTICLE_CSS = `
 
 const SHARED_JS = `
 <script>
-const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ring.style.width='52px';ring.style.height='52px';ring.style.borderColor='rgba(200,169,110,.65)';});
-  el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(200,169,110,.4)';});
-});
 window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
 });
@@ -193,8 +183,6 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>`;
 
 const NAV_HTML = `
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
 <nav id="nav">
   <a href="/" class="nlogo"><div class="nmark"><svg viewBox="0 0 24 24"><polyline points="4 16 9 11 13 15 20 7"/></svg></div><span class="nword">Vō<span>ren</span></span></a>
   <div class="nlinks">
