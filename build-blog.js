@@ -525,15 +525,22 @@ function patchBlogIndex(posts) {
   if (!existsSync(INDEX_FILE)) return;
   let html = readFileSync(INDEX_FILE, 'utf8');
 
-  // A) Compact hero — reduce min-height from 90vh to 52vh
+  // A) Compact hero — center vertically, compensate for fixed nav
   html = html.replace(
-    '.hero{min-height:90vh;',
-    '.hero{min-height:52vh;'
+    '.hero{min-height:90vh;background:var(--navy-d);display:flex;flex-direction:column;justify-content:flex-end;padding:0;position:relative;overflow:hidden}',
+    '.hero{min-height:60vh;background:var(--navy-d);display:flex;flex-direction:column;justify-content:center;padding-top:70px;position:relative;overflow:hidden}'
   );
-  // Remove hero-sub paragraph (too much text for compact hero)
   html = html.replace(
-    /<p class="hero-sub">[\s\S]*?<\/p>/,
-    ''
+    '.hero-content{position:relative;z-index:2;padding:0 3.5rem 5rem;max-width:1240px;margin:0 auto;width:100%}',
+    '.hero-content{position:relative;z-index:2;padding:2rem 3.5rem 3rem;max-width:1240px;margin:0 auto;width:100%}'
+  );
+  html = html.replace(
+    '.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:2rem;',
+    '.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:1.25rem;'
+  );
+  html = html.replace(
+    '.hero-headline{font-family:var(--ff-d);color:#fff;line-height:1.05;letter-spacing:-.025em;margin-bottom:2rem}',
+    '.hero-headline{font-family:var(--ff-d);color:#fff;line-height:1.05;letter-spacing:-.025em;margin-bottom:0}'
   );
 
   // B) Card images — inject thumbnail as background on art-card-visual
