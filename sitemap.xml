@@ -1,38 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <!-- Home -->
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+
   <url>
     <loc>https://vorenconsultores.cl/</loc>
-    <lastmod>2025-03-28</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Blog index -->
+
   <url>
-    <loc>https://vorenconsultores.cl/blog</loc>
-    <lastmod>2025-03-28</lastmod>
+    <loc>https://vorenconsultores.cl/blog/</loc>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- Blog posts -->
-  <url>
-    <loc>https://vorenconsultores.cl/blog/adherencia-procesos</loc>
-    <lastmod>2024-12-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vorenconsultores.cl/blog/ia-vs-orden</loc>
-    <lastmod>2024-12-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vorenconsultores.cl/blog/importancia-documentar</loc>
-    <lastmod>2024-11-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+
 </urlset>
