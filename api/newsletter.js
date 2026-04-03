@@ -3,7 +3,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método no permitido' });
   }
 
-  // Vercel a veces no parsea el body automáticamente
   let body = req.body;
   if (typeof body === 'string') {
     try { body = JSON.parse(body); } catch { body = {}; }
@@ -31,7 +30,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Prefer': 'resolution=ignore-duplicates,return=minimal',
+        'Prefer': 'return=minimal',
       },
       body: JSON.stringify({
         email:           email.toLowerCase().trim(),
@@ -48,7 +47,12 @@ export default async function handler(req, res) {
     const text = await response.text();
     console.log('Supabase response:', response.status, text);
 
-    if (!response.ok && response.status !== 409) {
+    // 409 = email duplicado (unique constraint) = ya estaba suscrito = OK
+    if (response.status === 409) {
+      return res.status(200).json({ ok: true });
+    }
+
+    if (!response.ok) {
       return res.status(500).json({ error: 'Error al guardar', detail: text });
     }
 
