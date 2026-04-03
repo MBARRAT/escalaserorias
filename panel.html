@@ -208,6 +208,85 @@
     .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--copper);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;}
     @keyframes spin{to{transform:rotate(360deg)}}
     .loading{display:flex;align-items:center;justify-content:center;padding:4rem;color:var(--muted);font-size:.82rem;gap:.75rem;}
+
+    /* ── NEWSLETTER VIEW ── */
+    .nl-wrap{padding:2rem 2.5rem;}
+    .nl-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:1.75rem;}
+    .nl-tab{padding:.65rem 1.25rem;font-size:.78rem;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;user-select:none;}
+    .nl-tab:hover{color:var(--text);}
+    .nl-tab.active{color:var(--copper-l);border-bottom-color:var(--copper);}
+    .nl-panel{display:none;}.nl-panel.active{display:block;}
+    .nl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.75rem;}
+    .nl-stat{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem;position:relative;overflow:hidden;}
+    .nl-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+    .nl-stat.s-total::before{background:var(--blue-l);}
+    .nl-stat.s-active::before{background:var(--green);}
+    .nl-stat.s-sent::before{background:var(--copper);}
+    .nl-stat.s-open::before{background:#a78bfa;}
+    .nl-stat-n{font-family:var(--serif);font-size:1.8rem;color:var(--text);line-height:1;margin-bottom:.2rem;}
+    .nl-stat-l{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+    .nl-toolbar{display:flex;gap:.6rem;margin-bottom:1rem;align-items:center;flex-wrap:wrap;}
+    .nl-search{flex:1;min-width:180px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.5rem .85rem;font-size:.8rem;color:var(--text);font-family:var(--sans);outline:none;}
+    .nl-search:focus{border-color:var(--copper);}
+    .nl-search::placeholder{color:var(--muted2);}
+    .nl-sel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.5rem .75rem;font-size:.75rem;color:var(--muted);font-family:var(--sans);outline:none;cursor:pointer;}
+    .nl-sel option{background:var(--bg2);}
+    .nl-btn-sm{background:transparent;border:1px solid var(--border);border-radius:4px;padding:.5rem .9rem;font-size:.75rem;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .2s;display:flex;align-items:center;gap:.4rem;white-space:nowrap;}
+    .nl-btn-sm:hover{border-color:var(--border2);color:var(--text);}
+    .nl-btn-sm svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+    .nl-btn-primary{background:var(--copper);color:#0A1628;border:none;border-radius:4px;padding:.5rem 1.1rem;font-size:.75rem;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s;letter-spacing:.04em;display:flex;align-items:center;gap:.4rem;}
+    .nl-btn-primary:hover{background:var(--copper-l);}
+    .nl-btn-primary:disabled{opacity:.5;cursor:not-allowed;}
+    .nl-btn-primary svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+    .nl-count{font-size:.72rem;color:var(--muted);margin-left:auto;}
+    .nl-table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+    .comp-grid{display:grid;grid-template-columns:1fr 420px;gap:1.5rem;align-items:start;}
+    .comp-form{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.5rem;display:flex;flex-direction:column;gap:1.1rem;}
+    .comp-field label{display:block;font-size:.63rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+    .comp-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.65rem .85rem;font-size:.82rem;color:var(--text);font-family:var(--sans);outline:none;transition:border-color .2s;}
+    .comp-input:focus{border-color:var(--copper);}
+    .comp-input::placeholder{color:var(--muted2);}
+    .comp-textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.75rem .85rem;font-size:.82rem;color:var(--text);font-family:var(--sans);outline:none;resize:vertical;min-height:280px;line-height:1.65;transition:border-color .2s;}
+    .comp-textarea:focus{border-color:var(--copper);}
+    .comp-seg{display:flex;flex-direction:column;gap:.4rem;}
+    .comp-seg-opt{display:flex;align-items:center;gap:.65rem;padding:.5rem .75rem;border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:border-color .2s,background .2s;}
+    .comp-seg-opt:hover{border-color:var(--border2);background:rgba(255,255,255,.02);}
+    .comp-seg-opt.selected{border-color:var(--copper);background:rgba(200,160,85,.06);}
+    .comp-seg-opt input[type=radio]{accent-color:var(--copper);}
+    .comp-seg-label{font-size:.8rem;color:var(--text);}
+    .comp-seg-count{margin-left:auto;font-size:.68rem;color:var(--muted);background:var(--bg3);padding:.15rem .5rem;border-radius:10px;}
+    .comp-actions{display:flex;gap:.75rem;align-items:center;padding-top:.5rem;border-top:1px solid var(--border);}
+    .comp-status{font-size:.75rem;color:var(--muted);flex:1;}
+    .comp-status.ok{color:#86efac;}
+    .comp-status.err{color:#fca5a5;}
+    .preview-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;position:sticky;top:1.5rem;}
+    .preview-head{padding:.85rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .preview-label{font-size:.63rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+    .preview-toggle{display:flex;gap:.3rem;}
+    .ptog{background:transparent;border:1px solid var(--border);border-radius:3px;padding:.25rem .55rem;font-size:.65rem;color:var(--muted);cursor:pointer;transition:all .15s;}
+    .ptog.on{border-color:var(--copper);color:var(--copper-l);background:rgba(200,160,85,.08);}
+    .preview-frame{width:100%;height:520px;border:none;background:#fff;}
+    .hist-empty{padding:3rem;text-align:center;color:var(--muted);font-size:.82rem;}
+    .hist-row{display:grid;grid-template-columns:1fr auto auto auto;gap:1rem;align-items:center;padding:.9rem 1.25rem;border-bottom:1px solid var(--border);transition:background .15s;}
+    .hist-row:last-child{border-bottom:none;}
+    .hist-row:hover{background:rgba(255,255,255,.02);}
+    .hist-subject{font-size:.82rem;color:var(--text);margin-bottom:.2rem;}
+    .hist-meta{font-size:.68rem;color:var(--muted);}
+    .hist-n{font-family:var(--serif);font-size:1.1rem;color:var(--text);text-align:right;}
+    .hist-nl{font-size:.62rem;color:var(--muted);text-align:right;}
+    .seg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+    .seg-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem;}
+    .seg-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem;}
+    .seg-name{font-size:.85rem;font-weight:500;color:var(--text);}
+    .seg-count-badge{background:rgba(200,160,85,.12);color:var(--copper-l);border-radius:10px;padding:.15rem .55rem;font-size:.68rem;font-weight:500;}
+    .seg-rows{display:flex;flex-direction:column;gap:.3rem;}
+    .seg-row{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;}
+    .seg-row-label{color:var(--muted);}
+    .seg-row-val{color:var(--text);}
+    .seg-bar-wrap{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:.65rem;overflow:hidden;}
+    .seg-bar-fill{height:100%;border-radius:2px;background:var(--copper);transition:width .4s;}
+    @media(max-width:1200px){.comp-grid{grid-template-columns:1fr;}.preview-wrap{position:static;}}
+    @media(max-width:900px){.nl-stats{grid-template-columns:repeat(2,1fr);}.seg-grid{grid-template-columns:1fr 1fr;}}
   </style>
 </head>
 <body>
@@ -253,6 +332,11 @@
       <div class="sb-link" id="nav-admin" onclick="setView('admin')">
         <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         Blog admin
+      </div>
+      <div class="sb-link" id="nav-newsletter" onclick="setView('newsletter')">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Newsletter
+        <span class="sb-badge" id="sb-badge-nl">—</span>
       </div>
       <div class="sb-divider"></div>
       <div class="sb-ext" onclick="window.open('/','_blank')">
@@ -356,6 +440,151 @@
     </div>
 
     <!-- ADMIN (iframe — funciona porque el usuario ya está logueado en Sveltia con GitHub) -->
+    <!-- NEWSLETTER -->
+    <div class="view" id="view-newsletter">
+      <div class="nl-wrap">
+        <div class="topbar">
+          <div class="topbar-title">Newsletter</div>
+          <button class="nl-btn-primary" onclick="nlSetTab('compositor')">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nueva campaña
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="nl-stats">
+          <div class="nl-stat s-total"><div class="nl-stat-n" id="nl-s-total">—</div><div class="nl-stat-l">Suscriptores</div></div>
+          <div class="nl-stat s-active"><div class="nl-stat-n" id="nl-s-active">—</div><div class="nl-stat-l">Activos</div></div>
+          <div class="nl-stat s-sent"><div class="nl-stat-n" id="nl-s-sent">—</div><div class="nl-stat-l">Envíos totales</div></div>
+          <div class="nl-stat s-open"><div class="nl-stat-n" id="nl-s-open">—%</div><div class="nl-stat-l">Tasa apertura avg</div></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="nl-tabs">
+          <div class="nl-tab active" id="nltab-suscriptores" onclick="nlSetTab('suscriptores')">Suscriptores</div>
+          <div class="nl-tab" id="nltab-compositor" onclick="nlSetTab('compositor')">Compositor</div>
+          <div class="nl-tab" id="nltab-historial" onclick="nlSetTab('historial')">Historial</div>
+          <div class="nl-tab" id="nltab-segmentos" onclick="nlSetTab('segmentos')">Segmentos</div>
+        </div>
+
+        <!-- Panel: Suscriptores -->
+        <div class="nl-panel active" id="nlpanel-suscriptores">
+          <div class="nl-toolbar">
+            <input class="nl-search" type="text" id="nl-search" placeholder="Buscar por email o nombre..." oninput="nlFiltrar()"/>
+            <select class="nl-sel" id="nl-fil-fuente" onchange="nlFiltrar()">
+              <option value="">Todas las fuentes</option>
+              <option value="blog">Blog</option>
+              <option value="home">Home</option>
+              <option value="newsletter">Newsletter</option>
+              <option value="manual">Manual</option>
+            </select>
+            <select class="nl-sel" id="nl-fil-estado" onchange="nlFiltrar()">
+              <option value="">Todos los estados</option>
+              <option value="activo">Activos</option>
+              <option value="baja">Dados de baja</option>
+            </select>
+            <button class="nl-btn-sm" onclick="nlCargar()">
+              <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Actualizar
+            </button>
+            <button class="nl-btn-sm" onclick="nlExportCSV()">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exportar CSV
+            </button>
+            <span class="nl-count" id="nl-count">— suscriptores</span>
+          </div>
+          <div class="nl-table-wrap">
+            <table id="nl-table"><thead><tr>
+              <th>Email</th><th>Nombre</th><th>Fuente</th><th>Artículo origen</th><th>Estado</th><th>Fecha</th>
+            </tr></thead>
+            <tbody id="nl-tbody"><tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--muted)">Cargando...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Panel: Compositor -->
+        <div class="nl-panel" id="nlpanel-compositor">
+          <div class="comp-grid">
+            <div class="comp-form">
+              <div class="comp-field">
+                <label>Asunto del email</label>
+                <input class="comp-input" type="text" id="comp-asunto" placeholder="Ej: Perspectiva de abril — Vōren"/>
+              </div>
+              <div class="comp-field">
+                <label>Nombre del remitente</label>
+                <input class="comp-input" type="text" id="comp-from-name" value="Vōren Perspectivas"/>
+              </div>
+              <div class="comp-field">
+                <label>Segmento destinatario</label>
+                <div class="comp-seg" id="comp-seg">
+                  <label class="comp-seg-opt selected">
+                    <input type="radio" name="segmento" value="todos" checked onchange="nlUpdateSeg(this)"/>
+                    <span class="comp-seg-label">Todos los suscriptores</span>
+                    <span class="comp-seg-count" id="cseg-todos">—</span>
+                  </label>
+                  <label class="comp-seg-opt">
+                    <input type="radio" name="segmento" value="blog" onchange="nlUpdateSeg(this)"/>
+                    <span class="comp-seg-label">Suscriptores desde blog</span>
+                    <span class="comp-seg-count" id="cseg-blog">—</span>
+                  </label>
+                  <label class="comp-seg-opt">
+                    <input type="radio" name="segmento" value="home" onchange="nlUpdateSeg(this)"/>
+                    <span class="comp-seg-label">Suscriptores desde home</span>
+                    <span class="comp-seg-count" id="cseg-home">—</span>
+                  </label>
+                </div>
+              </div>
+              <div class="comp-field">
+                <label>Contenido (HTML o texto plano)</label>
+                <textarea class="comp-textarea" id="comp-body" placeholder="Escribe el contenido del email aquí. Puedes usar HTML básico o texto plano.&#10;&#10;Ejemplo:&#10;&lt;h2&gt;Perspectiva de esta semana&lt;/h2&gt;&#10;&lt;p&gt;Esta semana exploramos...&lt;/p&gt;" oninput="nlUpdatePreview()"></textarea>
+              </div>
+              <div class="comp-actions">
+                <button class="nl-btn-sm" onclick="nlUpdatePreview()">
+                  <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Actualizar preview
+                </button>
+                <button class="nl-btn-sm" onclick="nlEnviarPrueba()">
+                  <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+                  Enviar prueba
+                </button>
+                <button class="nl-btn-primary" id="comp-send-btn" onclick="nlEnviarCampana()">
+                  <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+                  Enviar campaña
+                </button>
+                <span class="comp-status" id="comp-status"></span>
+              </div>
+            </div>
+            <!-- Preview -->
+            <div class="preview-wrap">
+              <div class="preview-head">
+                <span class="preview-label">Preview del email</span>
+                <div class="preview-toggle">
+                  <button class="ptog on" id="ptog-desktop" onclick="nlTogglePreview('desktop')">Desktop</button>
+                  <button class="ptog" id="ptog-mobile" onclick="nlTogglePreview('mobile')">Mobile</button>
+                </div>
+              </div>
+              <iframe id="preview-frame" class="preview-frame" sandbox="allow-same-origin"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel: Historial -->
+        <div class="nl-panel" id="nlpanel-historial">
+          <div class="nl-table-wrap" id="nl-hist-wrap">
+            <div class="hist-empty" id="nl-hist-empty">Cargando historial...</div>
+          </div>
+        </div>
+
+        <!-- Panel: Segmentos -->
+        <div class="nl-panel" id="nlpanel-segmentos">
+          <div class="seg-grid" id="nl-seg-grid">
+            <div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--muted);font-size:.82rem">Cargando segmentos...</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <div class="admin-view" id="view-admin">
       <div class="iframe-bar">
         <span class="iframe-title">Blog admin · Sveltia CMS</span>
@@ -389,6 +618,9 @@ let leadActual = null;
 let vistaActual = 'home';
 let filtroCal = null;
 let adminCargado = false;
+let nlCargado = false;
+let todosSuscriptores = [];
+let historialEnvios = [];
 
 // ── AUTH ────────────────────────────────────────────────
 function loginGitHub() {
@@ -440,6 +672,10 @@ function setView(id, cal) {
     document.getElementById('view-admin').classList.add('active');
     document.getElementById('nav-admin').classList.add('active');
     if (!adminCargado) { document.getElementById('admin-frame').src = '/admin'; adminCargado = true; }
+  } else if (id === 'newsletter') {
+    document.getElementById('view-newsletter').classList.add('active');
+    document.getElementById('nav-newsletter').classList.add('active');
+    if (!nlCargado) { nlCargar(); nlCargarHistorial(); nlCargado = true; }
   } else if (id === 'crm') {
     document.getElementById('view-crm').classList.add('active');
     document.getElementById(cal === 'calificado' ? 'nav-crm-cal' : 'nav-crm').classList.add('active');
@@ -643,6 +879,246 @@ async function guardarLead() {
     setTimeout(() => document.getElementById('dp-saved').classList.remove('show'), 2500);
   } catch { alert('Error al guardar.'); }
   finally { btn.disabled = false; btn.textContent = 'Guardar cambios'; }
+}
+
+// ── NEWSLETTER ──────────────────────────────────────────
+
+function nlSetTab(tab) {
+  document.querySelectorAll('.nl-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nl-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('nltab-' + tab).classList.add('active');
+  document.getElementById('nlpanel-' + tab).classList.add('active');
+  if (tab === 'segmentos' && todosSuscriptores.length) nlRenderSegmentos();
+}
+
+async function nlCargar() {
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/suscriptores?select=*&order=created_at.desc`, { headers: sbH() });
+    if (!res.ok) throw new Error();
+    todosSuscriptores = await res.json();
+    nlActualizarStats();
+    nlFiltrar();
+    nlRenderSegmentos();
+    // Update composer counts
+    document.getElementById('cseg-todos').textContent = todosSuscriptores.filter(s=>s.activo!==false).length;
+    document.getElementById('cseg-blog').textContent = todosSuscriptores.filter(s=>s.fuente==='blog'&&s.activo!==false).length;
+    document.getElementById('cseg-home').textContent = todosSuscriptores.filter(s=>s.fuente==='home'&&s.activo!==false).length;
+    document.getElementById('sb-badge-nl').textContent = todosSuscriptores.filter(s=>s.activo!==false).length;
+  } catch(e) {
+    document.getElementById('nl-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#fca5a5">Error al cargar suscriptores. Verifica permisos RLS.</td></tr>';
+  }
+}
+
+function nlActualizarStats() {
+  const activos = todosSuscriptores.filter(s => s.activo !== false).length;
+  document.getElementById('nl-s-total').textContent = todosSuscriptores.length;
+  document.getElementById('nl-s-active').textContent = activos;
+  if (!historialEnvios.length) return;
+  document.getElementById('nl-s-sent').textContent = historialEnvios.length;
+  const avgOpen = historialEnvios.filter(h=>h.tasa_apertura).reduce((a,h)=>a+h.tasa_apertura,0) / historialEnvios.filter(h=>h.tasa_apertura).length;
+  document.getElementById('nl-s-open').textContent = isNaN(avgOpen) ? '—%' : avgOpen.toFixed(1) + '%';
+}
+
+function nlFiltrar() {
+  const q = (document.getElementById('nl-search')?.value||'').toLowerCase();
+  const fuente = document.getElementById('nl-fil-fuente')?.value || '';
+  const estado = document.getElementById('nl-fil-estado')?.value || '';
+  let lista = [...todosSuscriptores];
+  if (q) lista = lista.filter(s => (s.email||'').toLowerCase().includes(q) || (s.nombre||'').toLowerCase().includes(q));
+  if (fuente) lista = lista.filter(s => s.fuente === fuente);
+  if (estado === 'activo') lista = lista.filter(s => s.activo !== false);
+  if (estado === 'baja') lista = lista.filter(s => s.activo === false);
+  document.getElementById('nl-count').textContent = lista.length + ' suscriptores';
+  const fmtD = d => d ? new Date(d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'2-digit'}) : '—';
+  document.getElementById('nl-tbody').innerHTML = lista.length
+    ? lista.map(s => `<tr>
+        <td style="font-size:.8rem">${s.email||'—'}</td>
+        <td style="font-size:.78rem;color:var(--muted)">${s.nombre||'—'}</td>
+        <td><span class="badge b-nuevo" style="font-size:.62rem">${s.fuente||'—'}</span></td>
+        <td style="font-size:.72rem;color:var(--muted)">${s.articulo_origen ? s.articulo_origen.replace('blog/','') : '—'}</td>
+        <td><span class="badge ${s.activo===false?'b-descartado':'b-cal'}" style="font-size:.62rem">${s.activo===false?'Baja':'Activo'}</span></td>
+        <td style="font-size:.72rem;color:var(--muted2)">${fmtD(s.created_at)}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="6" style="text-align:center;padding:2.5rem;color:var(--muted)">Sin resultados</td></tr>';
+}
+
+function nlExportCSV() {
+  if (!todosSuscriptores.length) return;
+  const headers = ['email','nombre','fuente','articulo_origen','activo','created_at'];
+  const rows = todosSuscriptores.map(s => headers.map(h => JSON.stringify(s[h]||'')).join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'suscriptores-voren-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+}
+
+function nlRenderSegmentos() {
+  const total = todosSuscriptores.filter(s=>s.activo!==false).length || 1;
+  const byFuente = {};
+  const byArticulo = {};
+  todosSuscriptores.filter(s=>s.activo!==false).forEach(s => {
+    const f = s.fuente || 'directo';
+    byFuente[f] = (byFuente[f]||0) + 1;
+    if (s.articulo_origen) {
+      const a = s.articulo_origen.replace(/.*blog\//, '').replace(/\/.*/, '');
+      byArticulo[a] = (byArticulo[a]||0) + 1;
+    }
+  });
+  const byMes = {};
+  todosSuscriptores.forEach(s => {
+    const m = new Date(s.created_at).toLocaleDateString('es-CL',{month:'short',year:'numeric'});
+    byMes[m] = (byMes[m]||0) + 1;
+  });
+  const mkCard = (title, data, maxVal) => {
+    const rows = Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,6);
+    const max = maxVal || Math.max(...rows.map(r=>r[1]));
+    return `<div class="seg-card">
+      <div class="seg-card-head"><span class="seg-name">${title}</span><span class="seg-count-badge">${rows.reduce((a,r)=>a+r[1],0)}</span></div>
+      <div class="seg-rows">${rows.map(([k,v])=>`
+        <div class="seg-row"><span class="seg-row-label">${k}</span><span class="seg-row-val">${v}</span></div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:${Math.round(v/max*100)}%"></div></div>`).join('')}
+      </div>
+    </div>`;
+  };
+  document.getElementById('nl-seg-grid').innerHTML =
+    mkCard('Por fuente', byFuente) +
+    mkCard('Por artículo', Object.keys(byArticulo).length ? byArticulo : {'Sin artículo origen': todosSuscriptores.filter(s=>s.activo!==false).length}) +
+    mkCard('Crecimiento mensual', byMes);
+}
+
+async function nlCargarHistorial() {
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/envios_newsletter?select=*&order=created_at.desc&limit=50`, { headers: sbH() });
+    if (!res.ok) throw new Error('no_table');
+    historialEnvios = await res.json();
+    nlActualizarStats();
+    const fmtD = d => new Date(d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'2-digit'});
+    const wrap = document.getElementById('nl-hist-wrap');
+    if (!historialEnvios.length) {
+      wrap.innerHTML = '<div class="hist-empty">Aún no hay envíos registrados.</div>';
+      return;
+    }
+    wrap.innerHTML = historialEnvios.map(h => `
+      <div class="hist-row">
+        <div><div class="hist-subject">${h.asunto||'Sin asunto'}</div><div class="hist-meta">${fmtD(h.created_at)} · Segmento: ${h.segmento||'todos'}</div></div>
+        <div><div class="hist-n">${h.enviados||'—'}</div><div class="hist-nl">enviados</div></div>
+        <div><div class="hist-n">${h.tasa_apertura ? h.tasa_apertura + '%' : '—'}</div><div class="hist-nl">apertura</div></div>
+        <span class="badge ${h.estado==='enviado'?'b-cal':'b-pot'}" style="font-size:.65rem">${h.estado||'—'}</span>
+      </div>`).join('');
+  } catch {
+    document.getElementById('nl-hist-wrap').innerHTML = '<div class="hist-empty" style="color:var(--muted2)">Tabla <code>envios_newsletter</code> no encontrada.<br>Créala en Supabase para registrar el historial.</div>';
+  }
+}
+
+function nlUpdatePreview() {
+  const asunto = document.getElementById('comp-asunto').value || '(Sin asunto)';
+  const body = document.getElementById('comp-body').value || '';
+  const isHtml = body.trim().startsWith('<');
+  const content = isHtml ? body : body.split('\n').map(l => l ? `<p>${l}</p>` : '<br>').join('');
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <style>
+    body{font-family:'DM Sans',Arial,sans-serif;background:#f4f6fa;margin:0;padding:24px;}
+    .wrap{max-width:600px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+    .header{background:#071428;padding:28px 36px;border-bottom:3px solid #C8A055;}
+    .brand{font-family:Georgia,serif;font-size:1.3rem;color:#fff;letter-spacing:.02em;}
+    .brand span{color:#C8A055;}
+    .subject{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.3rem;letter-spacing:.04em;}
+    .body{padding:36px;color:#1A2540;font-size:.92rem;line-height:1.85;}
+    .body h2{font-family:Georgia,serif;font-size:1.3rem;color:#0D2B5E;margin:1.5rem 0 .75rem;}
+    .body p{margin-bottom:1rem;}
+    .body a{color:#1557B0;}
+    .footer{background:#0A0F1A;padding:20px 36px;text-align:center;}
+    .footer p{font-size:.7rem;color:rgba(255,255,255,.25);margin:.2rem 0;}
+    .footer a{color:rgba(200,160,85,.6);}
+    .cta-wrap{padding:0 36px 28px;text-align:center;}
+    .cta{display:inline-block;background:#C8A055;color:#071428;padding:.75rem 2rem;border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;}
+  </style></head><body>
+  <div class="wrap">
+    <div class="header">
+      <div class="brand">V&#x14D;<span>ren</span></div>
+      <div class="subject">${asunto}</div>
+    </div>
+    <div class="body">${content}</div>
+    <div class="cta-wrap"><a href="https://vorenconsultores.cl" class="cta">Ver en el sitio →</a></div>
+    <div class="footer">
+      <p>Vōren Perspectivas · Santiago, Chile</p>
+      <p>Recibiste este email porque te suscribiste en <a href="https://vorenconsultores.cl">vorenconsultores.cl</a></p>
+      <p><a href="#">Cancelar suscripción</a></p>
+    </div>
+  </div></body></html>`;
+  const frame = document.getElementById('preview-frame');
+  const doc = frame.contentDocument || frame.contentWindow.document;
+  doc.open(); doc.write(html); doc.close();
+}
+
+function nlTogglePreview(mode) {
+  const frame = document.getElementById('preview-frame');
+  document.getElementById('ptog-desktop').classList.toggle('on', mode === 'desktop');
+  document.getElementById('ptog-mobile').classList.toggle('on', mode === 'mobile');
+  frame.style.width = mode === 'mobile' ? '375px' : '100%';
+  frame.style.margin = mode === 'mobile' ? '0 auto' : '0';
+  frame.parentElement.style.display = 'flex';
+  frame.parentElement.style.justifyContent = mode === 'mobile' ? 'center' : 'stretch';
+}
+
+function nlUpdateSeg(radio) {
+  document.querySelectorAll('.comp-seg-opt').forEach(o => o.classList.remove('selected'));
+  radio.closest('.comp-seg-opt').classList.add('selected');
+}
+
+async function nlEnviarPrueba() {
+  const asunto = document.getElementById('comp-asunto').value.trim();
+  const body = document.getElementById('comp-body').value.trim();
+  if (!asunto || !body) { nlStatus('Completa asunto y contenido primero.', 'err'); return; }
+  const email = prompt('Email para la prueba:', SESSION?.user?.email || '');
+  if (!email) return;
+  nlStatus('Enviando prueba...', '');
+  try {
+    const res = await fetch('/api/send-newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SESSION.token}` },
+      body: JSON.stringify({ asunto, body, prueba: true, email_prueba: email, from_name: document.getElementById('comp-from-name').value })
+    });
+    const data = await res.json();
+    if (data.ok) nlStatus(`✓ Prueba enviada a ${email}`, 'ok');
+    else nlStatus(data.error || 'Error al enviar', 'err');
+  } catch { nlStatus('Error de conexión', 'err'); }
+}
+
+async function nlEnviarCampana() {
+  const asunto = document.getElementById('comp-asunto').value.trim();
+  const body = document.getElementById('comp-body').value.trim();
+  const segmento = document.querySelector('input[name="segmento"]:checked')?.value || 'todos';
+  const countEl = document.getElementById('cseg-' + segmento);
+  const count = countEl ? parseInt(countEl.textContent) || 0 : 0;
+  if (!asunto || !body) { nlStatus('Completa asunto y contenido antes de enviar.', 'err'); return; }
+  if (!confirm(`¿Enviar "${asunto}" a ${count} suscriptores (${segmento})?`)) return;
+  const btn = document.getElementById('comp-send-btn');
+  btn.disabled = true; btn.textContent = 'Enviando...';
+  nlStatus('Procesando envío...', '');
+  try {
+    const res = await fetch('/api/send-newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SESSION.token}` },
+      body: JSON.stringify({ asunto, body, segmento, from_name: document.getElementById('comp-from-name').value })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      nlStatus(`✓ Campaña enviada a ${data.enviados} suscriptores`, 'ok');
+      nlCargarHistorial();
+      nlActualizarStats();
+    } else {
+      nlStatus(data.error || 'Error al enviar campaña', 'err');
+    }
+  } catch { nlStatus('Error de conexión con el servidor', 'err'); }
+  finally { btn.disabled = false; btn.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Enviar campaña'; }
+}
+
+function nlStatus(msg, type) {
+  const el = document.getElementById('comp-status');
+  el.textContent = msg;
+  el.className = 'comp-status' + (type ? ' ' + type : '');
 }
 
 // ── INIT ─────────────────────────────────────────────────
