@@ -478,7 +478,7 @@
       <div class="nl-wrap">
         <div class="topbar">
           <div class="topbar-title">Newsletter</div>
-          <button class="nl-btn-primary" onclick="nlSetTab('compositor')">
+          <button class="nl-btn-primary" onclick="nlNuevaCampana()">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Nueva campaña
           </button>
@@ -579,6 +579,10 @@
                 <button class="nl-btn-sm" onclick="nlEnviarPrueba()">
                   <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
                   Enviar prueba
+                </button>
+                <button class="nl-btn-sm" id="comp-save-btn" onclick="nlGuardarBorrador()">
+                  <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  Guardar borrador
                 </button>
                 <button class="nl-btn-primary" id="comp-send-btn" onclick="nlEnviarCampana()">
                   <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
@@ -1021,27 +1025,70 @@ function nlRenderSegmentos() {
 }
 
 async function nlCargarHistorial() {
+  const wrap = document.getElementById('nl-hist-wrap');
+  const fmtD = d => new Date(d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'2-digit'});
+
+  // Cargar borradores y envíos en paralelo
+  let borradores = [], envios = [];
   try {
-    const res = await fetch(`${SB_URL}/rest/v1/envios_newsletter?select=*&order=created_at.desc&limit=50`, { headers: sbH() });
-    if (!res.ok) throw new Error('no_table');
-    historialEnvios = await res.json();
-    nlActualizarStats();
-    const fmtD = d => new Date(d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'2-digit'});
-    const wrap = document.getElementById('nl-hist-wrap');
-    if (!historialEnvios.length) {
-      wrap.innerHTML = '<div class="hist-empty">Aún no hay envíos registrados.</div>';
-      return;
-    }
-    wrap.innerHTML = historialEnvios.map(h => `
-      <div class="hist-row">
-        <div><div class="hist-subject">${h.asunto||'Sin asunto'}</div><div class="hist-meta">${fmtD(h.created_at)} · Segmento: ${h.segmento||'todos'}</div></div>
-        <div><div class="hist-n">${h.enviados||'—'}</div><div class="hist-nl">enviados</div></div>
-        <div><div class="hist-n">${h.tasa_apertura ? h.tasa_apertura + '%' : '—'}</div><div class="hist-nl">apertura</div></div>
-        <span class="badge ${h.estado==='enviado'?'b-cal':'b-pot'}" style="font-size:.65rem">${h.estado||'—'}</span>
-      </div>`).join('');
-  } catch {
-    document.getElementById('nl-hist-wrap').innerHTML = '<div class="hist-empty" style="color:var(--muted2)">Tabla <code>envios_newsletter</code> no encontrada.<br>Créala en Supabase para registrar el historial.</div>';
+    const [bRes, eRes] = await Promise.all([
+      fetch(`${SB_URL}/rest/v1/campanas_newsletter?select=*&order=updated_at.desc`, { headers: sbH() }),
+      fetch(`${SB_URL}/rest/v1/envios_newsletter?select=*&order=created_at.desc&limit=50`, { headers: sbH() })
+    ]);
+    if (bRes.ok) borradores = await bRes.json();
+    if (eRes.ok) { envios = await eRes.json(); historialEnvios = envios; nlActualizarStats(); }
+  } catch(e) {
+    console.error('Error cargando historial:', e);
   }
+
+  if (!borradores.length && !envios.length) {
+    wrap.innerHTML = '<div class="hist-empty">Aún no hay campañas ni envíos registrados.</div>';
+    return;
+  }
+
+  let html = '';
+
+  // Borradores primero
+  const drafts = borradores.filter(b => b.estado === 'borrador');
+  if (drafts.length) {
+    html += `<div style="padding:.75rem 1.25rem;font-size:.63rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);background:var(--bg3)">Borradores</div>`;
+    html += drafts.map(b => `
+      <div class="hist-row" style="grid-template-columns:1fr auto auto auto auto">
+        <div>
+          <div class="hist-subject">${b.asunto||'Sin asunto'}</div>
+          <div class="hist-meta">Guardado ${fmtD(b.updated_at)} · Segmento: ${b.segmento||'todos'}</div>
+        </div>
+        <span class="badge b-pot" style="font-size:.65rem">Borrador</span>
+        <button class="nl-btn-sm" onclick="nlCargarBorrador('${b.id}')" style="padding:.3rem .7rem;font-size:.68rem">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Editar
+        </button>
+        <button class="nl-btn-primary" onclick="nlEnviarDesdeBorrador('${b.id}')" style="padding:.3rem .7rem;font-size:.68rem">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          Enviar
+        </button>
+        <button onclick="nlEliminarBorrador('${b.id}')" style="background:transparent;border:1px solid var(--border);border-radius:4px;padding:.3rem .5rem;cursor:pointer;color:var(--muted);font-size:.7rem;transition:all .2s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>
+      </div>`).join('');
+  }
+
+  // Enviados
+  const enviados_campanas = borradores.filter(b => b.estado === 'enviado');
+  const todasEnviadas = [...enviados_campanas, ...envios].sort((a,b) => new Date(b.created_at||b.enviado_at) - new Date(a.created_at||a.enviado_at));
+
+  if (todasEnviadas.length) {
+    html += `<div style="padding:.75rem 1.25rem;font-size:.63rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);background:var(--bg3)">Enviadas</div>`;
+    html += todasEnviadas.map(h => `
+      <div class="hist-row">
+        <div><div class="hist-subject">${h.asunto||'Sin asunto'}</div><div class="hist-meta">${fmtD(h.created_at||h.enviado_at)} · Segmento: ${h.segmento||'todos'}</div></div>
+        <div><div class="hist-n">${h.enviados||'—'}</div><div class="hist-nl">enviados</div></div>
+        <div><div class="hist-n">${h.tasa_apertura ? h.tasa_apertura+'%' : '—'}</div><div class="hist-nl">apertura</div></div>
+        <span class="badge b-cal" style="font-size:.65rem">Enviada</span>
+      </div>`).join('');
+  }
+
+  wrap.innerHTML = html || '<div class="hist-empty">Sin registros aún.</div>';
 }
 
 function nlUpdatePreview() {
@@ -1139,6 +1186,15 @@ async function nlEnviarCampana() {
     const data = await res.json();
     if (data.ok) {
       nlStatus(`✓ Campaña enviada a ${data.enviados} suscriptores`, 'ok');
+      // Si venía de un borrador, marcarlo como enviado
+      if (borrador_id_actual) {
+        await fetch(`${SB_URL}/rest/v1/campanas_newsletter?id=eq.${borrador_id_actual}`, {
+          method: 'PATCH',
+          headers: { ...sbH(), 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+          body: JSON.stringify({ estado: 'enviado', enviados: data.enviados, errores: data.errores, enviado_at: new Date().toISOString() })
+        });
+        borrador_id_actual = null;
+      }
       nlCargarHistorial();
       nlActualizarStats();
     } else {
@@ -1154,6 +1210,126 @@ function nlStatus(msg, type) {
   el.className = 'comp-status' + (type ? ' ' + type : '');
 }
 
+
+
+
+function nlNuevaCampana() {
+  // Limpiar compositor y resetear borrador
+  document.getElementById('comp-asunto').value = '';
+  document.getElementById('comp-body').value = '';
+  document.getElementById('comp-from-name').value = 'Vōren Perspectivas';
+  const radio = document.querySelector('input[name="segmento"][value="todos"]');
+  if (radio) { radio.checked = true; nlUpdateSeg(radio); }
+  borrador_id_actual = null;
+  nlStatus('', '');
+  nlSetTab('compositor');
+  // Reset preview
+  const frame = document.getElementById('preview-frame');
+  if (frame) { const doc = frame.contentDocument || frame.contentWindow.document; doc.open(); doc.write(''); doc.close(); }
+}
+
+// ── BORRADORES ──────────────────────────────────────────
+
+let borrador_id_actual = null;
+
+async function nlGuardarBorrador() {
+  const asunto  = document.getElementById('comp-asunto').value.trim();
+  const body    = document.getElementById('comp-body').value.trim();
+  const segmento = document.querySelector('input[name="segmento"]:checked')?.value || 'todos';
+  const from_name = document.getElementById('comp-from-name').value;
+
+  if (!asunto) { nlStatus('Agrega un asunto antes de guardar.', 'err'); return; }
+
+  const btn = document.getElementById('comp-save-btn');
+  btn.disabled = true;
+  nlStatus('Guardando...', '');
+
+  const payload = {
+    asunto,
+    contenido: body,
+    segmento,
+    from_name,
+    estado: 'borrador',
+    updated_at: new Date().toISOString(),
+  };
+
+  try {
+    let res;
+    if (borrador_id_actual) {
+      // Actualizar borrador existente
+      res = await fetch(`${SB_URL}/rest/v1/campanas_newsletter?id=eq.${borrador_id_actual}`, {
+        method: 'PATCH',
+        headers: { ...sbH(), 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify(payload)
+      });
+    } else {
+      // Crear nuevo borrador
+      res = await fetch(`${SB_URL}/rest/v1/campanas_newsletter`, {
+        method: 'POST',
+        headers: { ...sbH(), 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+        body: JSON.stringify({ ...payload, created_at: new Date().toISOString() })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        borrador_id_actual = data[0]?.id || null;
+      }
+    }
+    if (!res.ok) throw new Error(await res.text());
+    nlStatus('✓ Borrador guardado', 'ok');
+    nlCargarHistorial();
+  } catch(e) {
+    nlStatus('Error al guardar: ' + e.message, 'err');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function nlCargarBorrador(id) {
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/campanas_newsletter?id=eq.${id}&select=*`, { headers: sbH() });
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    const b = data[0];
+    if (!b) return;
+
+    // Cargar datos en el compositor
+    document.getElementById('comp-asunto').value = b.asunto || '';
+    document.getElementById('comp-body').value = b.contenido || '';
+    document.getElementById('comp-from-name').value = b.from_name || 'Vōren Perspectivas';
+
+    // Seleccionar segmento correcto
+    const radio = document.querySelector(`input[name="segmento"][value="${b.segmento||'todos'}"]`);
+    if (radio) { radio.checked = true; nlUpdateSeg(radio); }
+
+    borrador_id_actual = id;
+    nlUpdatePreview();
+    nlSetTab('compositor');
+    nlStatus('✓ Borrador cargado — listo para editar o enviar', 'ok');
+  } catch(e) {
+    alert('Error al cargar el borrador');
+  }
+}
+
+async function nlEliminarBorrador(id) {
+  if (!confirm('¿Eliminar este borrador?')) return;
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/campanas_newsletter?id=eq.${id}`, {
+      method: 'DELETE',
+      headers: { ...sbH(), 'Prefer': 'return=minimal' }
+    });
+    if (!res.ok) throw new Error();
+    if (borrador_id_actual === id) borrador_id_actual = null;
+    nlCargarHistorial();
+  } catch { alert('Error al eliminar'); }
+}
+
+async function nlEnviarDesdeBorrador(id) {
+  // Cargar el borrador y luego enviar
+  await nlCargarBorrador(id);
+  // Pequeña pausa para que se cargue el DOM
+  await new Promise(r => setTimeout(r, 100));
+  nlEnviarCampana(id);
+}
 
 // ── THEME ───────────────────────────────────────────────
 function toggleTheme() {
