@@ -4,14 +4,14 @@
   "functions": {
     "api/auth/index.js":    { "memory": 128, "maxDuration": 10 },
     "api/auth/callback.js": { "memory": 128, "maxDuration": 10 },
-    "api/newsletter.js":    { "memory": 128, "maxDuration": 10 }
-
+    "api/newsletter.js":    { "memory": 128, "maxDuration": 10 },
+    "api/send-newsletter.js":   { "memory": 256, "maxDuration": 30 },
+    "api/newsletter-stats.js":  { "memory": 128, "maxDuration": 10 }
   },
   "rewrites": [
     { "source": "/api/auth",          "destination": "/api/auth/index.js"    },
     { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" },
     { "source": "/api/newsletter",    "destination": "/api/newsletter.js"    }
-
   ],
   "headers": [
     {
@@ -56,6 +56,14 @@
       ]
     },
     {
+      "source": "/api/:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "Access-Control-Allow-Origin",  "value": "https://vorenconsultores.cl" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" }
+      ]
+    },
+    {
       "source": "/:path*",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
@@ -68,7 +76,7 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
-      "source": "/:path*.(js)",
+      "source": "/:path((?!api/).*)*.(js)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
     },
     {
