@@ -26,30 +26,39 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/suscriptores`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Prefer': 'resolution=ignore-duplicates', // email duplicado → no error, ignora
-      },
-      body: JSON.stringify({
-        email: email.toLowerCase().trim(),
-        nombre: nombre?.trim() || null,
-        fuente: fuente || 'newsletter',
-        articulo_origen: articulo_origen || null,
-        utm_source: utm_source || null,
-        utm_medium: utm_medium || null,
-        utm_campaign: utm_campaign || null,
-      }),
-    });
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/suscriptores`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Prefer': 'resolution=ignore-duplicates',
+    },
+    body: JSON.stringify({
+      email:           email.toLowerCase().trim(),
+      nombre:          nombre?.trim() || null,
+      fuente:          fuente || 'newsletter',
+      articulo_origen: articulo_origen || null,
+      utm_source:      utm_source || null,
+      utm_medium:      utm_medium || null,
+      utm_campaign:    utm_campaign || null,
+      estado:          'activo',
+    }),
+  });
 
-    if (!response.ok && response.status !== 409) {
-      const err = await response.text();
-      console.error('Supabase error:', err);
-      return res.status(500).json({ error: 'Error al guardar' });
-    }
+  if (!response.ok && response.status !== 409) {
+    const errBody = await response.text();
+    console.error('Supabase status:', response.status);
+    console.error('Supabase error:', errBody);
+    return res.status(500).json({ error: 'Error al guardar', detail: errBody });
+  }
+
+  return res.status(200).json({ ok: true, message: '¡Suscripción registrada!' });
+
+} catch (err) {
+  console.error('Newsletter handler error:', err.message);
+  return res.status(500).json({ error: 'Error interno', detail: err.message });
+}
 
     return res.status(200).json({ ok: true, message: '¡Suscripción registrada!' });
 
