@@ -157,7 +157,34 @@
     /* UTM channel pill */
     .channel{font-size:.68rem;color:var(--muted);display:flex;align-items:center;gap:.3rem;}
     .channel-dot{width:5px;height:5px;border-radius:50%;background:var(--blue-l);flex-shrink:0;}
-  </style>
+
+    /* ── KANBAN ── */
+    #kanban-view{display:none;}
+    .kanban-board{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;align-items:start;padding-bottom:2rem;}
+    .kanban-col{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+    .kanban-col-head{padding:.75rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .kanban-col-title{font-size:.72rem;font-weight:500;color:var(--text);letter-spacing:.03em;}
+    .kanban-col-count{font-size:.65rem;color:var(--muted);background:var(--bg3);border-radius:10px;padding:.1rem .45rem;}
+    .kanban-col-accent{height:2px;width:100%;}
+    .kanban-cards{padding:.6rem;display:flex;flex-direction:column;gap:.5rem;min-height:100px;}
+    .kanban-card{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.85rem;cursor:pointer;transition:border-color .2s,transform .15s;}
+    .kanban-card:hover{border-color:var(--border2);transform:translateY(-1px);}
+    .kanban-card-name{font-size:.8rem;color:var(--text);font-weight:400;margin-bottom:.3rem;}
+    .kanban-card-empresa{font-size:.7rem;color:var(--muted);margin-bottom:.5rem;}
+    .kanban-card-foot{display:flex;align-items:center;justify-content:space-between;}
+    .kanban-card-score{font-size:.65rem;color:var(--muted);}
+    .kanban-empty{padding:1.5rem;text-align:center;color:var(--muted2);font-size:.75rem;}
+
+    /* ── ANALYTICS BAR ── */
+    .analytics-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
+    .an-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem;}
+    .an-title{font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem;}
+    .an-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;}
+    .an-label{font-size:.75rem;color:var(--muted);}
+    .an-val{font-size:.75rem;color:var(--text);font-weight:400;}
+    .an-bar-wrap{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:2px;overflow:hidden;}
+    .an-bar-fill{height:100%;border-radius:2px;background:var(--copper);transition:width .5s;}
+    </style>
 </head>
 <body>
 
@@ -218,8 +245,24 @@
 
   <main class="main">
     <div class="topbar">
-      <div class="topbar-title" id="view-title">Todos los contactos</div>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <div class="topbar-title" id="view-title">Todos los contactos</div>
+        <div style="display:flex;gap:.3rem;background:var(--bg3);border-radius:4px;padding:3px;">
+          <button id="btn-tabla" onclick="setModo('tabla')" style="background:var(--bg2);border:none;border-radius:3px;padding:.3rem .65rem;font-size:.7rem;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .15s">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Tabla
+          </button>
+          <button id="btn-kanban" onclick="setModo('kanban')" style="background:transparent;border:none;border-radius:3px;padding:.3rem .65rem;font-size:.7rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .15s">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="5" height="18"/><rect x="10" y="3" width="5" height="11"/><rect x="17" y="3" width="5" height="15"/></svg>
+            Kanban
+          </button>
+        </div>
+      </div>
       <div class="topbar-actions">
+        <button class="btn-refresh" onclick="exportarCSV()">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Exportar CSV
+        </button>
         <button class="btn-refresh" onclick="cargarLeads()">
           <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
           Actualizar
@@ -283,6 +326,28 @@
         <tbody id="leads-body"></tbody>
       </table>
     </div>
+
+    <!-- KANBAN VIEW -->
+    <div id="kanban-view">
+      <div class="kanban-board" id="kanban-board"></div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="analytics-bar" id="analytics-bar" style="display:none">
+      <div class="an-card">
+        <div class="an-title">Por canal de origen</div>
+        <div id="an-canales"></div>
+      </div>
+      <div class="an-card">
+        <div class="an-title">Por área de interés</div>
+        <div id="an-areas"></div>
+      </div>
+      <div class="an-card">
+        <div class="an-title">Por presupuesto</div>
+        <div id="an-presup"></div>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -436,6 +501,7 @@ function filtrar() {
   if (ord === 'nombre')   leads.sort((a,b) => (a.nombre||'').localeCompare(b.nombre||''));
 
   renderTabla(leads);
+  if (modoActual === 'kanban') { renderKanban(leads); renderAnalytics(leads); }
 }
 
 // ── RENDER TABLA ─────────────────────────────────────────
@@ -607,6 +673,108 @@ async function guardarLead() {
     btn.disabled = false;
     btn.textContent = 'Guardar cambios';
   }
+}
+
+
+// ── MODO TABLA/KANBAN ───────────────────────────────────
+let modoActual = 'tabla';
+
+function setModo(modo) {
+  modoActual = modo;
+  const esTabla = modo === 'tabla';
+  document.getElementById('leads-table').closest('.table-wrap').style.display = esTabla ? 'block' : 'none';
+  document.querySelector('.filters').style.display = esTabla ? 'flex' : 'none';
+  document.getElementById('kanban-view').style.display = esTabla ? 'none' : 'block';
+  document.getElementById('analytics-bar').style.display = esTabla ? 'none' : 'grid';
+  document.getElementById('btn-tabla').style.background = esTabla ? 'var(--bg2)' : 'transparent';
+  document.getElementById('btn-tabla').style.color = esTabla ? 'var(--text)' : 'var(--muted)';
+  document.getElementById('btn-kanban').style.background = !esTabla ? 'var(--bg2)' : 'transparent';
+  document.getElementById('btn-kanban').style.color = !esTabla ? 'var(--text)' : 'var(--muted)';
+  if (!esTabla) { renderKanban(todosLeads); renderAnalytics(todosLeads); }
+}
+
+// ── KANBAN ──────────────────────────────────────────────
+const KANBAN_COLS = [
+  { key: 'nuevo',      label: 'Nuevo',       color: '#5BA4F5' },
+  { key: 'contactado', label: 'Contactado',  color: '#a78bfa' },
+  { key: 'en_proceso', label: 'En proceso',  color: '#facc15' },
+  { key: 'cerrado',    label: 'Cerrado',     color: '#4ade80' },
+  { key: 'descartado', label: 'Descartado',  color: '#f87171' },
+];
+
+function renderKanban(leads) {
+  const board = document.getElementById('kanban-board');
+  board.innerHTML = KANBAN_COLS.map(col => {
+    const cards = leads.filter(l => l.estado === col.key);
+    const cardsHTML = cards.length
+      ? cards.map(l => `
+          <div class="kanban-card" onclick="abrirPanel('${l.id}')">
+            <div class="kanban-card-name">${l.nombre||'—'}</div>
+            <div class="kanban-card-empresa">${l.empresa||'Sin empresa'}</div>
+            <div class="kanban-card-foot">
+              ${calBadge(l.calificacion)}
+              <span class="kanban-card-score">Score: ${l.score||0}</span>
+            </div>
+          </div>`).join('')
+      : `<div class="kanban-empty">Sin leads</div>`;
+    return `
+      <div class="kanban-col">
+        <div class="kanban-col-accent" style="background:${col.color}"></div>
+        <div class="kanban-col-head">
+          <span class="kanban-col-title">${col.label}</span>
+          <span class="kanban-col-count">${cards.length}</span>
+        </div>
+        <div class="kanban-cards">${cardsHTML}</div>
+      </div>`;
+  }).join('');
+}
+
+// ── ANALYTICS ───────────────────────────────────────────
+function renderAnalytics(leads) {
+  const total = leads.length || 1;
+
+  // Por canal
+  const canales = {};
+  leads.forEach(l => {
+    const c = l.utm_source || (l.referrer ? (() => { try { return new URL(l.referrer).hostname.replace('www.',''); } catch { return 'directo'; } })() : 'directo');
+    canales[c] = (canales[c]||0) + 1;
+  });
+  renderAnBar('an-canales', canales, total);
+
+  // Por área
+  const areas = {};
+  leads.forEach(l => { if (l.area) areas[AREAS[l.area]||l.area] = (areas[AREAS[l.area]||l.area]||0) + 1; });
+  renderAnBar('an-areas', areas, total);
+
+  // Por presupuesto
+  const presups = {};
+  leads.forEach(l => { if (l.presupuesto) presups[PRESUP[l.presupuesto]||l.presupuesto] = (presups[PRESUP[l.presupuesto]||l.presupuesto]||0) + 1; });
+  renderAnBar('an-presup', presups, total);
+}
+
+function renderAnBar(elId, data, total) {
+  const el = document.getElementById(elId);
+  const entries = Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const max = Math.max(...entries.map(e=>e[1]));
+  el.innerHTML = entries.map(([k,v]) => `
+    <div class="an-row"><span class="an-label">${k}</span><span class="an-val">${v} (${Math.round(v/total*100)}%)</span></div>
+    <div class="an-bar-wrap"><div class="an-bar-fill" style="width:${Math.round(v/max*100)}%"></div></div>
+  `).join('') || '<div style="font-size:.75rem;color:var(--muted2);padding:.5rem 0">Sin datos</div>';
+}
+
+// ── EXPORTAR CSV ────────────────────────────────────────
+function exportarCSV() {
+  if (!todosLeads.length) return;
+  const headers = ['nombre','email','empresa','area','presupuesto','score','calificacion','estado','utm_source','utm_medium','utm_campaign','created_at','notas'];
+  const rows = todosLeads.map(l => headers.map(h => {
+    const val = h === 'area' ? (AREAS[l[h]]||l[h]||'') : h === 'presupuesto' ? (PRESUP[l[h]]||l[h]||'') : (l[h]||'');
+    return JSON.stringify(String(val).replace(/"/g,'""'));
+  }).join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+  a.download = 'leads-voren-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
 }
 
 // ── INIT ─────────────────────────────────────────────────
