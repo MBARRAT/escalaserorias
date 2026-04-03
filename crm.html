@@ -16,9 +16,22 @@
       --blue:#1557B0; --blue-l:#3B7FD4; --sky:#5BA4F5;
       --copper:#C8A055; --copper-l:#E5C07A;
       --green:#22c55e; --yellow:#eab308; --red:#ef4444; --gray:rgba(255,255,255,.3);
+      --hover-row:rgba(255,255,255,.02);
+      --b-no-bg:rgba(255,255,255,.04);--b-no-color:rgba(255,255,255,.4);--b-no-border:rgba(255,255,255,.1);
       --serif:'DM Serif Display',serif; --sans:'DM Sans',sans-serif;
       --ease:cubic-bezier(.4,0,.2,1);
     }
+    [data-theme="light"]{
+      --bg:#F5F6F8; --bg2:#FFFFFF; --bg3:#ECEEF2; --bg4:#E2E5EA;
+      --border:rgba(0,0,0,.08); --border2:rgba(0,0,0,.16);
+      --text:#111827; --muted:rgba(0,0,0,.45); --muted2:rgba(0,0,0,.28);
+      --blue:#1557B0; --blue-l:#2563cc; --sky:#1557B0;
+      --copper:#8B6020; --copper-l:#6B4A18;
+      --green:#16a34a; --yellow:#b45309; --red:#dc2626; --gray:rgba(0,0,0,.3);
+      --hover-row:rgba(0,0,0,.02);
+      --b-no-bg:rgba(0,0,0,.04);--b-no-color:rgba(0,0,0,.45);--b-no-border:rgba(0,0,0,.1);
+    }
+    body{transition:background .2s,color .2s;}
     html{height:100%;}
     body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;font-weight:300;}
 
@@ -43,7 +56,7 @@
     .sb-logo-tag{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.2rem;}
     .sb-nav{flex:1;padding:1rem 0;}
     .sb-link{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.25rem;font-size:.8rem;color:var(--muted);cursor:pointer;transition:color .2s,background .2s;border-left:2px solid transparent;}
-    .sb-link:hover{color:var(--text);background:rgba(255,255,255,.03);}
+    .sb-link:hover{color:var(--text);background:var(--hover-row);}
     .sb-link.active{color:var(--copper-l);border-left-color:var(--copper);background:rgba(200,160,85,.06);}
     .sb-link svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
     .sb-section{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);padding:.75rem 1.25rem .25rem;}
@@ -91,7 +104,7 @@
     td{padding:.85rem 1rem;font-size:.8rem;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle;}
     tr:last-child td{border-bottom:none;}
     tr{transition:background .15s;cursor:pointer;}
-    tr:hover td{background:rgba(255,255,255,.02);}
+    tr:hover td{background:var(--hover-row);}
     .empty-row td{text-align:center;color:var(--muted);padding:3rem;cursor:default;}
     .empty-row:hover td{background:transparent;}
 
@@ -102,7 +115,7 @@
     .b-cal .badge-dot{background:#4ade80;}
     .b-pot{background:rgba(234,179,8,.08);color:#fde047;border:1px solid rgba(234,179,8,.2);}
     .b-pot .badge-dot{background:#facc15;}
-    .b-no{background:rgba(255,255,255,.04);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);}
+    .b-no{background:var(--b-no-bg);color:var(--b-no-color);border:1px solid var(--b-no-border);}
     .b-no .badge-dot{background:rgba(255,255,255,.3);}
     .b-nuevo{background:rgba(91,164,245,.1);color:#93c5fd;border:1px solid rgba(91,164,245,.2);}
     .b-contactado{background:rgba(168,85,247,.1);color:#c4b5fd;border:1px solid rgba(168,85,247,.2);}
@@ -184,7 +197,12 @@
     .an-val{font-size:.75rem;color:var(--text);font-weight:400;}
     .an-bar-wrap{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:2px;overflow:hidden;}
     .an-bar-fill{height:100%;border-radius:2px;background:var(--copper);transition:width .5s;}
-    </style>
+  
+    /* ── IFRAME MODE (cuando corre dentro del panel) ── */
+    body.in-iframe .sidebar { display: none !important; }
+    body.in-iframe .main { margin-left: 0 !important; }
+    body.in-iframe { overflow-x: hidden; }
+  </style>
 </head>
 <body>
 
@@ -365,6 +383,27 @@
 </div>
 
 <script>
+// ── IFRAME + THEME INIT ────────────────────────────────
+(function() {
+  // Detectar si estamos dentro de un iframe (panel)
+  if (window.self !== window.top) {
+    document.body.classList.add('in-iframe');
+  }
+  // Escuchar mensajes de tema desde el panel padre
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'SET_THEME') {
+      if (e.data.theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    }
+  });
+  // Leer tema guardado en localStorage (para modo standalone)
+  const saved = localStorage.getItem('voren_theme') || 'dark';
+  if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+})();
+
 const SB_URL = 'https://rpduicqgelrhhptvyhpp.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwZHVpY3FnZWxyaGhwdHZ5aHBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NDcwOTksImV4cCI6MjA5MDIyMzA5OX0.XSrjkgVH2ZPl2ePaMAJCO3J9i0W6pRGfMYlHme0Mg8E';
 
