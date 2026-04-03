@@ -1170,6 +1170,14 @@ function applyTheme(theme) {
     document.documentElement.removeAttribute('data-theme');
   }
   localStorage.setItem('voren_theme', theme);
+  // Sincronizar tema con iframes (CRM y Admin)
+  const msg = { type: 'SET_THEME', theme };
+  ['crm-frame', 'admin-frame'].forEach(id => {
+    const frame = document.getElementById(id);
+    if (frame && frame.contentWindow) {
+      try { frame.contentWindow.postMessage(msg, '*'); } catch(e) {}
+    }
+  });
 }
 
 function initTheme() {
