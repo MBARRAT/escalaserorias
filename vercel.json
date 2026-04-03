@@ -10,7 +10,7 @@
   },
   "rewrites": [
     { "source": "/api/auth",          "destination": "/api/auth/index.js"    },
-    { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" },
+    { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" }
   ],
   "headers": [
     {
