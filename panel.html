@@ -427,49 +427,16 @@
       </div>
     </div>
 
-    <!-- CRM (nativo, sin iframe) -->
-    <div class="view" id="view-crm">
-      <div class="crm-wrap">
-        <div class="topbar">
-          <div class="topbar-title" id="crm-title">Todos los contactos</div>
-          <button class="btn-refresh" onclick="cargarLeads()">
-            <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-            Actualizar
-          </button>
-        </div>
-        <div class="stats-grid">
-          <div class="stat-card c-tot"><div class="stat-n" id="s-total">—</div><div class="stat-l">Total</div></div>
-          <div class="stat-card c-cal"><div class="stat-n" id="s-cal">—</div><div class="stat-l">Calificados</div></div>
-          <div class="stat-card c-pot"><div class="stat-n" id="s-pot">—</div><div class="stat-l">Potenciales</div></div>
-          <div class="stat-card c-no"><div class="stat-n" id="s-no">—</div><div class="stat-l">No calificados</div></div>
-        </div>
-        <div class="filters">
-          <input class="filter-search" type="text" placeholder="Buscar por nombre, email o empresa..." id="search-input" oninput="filtrar()"/>
-          <select class="fsel" id="fil-estado" onchange="filtrar()">
-            <option value="">Todos los estados</option>
-            <option value="nuevo">Nuevo</option>
-            <option value="contactado">Contactado</option>
-            <option value="en_proceso">En proceso</option>
-            <option value="cerrado">Cerrado</option>
-            <option value="descartado">Descartado</option>
-          </select>
-          <select class="fsel" id="fil-ord" onchange="filtrar()">
-            <option value="score">Mayor score</option>
-            <option value="reciente">Más reciente</option>
-            <option value="nombre">Nombre A-Z</option>
-          </select>
-        </div>
-        <div class="table-wrap">
-          <div class="loading" id="crm-loading"><div class="spin"></div> Cargando leads...</div>
-          <table id="leads-table" style="display:none">
-            <thead><tr>
-              <th>Contacto</th><th>Empresa</th><th>Área</th><th>Presupuesto</th>
-              <th>Score</th><th>Calificación</th><th>Estado</th><th>Canal</th><th>Fecha</th>
-            </tr></thead>
-            <tbody id="leads-body"></tbody>
-          </table>
-        </div>
+    <!-- CRM (iframe → /crm) -->
+    <div class="admin-view" id="view-crm">
+      <div class="iframe-bar">
+        <span class="iframe-title">CRM · Leads y contactos</span>
+        <a class="iframe-open" href="/crm" target="_blank">
+          Abrir en nueva pestaña
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
       </div>
+      <iframe id="crm-frame" src="" title="CRM"></iframe>
     </div>
 
     <!-- ADMIN (iframe — funciona porque el usuario ya está logueado en Sveltia con GitHub) -->
@@ -635,15 +602,7 @@
   </main>
 </div>
 
-<!-- DETAIL PANEL -->
-<div class="panel-overlay" id="overlay" onclick="cerrarPanel()"></div>
-<div class="detail-panel" id="detail-panel">
-  <div class="dp-head">
-    <div><div class="dp-name" id="dp-name">—</div><div class="dp-email" id="dp-email">—</div></div>
-    <button class="dp-close" onclick="cerrarPanel()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-  </div>
-  <div class="dp-body" id="dp-body"></div>
-</div>
+
 
 <script>
 const SB_URL = 'https://rpduicqgelrhhptvyhpp.supabase.co';
@@ -656,6 +615,7 @@ let vistaActual = 'home';
 let filtroCal = null;
 let adminCargado = false;
 let nlCargado = false;
+let crmCargado = false;
 let todosSuscriptores = [];
 let historialEnvios = [];
 
@@ -716,8 +676,10 @@ function setView(id, cal) {
   } else if (id === 'crm') {
     document.getElementById('view-crm').classList.add('active');
     document.getElementById(cal === 'calificado' ? 'nav-crm-cal' : 'nav-crm').classList.add('active');
-    document.getElementById('crm-title').textContent = cal === 'calificado' ? 'Leads calificados' : 'Todos los contactos';
-    if (!todosLeads.length) cargarLeads(); else filtrar();
+    if (!crmCargado) {
+      document.getElementById('crm-frame').src = '/crm';
+      crmCargado = true;
+    }
   } else {
     document.getElementById('view-home').classList.add('active');
     document.getElementById('nav-home').classList.add('active');
@@ -728,18 +690,8 @@ function setView(id, cal) {
 function sbH() { return { 'apikey': SB_KEY, 'Authorization': `Bearer ${SESSION.token}` }; }
 
 async function cargarLeads() {
-  document.getElementById('crm-loading').style.display = 'flex';
-  document.getElementById('leads-table').style.display = 'none';
-  try {
-    const res = await fetch(`${SB_URL}/rest/v1/contactos?select=*&order=created_at.desc`, { headers: sbH() });
-    if (!res.ok) throw new Error();
-    todosLeads = await res.json();
-    actualizarStats();
-    filtrar();
-    renderRecientes();
-  } catch {
-    document.getElementById('crm-loading').innerHTML = '<span style="color:#fca5a5">Error al cargar. Verifica los permisos RLS en Supabase.</span>';
-  }
+  // Solo para home stats — CRM data vive en /crm iframe
+  await cargarHome();
 }
 
 async function cargarHome() {
@@ -767,10 +719,7 @@ function actualizarStats() {
   const cal = todosLeads.filter(l => l.calificacion === 'calificado').length;
   const pot = todosLeads.filter(l => l.calificacion === 'potencial').length;
   const no  = todosLeads.filter(l => l.calificacion === 'no_calificado').length;
-  document.getElementById('s-total').textContent = todosLeads.length;
-  document.getElementById('s-cal').textContent = cal;
-  document.getElementById('s-pot').textContent = pot;
-  document.getElementById('s-no').textContent = no;
+  // Home stats
   document.getElementById('sb-badge-total').textContent = todosLeads.length;
   document.getElementById('sb-badge-cal').textContent = cal;
   document.getElementById('hs-total').textContent = todosLeads.length;
@@ -792,131 +741,7 @@ function renderRecientes() {
     : '<div style="padding:2rem;text-align:center;color:var(--muted);font-size:.8rem">Aún no hay leads</div>';
 }
 
-// ── FILTROS y TABLA ─────────────────────────────────────
-const AREAS = { bi:'Inteligencia BI', estrategia:'Estrategia', procesos:'Procesos', crm:'CRM y Ventas', marketing:'Marketing', digital:'Digitalización', otros:'Otros' };
-const PRESUP = { menos_500k:'< $500k', '500k_1.5M':'$500k–1.5M', '1.5M_5M':'$1.5M–5M', mas_5M:'> $5M' };
-
-function filtrar() {
-  const q      = document.getElementById('search-input').value.toLowerCase();
-  const estado = document.getElementById('fil-estado').value;
-  const ord    = document.getElementById('fil-ord').value;
-  let leads = [...todosLeads];
-  if (filtroCal) leads = leads.filter(l => l.calificacion === filtroCal);
-  if (q) leads = leads.filter(l => (l.nombre||'').toLowerCase().includes(q)||(l.email||'').toLowerCase().includes(q)||(l.empresa||'').toLowerCase().includes(q));
-  if (estado) leads = leads.filter(l => l.estado === estado);
-  if (ord === 'score') leads.sort((a,b)=>(b.score||0)-(a.score||0));
-  if (ord === 'reciente') leads.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-  if (ord === 'nombre') leads.sort((a,b)=>(a.nombre||'').localeCompare(b.nombre||''));
-  renderTabla(leads);
-}
-
-function calBadge(c) {
-  const m = { calificado:'b-cal', potencial:'b-pot', no_calificado:'b-no' };
-  const t = { calificado:'Calificado', potencial:'Potencial', no_calificado:'Sin calif.' };
-  return `<span class="badge ${m[c]||'b-no'}"><span class="badge-dot"></span>${t[c]||'—'}</span>`;
-}
-function estadoBadge(e) {
-  const m = { nuevo:'b-nuevo', contactado:'b-contactado', en_proceso:'b-proceso', cerrado:'b-cerrado', descartado:'b-descartado' };
-  const t = { nuevo:'Nuevo', contactado:'Contactado', en_proceso:'En proceso', cerrado:'Cerrado', descartado:'Descartado' };
-  return `<span class="badge ${m[e]||'b-no'}">${t[e]||e||'—'}</span>`;
-}
-function scoreBar(s) {
-  const pct = Math.min(s||0,100);
-  const color = pct>=55?'#4ade80':pct>=25?'#facc15':'rgba(255,255,255,.2)';
-  return `<div class="score-bar"><div class="score-track"><div class="score-fill" style="width:${pct}%;background:${color}"></div></div><span class="score-num">${s||0}</span></div>`;
-}
-function fmtDate(d) { return d ? new Date(d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'2-digit'}) : '—'; }
-function canal(l) { return l.utm_source || (l.referrer ? (() => { try { return new URL(l.referrer).hostname; } catch { return l.referrer; } })() : 'Directo'); }
-
-function renderTabla(leads) {
-  document.getElementById('crm-loading').style.display = 'none';
-  document.getElementById('leads-table').style.display = 'table';
-  document.getElementById('leads-body').innerHTML = leads.length
-    ? leads.map(l => `<tr onclick="abrirPanel('${l.id}')">
-        <td><div style="font-weight:400">${l.nombre||'—'}</div><div style="font-size:.7rem;color:var(--muted)">${l.email||''}</div></td>
-        <td>${l.empresa||'<span style="color:var(--muted2)">—</span>'}</td>
-        <td>${AREAS[l.area]||l.area||'—'}</td>
-        <td>${PRESUP[l.presupuesto]||l.presupuesto||'—'}</td>
-        <td>${scoreBar(l.score)}</td>
-        <td>${calBadge(l.calificacion)}</td>
-        <td>${estadoBadge(l.estado)}</td>
-        <td style="font-size:.72rem;color:var(--muted)">${canal(l)}</td>
-        <td style="color:var(--muted);font-size:.72rem">${fmtDate(l.created_at)}</td>
-      </tr>`).join('')
-    : '<tr class="empty-row"><td colspan="9">Sin leads para mostrar</td></tr>';
-}
-
-// ── PANEL DETALLE ────────────────────────────────────────
-function abrirPanel(id) {
-  leadActual = todosLeads.find(l => l.id === id);
-  if (!leadActual) return;
-  const l = leadActual;
-  document.getElementById('dp-name').textContent = l.nombre||'—';
-  document.getElementById('dp-email').textContent = l.email||'—';
-  const utmTags = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].filter(k=>l[k]).map(k=>`<span class="utm-tag">${k.replace('utm_','')}: <strong>${l[k]}</strong></span>`).join('');
-  const urgLabels = { inmediato:'Inmediato','1-3_meses':'1–3 meses', explorando:'Explorando' };
-  document.getElementById('dp-body').innerHTML = `
-    <div class="dp-section">
-      <div class="dp-section-title">Calificación</div>
-      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.75rem">${calBadge(l.calificacion)} ${scoreBar(l.score)}</div>
-      <div class="dp-row"><span class="dp-label">Presupuesto</span><span class="dp-value">${PRESUP[l.presupuesto]||l.presupuesto||'—'}</span></div>
-      <div class="dp-row"><span class="dp-label">Urgencia</span><span class="dp-value">${urgLabels[l.urgencia]||l.urgencia||'—'}</span></div>
-    </div>
-    <div class="dp-section">
-      <div class="dp-section-title">Datos del contacto</div>
-      <div class="dp-row"><span class="dp-label">Empresa</span><span class="dp-value">${l.empresa||'—'}</span></div>
-      <div class="dp-row"><span class="dp-label">Tamaño</span><span class="dp-value">${l.tamano||'—'} personas</span></div>
-      <div class="dp-row"><span class="dp-label">Área</span><span class="dp-value">${AREAS[l.area]||l.area||'—'}</span></div>
-      <div class="dp-row"><span class="dp-label">Fecha</span><span class="dp-value">${fmtDate(l.created_at)}</span></div>
-    </div>
-    ${l.mensaje?`<div class="dp-section"><div class="dp-section-title">Mensaje</div><div class="dp-msg">"${l.mensaje}"</div></div>`:''}
-    <div class="dp-section">
-      <div class="dp-section-title">Origen / UTMs</div>
-      <div class="dp-row"><span class="dp-label">Landing</span><span class="dp-value" style="font-size:.72rem">${l.landing_page||'—'}</span></div>
-      <div class="dp-row"><span class="dp-label">Referrer</span><span class="dp-value" style="font-size:.72rem">${l.referrer||'Directo'}</span></div>
-      ${utmTags?`<div style="margin-top:.5rem">${utmTags}</div>`:'<div style="font-size:.72rem;color:var(--muted2)">Sin parámetros UTM</div>'}
-      ${l.gclid?`<div style="margin-top:.4rem"><span class="utm-tag">Google Ads: <strong>${l.gclid.slice(0,12)}…</strong></span></div>`:''}
-    </div>
-    <div class="dp-section">
-      <div class="dp-section-title">Gestión CRM</div>
-      <div class="dp-field"><label>Estado</label>
-        <select id="dp-estado">${['nuevo','contactado','en_proceso','cerrado','descartado'].map(e=>`<option value="${e}" ${l.estado===e?'selected':''}>${{nuevo:'Nuevo',contactado:'Contactado',en_proceso:'En proceso',cerrado:'Cerrado',descartado:'Descartado'}[e]}</option>`).join('')}</select>
-      </div>
-      <div class="dp-field"><label>Notas internas</label><textarea id="dp-notas" placeholder="Próximos pasos, contexto...">${l.notas||''}</textarea></div>
-      <button class="dp-save" onclick="guardarLead()">Guardar cambios</button>
-      <div class="dp-saved" id="dp-saved">✓ Guardado correctamente</div>
-    </div>`;
-  document.getElementById('overlay').classList.add('open');
-  document.getElementById('detail-panel').classList.add('open');
-}
-
-function cerrarPanel() {
-  document.getElementById('overlay').classList.remove('open');
-  document.getElementById('detail-panel').classList.remove('open');
-  leadActual = null;
-}
-
-async function guardarLead() {
-  if (!leadActual) return;
-  const btn = document.querySelector('.dp-save');
-  btn.disabled = true; btn.textContent = 'Guardando...';
-  const updates = { estado: document.getElementById('dp-estado').value, notas: document.getElementById('dp-notas').value, ultima_accion: new Date().toISOString() };
-  try {
-    const res = await fetch(`${SB_URL}/rest/v1/contactos?id=eq.${leadActual.id}`, {
-      method: 'PATCH',
-      headers: { ...sbH(), 'Content-Type':'application/json', 'Prefer':'return=minimal' },
-      body: JSON.stringify(updates)
-    });
-    if (!res.ok) throw new Error();
-    const idx = todosLeads.findIndex(l => l.id === leadActual.id);
-    if (idx >= 0) todosLeads[idx] = { ...todosLeads[idx], ...updates };
-    leadActual = { ...leadActual, ...updates };
-    actualizarStats(); filtrar();
-    document.getElementById('dp-saved').classList.add('show');
-    setTimeout(() => document.getElementById('dp-saved').classList.remove('show'), 2500);
-  } catch { alert('Error al guardar.'); }
-  finally { btn.disabled = false; btn.textContent = 'Guardar cambios'; }
-}
+// ── CRM vive en /crm (iframe) ─────────────────────────────
 
 // ── NEWSLETTER ──────────────────────────────────────────
 
