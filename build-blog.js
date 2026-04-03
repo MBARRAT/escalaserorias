@@ -262,6 +262,7 @@ function generateArticleHTML(post, allPosts) {
   <meta name="description" content="${metaDesc}"/>
   ${keywords ? `<meta name="keywords" content="${keywords}"/>` : ''}
   <link rel="canonical" href="https://vorenconsultores.cl/blog/${post.slug}"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
   <meta property="og:type" content="article"/>
   <meta property="og:title" content="${metaTitle}"/>
   <meta property="og:description" content="${metaDesc}"/>
