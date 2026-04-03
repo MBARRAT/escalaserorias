@@ -200,7 +200,7 @@ const FOOTER_HTML = `
       <div><div class="fbrand">Vō<span>ren</span></div><div class="ftagline">Inteligencia estratégica para empresas que crecen con orden y propósito.</div></div>
       <div class="fcol"><div class="fcol-title">Servicios</div><a href="/#servicios">Inteligencia de Negocios</a><a href="/#servicios">Plan Estratégico</a><a href="/#servicios">Procesos</a><a href="/#servicios">CRM y Growth</a></div>
       <div class="fcol"><div class="fcol-title">Empresa</div><a href="/#metodo">Método</a><a href="/blog">Perspectivas</a><a href="/#contacto">Contacto</a></div>
-      <div class="fcol"><div class="fcol-title">Contacto</div><a href="mailto:hola@voren.cl">hola@voren.cl</a><a href="#">LinkedIn</a><a href="#">Santiago, Chile</a></div>
+      <div class="fcol"><div class="fcol-title">Contacto</div><a href="mailto:hola@vorenconsultores.cl">hola@voren.cl</a><a href="#">LinkedIn</a><a href="#">Santiago, Chile</a></div>
     </div>
     <div class="footer-bottom"><div class="fcopy">© 2025 Vōren · Todos los derechos reservados</div><div class="flegal"><a href="#">Privacidad</a><a href="#">Términos</a></div></div>
   </div>
@@ -267,6 +267,28 @@ function generateArticleHTML(post, allPosts) {
   <meta property="og:title" content="${metaTitle}"/>
   <meta property="og:description" content="${metaDesc}"/>
   <meta property="og:locale" content="es_CL"/>
+  <meta property="og:url" content="https://vorenconsultores.cl/blog/${post.slug}"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "${post.title.replace(/"/g, '\\"')}",
+    "description": "${metaDesc.replace(/"/g, '\\"')}",
+    "datePublished": "${new Date(post.date).toISOString()}",
+    "author": {
+      "@type": "Organization",
+      "name": "Vōren",
+      "url": "https://vorenconsultores.cl"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Vōren",
+      "url": "https://vorenconsultores.cl"
+    },
+    "mainEntityOfPage": "https://vorenconsultores.cl/blog/${post.slug}"
+  }
+  </script>
+
   ${thumbnailMeta}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -489,7 +511,7 @@ function updateSitemap(posts) {
   </url>
   <!-- Blog index -->
   <url>
-    <loc>https://vorenconsultores.cl/blog</loc>
+    <loc>https://vorenconsultores.cl/blog/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
