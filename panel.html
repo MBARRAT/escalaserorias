@@ -39,9 +39,9 @@
       --b-no-bg:rgba(0,0,0,.04);--b-no-color:rgba(0,0,0,.45);--b-no-border:rgba(0,0,0,.1);--b-no-dot:rgba(0,0,0,.25);
     }
     html,body{height:100%;}
-    body{font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;font-weight:300;}
+    body{font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;font-weight:300;transition:background .2s,color .2s;}
 
-    /* AUTH */
+    /* ── AUTH ── */
     #auth-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;}
     .auth-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:3rem;width:380px;text-align:center;}
     .auth-logo{font-family:var(--serif);font-size:2.2rem;color:var(--text);margin-bottom:.2rem;}
@@ -52,11 +52,11 @@
     .auth-btn svg{width:18px;height:18px;fill:currentColor;flex-shrink:0;}
     .auth-desc{font-size:.75rem;color:var(--muted2);margin-top:1.25rem;line-height:1.6;}
 
-    /* LAYOUT */
+    /* ── LAYOUT ── */
     #app{display:none;min-height:100vh;display:grid;grid-template-columns:220px 1fr;}
 
-    /* SIDEBAR */
-    .sidebar{background:var(--sidebar-bg);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;}
+    /* ── SIDEBAR ── */
+    .sidebar{background:var(--sidebar-bg);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;transition:background .2s;}
     .sb-logo{padding:1.5rem 1.25rem 1.25rem;border-bottom:1px solid var(--border);}
     .sb-logo-name{font-family:var(--serif);font-size:1.3rem;color:var(--text);}
     .sb-logo-name span{color:var(--copper);}
@@ -82,12 +82,12 @@
     .sb-signout{font-size:.68rem;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--sans);padding:0;transition:color .2s;}
     .sb-signout:hover{color:var(--text);}
 
-    /* MAIN */
+    /* ── MAIN ── */
     .main{overflow:auto;height:100vh;}
     .view{display:none;min-height:100%;}
     .view.active{display:block;}
 
-    /* ADMIN VIEW (iframe) */
+    /* ── ADMIN VIEW (iframe — solo para Sveltia CMS) ── */
     .admin-view{display:none;height:100vh;flex-direction:column;}
     .admin-view.active{display:flex;}
     .iframe-bar{padding:.75rem 1.5rem;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;flex-shrink:0;}
@@ -97,7 +97,7 @@
     .iframe-open svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
     iframe{flex:1;border:none;width:100%;}
 
-    /* HOME */
+    /* ── HOME ── */
     .home-wrap{padding:2.5rem 3rem;}
     .home-greeting{font-family:var(--serif);font-size:2rem;color:var(--text);margin-bottom:.25rem;}
     .home-sub{font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:2rem;}
@@ -140,12 +140,15 @@
     .rr-email{font-size:.7rem;color:var(--muted);}
     .rr-date{font-size:.7rem;color:var(--muted2);white-space:nowrap;}
 
-    /* CRM VIEW */
+    /* ── CRM VIEW (nativo, sin iframe) ── */
     .crm-wrap{padding:2rem 2.5rem;}
-    .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+    .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;gap:1rem;}
+    .topbar-left{display:flex;align-items:center;gap:1rem;}
     .topbar-title{font-family:var(--serif);font-size:1.6rem;color:var(--text);}
+    .topbar-actions{display:flex;gap:.6rem;align-items:center;}
     .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;}
-    .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;position:relative;overflow:hidden;}
+    .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;position:relative;overflow:hidden;cursor:pointer;transition:border-color .2s;}
+    .stat-card:hover{border-color:var(--border2);}
     .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
     .stat-card.c-cal::before{background:var(--green);}
     .stat-card.c-pot::before{background:var(--yellow);}
@@ -157,12 +160,20 @@
     .filter-search{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.55rem .9rem;font-size:.8rem;color:var(--text);font-family:var(--sans);outline:none;transition:border-color .2s;}
     .filter-search:focus{border-color:var(--copper);}
     .filter-search::placeholder{color:var(--muted2);}
-    .fsel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.55rem .75rem;font-size:.75rem;color:var(--muted);font-family:var(--sans);outline:none;cursor:pointer;}
+    .fsel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.55rem .75rem;font-size:.75rem;color:var(--muted);font-family:var(--sans);outline:none;cursor:pointer;transition:border-color .2s;}
     .fsel:focus{border-color:var(--copper);}
     .fsel option{background:var(--bg2);color:var(--text);}
-    .btn-refresh{background:transparent;border:1px solid var(--border);border-radius:4px;padding:.55rem .9rem;font-size:.75rem;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .2s;display:flex;align-items:center;gap:.4rem;}
-    .btn-refresh:hover{border-color:var(--border2);color:var(--text);}
-    .btn-refresh svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+    .btn-action{background:transparent;border:1px solid var(--border);border-radius:4px;padding:.55rem .9rem;font-size:.75rem;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .2s;display:flex;align-items:center;gap:.4rem;white-space:nowrap;}
+    .btn-action:hover{border-color:var(--border2);color:var(--text);}
+    .btn-action svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+
+    /* ── VIEW TOGGLE (tabla/kanban) ── */
+    .view-toggle{display:flex;gap:0;background:var(--bg3);border-radius:4px;padding:3px;}
+    .vtog{background:transparent;border:none;border-radius:3px;padding:.28rem .65rem;font-size:.7rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .15s;font-family:var(--sans);}
+    .vtog.on{background:var(--bg2);color:var(--text);}
+    .vtog svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+
+    /* ── TABLE ── */
     .table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
     table{width:100%;border-collapse:collapse;}
     thead{background:var(--bg3);}
@@ -173,6 +184,8 @@
     tr:hover td{background:var(--hover-row);}
     .empty-row td{text-align:center;color:var(--muted);padding:3rem;cursor:default;}
     .empty-row:hover td{background:transparent;}
+
+    /* ── BADGES ── */
     .badge{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .6rem;border-radius:3px;font-size:.68rem;font-weight:500;white-space:nowrap;}
     .badge-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
     .b-cal{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.2);}
@@ -186,18 +199,46 @@
     .b-proceso{background:rgba(234,179,8,.08);color:#fde047;border:1px solid rgba(234,179,8,.2);}
     .b-cerrado{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.2);}
     .b-descartado{background:rgba(239,68,68,.08);color:#fca5a5;border:1px solid rgba(239,68,68,.2);}
+
     .score-bar{display:flex;align-items:center;gap:.5rem;}
     .score-track{width:50px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;flex-shrink:0;}
-    .score-fill{height:100%;border-radius:2px;}
+    .score-fill{height:100%;border-radius:2px;transition:width .5s var(--ease);}
     .score-num{font-size:.72rem;color:var(--muted);}
-    .channel{font-size:.68rem;color:var(--muted);}
+    .channel{font-size:.68rem;color:var(--muted);display:flex;align-items:center;gap:.3rem;}
+    .channel-dot{width:5px;height:5px;border-radius:50%;background:var(--blue-l);flex-shrink:0;}
 
-    /* DETAIL PANEL */
+    /* ── KANBAN ── */
+    .kanban-board{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;align-items:start;padding-bottom:2rem;}
+    .kanban-col{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+    .kanban-col-accent{height:2px;width:100%;}
+    .kanban-col-head{padding:.75rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .kanban-col-title{font-size:.72rem;font-weight:500;color:var(--text);}
+    .kanban-col-count{font-size:.65rem;color:var(--muted);background:var(--bg3);border-radius:10px;padding:.1rem .45rem;}
+    .kanban-cards{padding:.6rem;display:flex;flex-direction:column;gap:.5rem;min-height:80px;}
+    .kanban-card{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.85rem;cursor:pointer;transition:border-color .2s,transform .15s;}
+    .kanban-card:hover{border-color:var(--border2);transform:translateY(-1px);}
+    .kanban-card-name{font-size:.8rem;color:var(--text);margin-bottom:.2rem;}
+    .kanban-card-empresa{font-size:.7rem;color:var(--muted);margin-bottom:.5rem;}
+    .kanban-card-foot{display:flex;align-items:center;justify-content:space-between;}
+    .kanban-card-score{font-size:.65rem;color:var(--muted);}
+    .kanban-empty{padding:1.5rem;text-align:center;color:var(--muted2);font-size:.75rem;}
+
+    /* ── ANALYTICS ── */
+    .analytics-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem;margin-bottom:1rem;}
+    .an-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem;}
+    .an-title{font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem;}
+    .an-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem;}
+    .an-label{font-size:.75rem;color:var(--muted);}
+    .an-val{font-size:.75rem;color:var(--text);}
+    .an-bar-wrap{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-bottom:.35rem;overflow:hidden;}
+    .an-bar-fill{height:100%;border-radius:2px;background:var(--copper);}
+
+    /* ── DETAIL PANEL ── */
     .panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
     .panel-overlay.open{opacity:1;pointer-events:all;}
-    .detail-panel{position:fixed;top:0;right:0;bottom:0;width:480px;background:var(--bg2);border-left:1px solid var(--border);box-shadow:-4px 0 24px rgba(0,0,0,.08);z-index:201;transform:translateX(100%);transition:transform .3s var(--ease);overflow-y:auto;}
+    .detail-panel{position:fixed;top:0;right:0;bottom:0;width:480px;background:var(--bg2);border-left:1px solid var(--border);box-shadow:-4px 0 24px rgba(0,0,0,.12);z-index:201;transform:translateX(100%);transition:transform .3s var(--ease);overflow-y:auto;}
     .detail-panel.open{transform:translateX(0);}
-    .dp-head{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--bg2);z-index:1;transition:background .2s;}
+    .dp-head{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--bg2);z-index:1;}
     .dp-name{font-family:var(--serif);font-size:1.3rem;color:var(--text);}
     .dp-email{font-size:.78rem;color:var(--muted);margin-top:.2rem;}
     .dp-close{background:transparent;border:1px solid var(--border);border-radius:4px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);flex-shrink:0;transition:all .2s;}
@@ -223,11 +264,8 @@
     .dp-saved.show{display:block;}
     .utm-tag{display:inline-flex;align-items:center;gap:.3rem;background:var(--utm-bg);border:1px solid var(--border);border-radius:3px;padding:.2rem .5rem;font-size:.68rem;color:var(--muted);margin:.2rem;}
     .utm-tag strong{color:var(--text);font-weight:400;}
-    .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--copper);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .loading{display:flex;align-items:center;justify-content:center;padding:4rem;color:var(--muted);font-size:.82rem;gap:.75rem;}
 
-    /* ── NEWSLETTER VIEW ── */
+    /* ── NEWSLETTER ── */
     .nl-wrap{padding:2rem 2.5rem;}
     .nl-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:1.75rem;}
     .nl-tab{padding:.65rem 1.25rem;font-size:.78rem;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;user-select:none;}
@@ -249,9 +287,6 @@
     .nl-search::placeholder{color:var(--muted2);}
     .nl-sel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.5rem .75rem;font-size:.75rem;color:var(--muted);font-family:var(--sans);outline:none;cursor:pointer;}
     .nl-sel option{background:var(--bg2);}
-    .nl-btn-sm{background:transparent;border:1px solid var(--border);border-radius:4px;padding:.5rem .9rem;font-size:.75rem;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .2s;display:flex;align-items:center;gap:.4rem;white-space:nowrap;}
-    .nl-btn-sm:hover{border-color:var(--border2);color:var(--text);}
-    .nl-btn-sm svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
     .nl-btn-primary{background:var(--copper);color:#0A1628;border:none;border-radius:4px;padding:.5rem 1.1rem;font-size:.75rem;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s;letter-spacing:.04em;display:flex;align-items:center;gap:.4rem;}
     .nl-btn-primary:hover{background:var(--copper-l);}
     .nl-btn-primary:disabled{opacity:.5;cursor:not-allowed;}
@@ -273,7 +308,7 @@
     .comp-seg-opt input[type=radio]{accent-color:var(--copper);}
     .comp-seg-label{font-size:.8rem;color:var(--text);}
     .comp-seg-count{margin-left:auto;font-size:.68rem;color:var(--muted);background:var(--bg3);padding:.15rem .5rem;border-radius:10px;}
-    .comp-actions{display:flex;gap:.75rem;align-items:center;padding-top:.5rem;border-top:1px solid var(--border);}
+    .comp-actions{display:flex;gap:.75rem;align-items:center;padding-top:.5rem;border-top:1px solid var(--border);flex-wrap:wrap;}
     .comp-status{font-size:.75rem;color:var(--muted);flex:1;}
     .comp-status.ok{color:#86efac;}
     .comp-status.err{color:#fca5a5;}
@@ -302,19 +337,23 @@
     .seg-row-label{color:var(--muted);}
     .seg-row-val{color:var(--text);}
     .seg-bar-wrap{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:.65rem;overflow:hidden;}
-    .seg-bar-fill{height:100%;border-radius:2px;background:var(--copper);transition:width .4s;}
-    @media(max-width:1200px){.comp-grid{grid-template-columns:1fr;}.preview-wrap{position:static;}}
-    @media(max-width:900px){.nl-stats{grid-template-columns:repeat(2,1fr);}.seg-grid{grid-template-columns:1fr 1fr;}}
+    .seg-bar-fill{height:100%;border-radius:2px;background:var(--copper);}
 
     /* ── THEME TOGGLE ── */
-    .theme-toggle{display:flex;align-items:center;gap:.5rem;padding:.5rem 1.25rem;margin:.25rem 0;}
-    .toggle-track{width:36px;height:20px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;cursor:pointer;position:relative;transition:background .2s,border-color .2s;flex-shrink:0;}
+    .theme-toggle{display:flex;align-items:center;gap:.5rem;padding:.5rem 1.25rem;margin:.25rem 0;cursor:pointer;}
+    .toggle-track{width:36px;height:20px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;position:relative;transition:background .2s,border-color .2s;flex-shrink:0;}
     .toggle-thumb{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform .2s,background .2s;}
     [data-theme="light"] .toggle-thumb{transform:translateX(16px);background:var(--copper);}
     [data-theme="light"] .toggle-track{background:rgba(200,160,85,.15);border-color:rgba(200,160,85,.3);}
-    .toggle-icon{font-size:.75rem;color:var(--muted);line-height:1;user-select:none;}
-    body{transition:background .2s,color .2s;}
-    .sidebar{transition:background .2s;}
+    .toggle-icon{font-size:.75rem;color:var(--muted);user-select:none;}
+
+    /* ── LOADING ── */
+    .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--copper);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading{display:flex;align-items:center;justify-content:center;padding:4rem;color:var(--muted);font-size:.82rem;gap:.75rem;}
+
+    @media(max-width:1200px){.comp-grid{grid-template-columns:1fr;}.preview-wrap{position:static;}}
+    @media(max-width:900px){.nl-stats{grid-template-columns:repeat(2,1fr);}.seg-grid{grid-template-columns:1fr 1fr;}.kanban-board{grid-template-columns:repeat(3,1fr);}}
   </style>
 </head>
 <body>
@@ -346,7 +385,7 @@
         Inicio
       </div>
       <div class="sb-section">Leads</div>
-      <div class="sb-link" id="nav-crm" onclick="setView('crm')">
+      <div class="sb-link" id="nav-crm" onclick="setView('crm','todos')">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         CRM
         <span class="sb-badge" id="sb-badge-total">—</span>
@@ -378,7 +417,7 @@
         <span class="sb-ext-ico"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
       </div>
     </nav>
-    <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">
+    <div class="theme-toggle" onclick="toggleTheme()">
       <span class="toggle-icon">🌙</span>
       <div class="toggle-track"><div class="toggle-thumb"></div></div>
       <span class="toggle-icon">☀️</span>
@@ -392,7 +431,8 @@
   </aside>
 
   <main class="main">
-    <!-- HOME -->
+
+    <!-- ══ HOME ══ -->
     <div class="view active" id="view-home">
       <div class="home-wrap">
         <div class="home-greeting" id="home-greeting">Bienvenido</div>
@@ -404,7 +444,7 @@
           <div class="hs-card c-new"><div class="hs-n" id="hs-new">—</div><div class="hs-l">Sin contactar</div></div>
         </div>
         <div class="home-cards">
-          <div class="hcard h-crm" onclick="setView('crm')">
+          <div class="hcard h-crm" onclick="setView('crm','todos')">
             <div class="hcard-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
             <div class="hcard-title">CRM de leads</div>
             <div class="hcard-desc">Revisa, filtra y gestiona todos los contactos que han llegado desde el formulario del sitio.</div>
@@ -420,27 +460,117 @@
         <div class="home-recent">
           <div class="home-recent-head">
             <div class="home-recent-title">Últimos leads recibidos</div>
-            <div class="home-recent-link" onclick="setView('crm')">Ver todos →</div>
+            <div class="home-recent-link" onclick="setView('crm','todos')">Ver todos →</div>
           </div>
           <div id="recent-list"><div class="loading"><div class="spin"></div></div></div>
         </div>
       </div>
     </div>
 
-    <!-- CRM (iframe → /crm) -->
-    <div class="admin-view" id="view-crm">
+    <!-- ══ CRM (nativo) ══ -->
+    <div class="view" id="view-crm">
+      <div class="crm-wrap">
+        <div class="topbar">
+          <div class="topbar-left">
+            <div class="topbar-title" id="crm-title">CRM · Leads</div>
+            <div class="view-toggle">
+              <button class="vtog on" id="vtog-tabla" onclick="crmSetModo('tabla')">
+                <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                Tabla
+              </button>
+              <button class="vtog" id="vtog-kanban" onclick="crmSetModo('kanban')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="18"/><rect x="10" y="3" width="5" height="11"/><rect x="17" y="3" width="5" height="15"/></svg>
+                Kanban
+              </button>
+            </div>
+          </div>
+          <div class="topbar-actions">
+            <button class="btn-action" onclick="crmExportarCSV()">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exportar CSV
+            </button>
+            <button class="btn-action" onclick="cargarLeads()">
+              <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Actualizar
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats CRM -->
+        <div class="stats-grid">
+          <div class="stat-card c-tot" onclick="crmSetFiltroCalificacion('')"><div class="stat-n" id="crm-s-total">—</div><div class="stat-l">Total leads</div></div>
+          <div class="stat-card c-cal" onclick="crmSetFiltroCalificacion('calificado')"><div class="stat-n" id="crm-s-cal">—</div><div class="stat-l">Calificados</div></div>
+          <div class="stat-card c-pot" onclick="crmSetFiltroCalificacion('potencial')"><div class="stat-n" id="crm-s-pot">—</div><div class="stat-l">Potenciales</div></div>
+          <div class="stat-card c-no" onclick="crmSetFiltroCalificacion('no_calificado')"><div class="stat-n" id="crm-s-no">—</div><div class="stat-l">No calificados</div></div>
+        </div>
+
+        <!-- Filtros CRM -->
+        <div class="filters" id="crm-filters">
+          <input class="filter-search" type="text" placeholder="Buscar por nombre, email o empresa..." id="crm-search" oninput="crmFiltrar()"/>
+          <select class="fsel" id="crm-fil-cal" onchange="crmFiltrar()">
+            <option value="">Todas las calificaciones</option>
+            <option value="calificado">Calificados</option>
+            <option value="potencial">Potenciales</option>
+            <option value="no_calificado">No calificados</option>
+          </select>
+          <select class="fsel" id="crm-fil-estado" onchange="crmFiltrar()">
+            <option value="">Todos los estados</option>
+            <option value="nuevo">Nuevo</option>
+            <option value="contactado">Contactado</option>
+            <option value="en_proceso">En proceso</option>
+            <option value="cerrado">Cerrado</option>
+            <option value="descartado">Descartado</option>
+          </select>
+          <select class="fsel" id="crm-fil-area" onchange="crmFiltrar()">
+            <option value="">Todas las áreas</option>
+            <option value="bi">Inteligencia de Negocios</option>
+            <option value="estrategia">Plan Estratégico</option>
+            <option value="procesos">Procesos</option>
+            <option value="crm">CRM y Ventas</option>
+            <option value="marketing">Marketing Digital</option>
+            <option value="digital">Digitalización</option>
+            <option value="otros">Otros</option>
+          </select>
+          <select class="fsel" id="crm-fil-ord" onchange="crmFiltrar()">
+            <option value="score">Mayor score</option>
+            <option value="reciente">Más reciente</option>
+            <option value="nombre">Nombre A-Z</option>
+          </select>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-wrap" id="crm-table-wrap">
+          <div class="loading" id="crm-loading"><div class="spin"></div> Cargando leads...</div>
+          <table id="crm-table" style="display:none">
+            <thead><tr>
+              <th>Contacto</th><th>Empresa</th><th>Área</th><th>Presupuesto</th>
+              <th>Score</th><th>Calificación</th><th>Estado</th><th>Canal</th><th>Fecha</th>
+            </tr></thead>
+            <tbody id="crm-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Kanban -->
+        <div id="crm-kanban" style="display:none">
+          <div class="kanban-board" id="crm-kanban-board"></div>
+          <div class="analytics-bar" id="crm-analytics"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ BLOG ADMIN (iframe — Sveltia CMS, inevitable) ══ -->
+    <div class="admin-view" id="view-admin">
       <div class="iframe-bar">
-        <span class="iframe-title">CRM · Leads y contactos</span>
-        <a class="iframe-open" href="/crm" target="_blank">
+        <span class="iframe-title">Blog admin · Sveltia CMS</span>
+        <a class="iframe-open" href="/admin" target="_blank">
           Abrir en nueva pestaña
           <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
       </div>
-      <iframe id="crm-frame" src="" title="CRM"></iframe>
+      <iframe id="admin-frame" src="" title="Admin"></iframe>
     </div>
 
-    <!-- ADMIN (iframe — funciona porque el usuario ya está logueado en Sveltia con GitHub) -->
-    <!-- NEWSLETTER -->
+    <!-- ══ NEWSLETTER ══ -->
     <div class="view" id="view-newsletter">
       <div class="nl-wrap">
         <div class="topbar">
@@ -450,24 +580,19 @@
             Nueva campaña
           </button>
         </div>
-
-        <!-- Stats -->
         <div class="nl-stats">
           <div class="nl-stat s-total"><div class="nl-stat-n" id="nl-s-total">—</div><div class="nl-stat-l">Suscriptores</div></div>
           <div class="nl-stat s-active"><div class="nl-stat-n" id="nl-s-active">—</div><div class="nl-stat-l">Activos</div></div>
           <div class="nl-stat s-sent"><div class="nl-stat-n" id="nl-s-sent">—</div><div class="nl-stat-l">Envíos totales</div></div>
           <div class="nl-stat s-open"><div class="nl-stat-n" id="nl-s-open">—%</div><div class="nl-stat-l">Tasa apertura avg</div></div>
         </div>
-
-        <!-- Tabs -->
         <div class="nl-tabs">
           <div class="nl-tab active" id="nltab-suscriptores" onclick="nlSetTab('suscriptores')">Suscriptores</div>
           <div class="nl-tab" id="nltab-compositor" onclick="nlSetTab('compositor')">Compositor</div>
           <div class="nl-tab" id="nltab-historial" onclick="nlSetTab('historial')">Historial</div>
           <div class="nl-tab" id="nltab-segmentos" onclick="nlSetTab('segmentos')">Segmentos</div>
         </div>
-
-        <!-- Panel: Suscriptores -->
+        <!-- Panel Suscriptores -->
         <div class="nl-panel active" id="nlpanel-suscriptores">
           <div class="nl-toolbar">
             <input class="nl-search" type="text" id="nl-search" placeholder="Buscar por email o nombre..." oninput="nlFiltrar()"/>
@@ -483,11 +608,11 @@
               <option value="activo">Activos</option>
               <option value="baja">Dados de baja</option>
             </select>
-            <button class="nl-btn-sm" onclick="nlCargar()">
+            <button class="btn-action" onclick="nlCargar()">
               <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
               Actualizar
             </button>
-            <button class="nl-btn-sm" onclick="nlExportCSV()">
+            <button class="btn-action" onclick="nlExportCSV()">
               <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Exportar CSV
             </button>
@@ -501,8 +626,7 @@
             </table>
           </div>
         </div>
-
-        <!-- Panel: Compositor -->
+        <!-- Panel Compositor -->
         <div class="nl-panel" id="nlpanel-compositor">
           <div class="comp-grid">
             <div class="comp-form">
@@ -536,20 +660,20 @@
               </div>
               <div class="comp-field">
                 <label>Contenido (HTML o texto plano)</label>
-                <textarea class="comp-textarea" id="comp-body" placeholder="Escribe el contenido del email aquí. Puedes usar HTML básico o texto plano.&#10;&#10;Ejemplo:&#10;&lt;h2&gt;Perspectiva de esta semana&lt;/h2&gt;&#10;&lt;p&gt;Esta semana exploramos...&lt;/p&gt;" oninput="nlUpdatePreview()"></textarea>
+                <textarea class="comp-textarea" id="comp-body" placeholder="Escribe el contenido del email aquí..." oninput="nlUpdatePreview()"></textarea>
               </div>
               <div class="comp-actions">
-                <button class="nl-btn-sm" onclick="nlUpdatePreview()">
+                <button class="btn-action" onclick="nlUpdatePreview()">
                   <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                  Actualizar preview
+                  Preview
                 </button>
-                <button class="nl-btn-sm" onclick="nlEnviarPrueba()">
+                <button class="btn-action" onclick="nlEnviarPrueba()">
                   <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
-                  Enviar prueba
+                  Prueba
                 </button>
-                <button class="nl-btn-sm" id="comp-save-btn" onclick="nlGuardarBorrador()">
+                <button class="btn-action" id="comp-save-btn" onclick="nlGuardarBorrador()">
                   <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                  Guardar borrador
+                  Guardar
                 </button>
                 <button class="nl-btn-primary" id="comp-send-btn" onclick="nlEnviarCampana()">
                   <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
@@ -558,7 +682,6 @@
                 <span class="comp-status" id="comp-status"></span>
               </div>
             </div>
-            <!-- Preview -->
             <div class="preview-wrap">
               <div class="preview-head">
                 <span class="preview-label">Preview del email</span>
@@ -571,55 +694,103 @@
             </div>
           </div>
         </div>
-
-        <!-- Panel: Historial -->
+        <!-- Panel Historial -->
         <div class="nl-panel" id="nlpanel-historial">
           <div class="nl-table-wrap" id="nl-hist-wrap">
-            <div class="hist-empty" id="nl-hist-empty">Cargando historial...</div>
+            <div class="hist-empty">Cargando historial...</div>
           </div>
         </div>
-
-        <!-- Panel: Segmentos -->
+        <!-- Panel Segmentos -->
         <div class="nl-panel" id="nlpanel-segmentos">
           <div class="seg-grid" id="nl-seg-grid">
             <div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--muted);font-size:.82rem">Cargando segmentos...</div>
           </div>
         </div>
-
       </div>
     </div>
 
-    <div class="admin-view" id="view-admin">
-      <div class="iframe-bar">
-        <span class="iframe-title">Blog admin · Sveltia CMS</span>
-        <a class="iframe-open" href="/admin" target="_blank">
-          Abrir en nueva pestaña
-          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-      </div>
-      <iframe id="admin-frame" src="" title="Admin"></iframe>
-    </div>
   </main>
 </div>
 
-
+<!-- DETAIL PANEL (CRM) -->
+<div class="panel-overlay" id="crm-overlay" onclick="crmCerrarPanel()"></div>
+<div class="detail-panel" id="crm-detail-panel">
+  <div class="dp-head">
+    <div>
+      <div class="dp-name" id="dp-name">—</div>
+      <div class="dp-email" id="dp-email">—</div>
+    </div>
+    <button class="dp-close" onclick="crmCerrarPanel()">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="dp-body" id="dp-body"></div>
+</div>
 
 <script>
+// ══════════════════════════════════════════════════════
+//  CONFIG
+// ══════════════════════════════════════════════════════
 const SB_URL = 'https://rpduicqgelrhhptvyhpp.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwZHVpY3FnZWxyaGhwdHZ5aHBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NDcwOTksImV4cCI6MjA5MDIyMzA5OX0.XSrjkgVH2ZPl2ePaMAJCO3J9i0W6pRGfMYlHme0Mg8E';
 
+// ══════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════
 let SESSION = null;
 let todosLeads = [];
 let leadActual = null;
-let vistaActual = 'home';
-let filtroCal = null;
+let crmModo = 'tabla';           // 'tabla' | 'kanban'
+let crmFiltroCalActivo = '';     // calificacion activa por defecto
 let adminCargado = false;
 let nlCargado = false;
-let crmCargado = false;
+let borrador_id_actual = null;
 let todosSuscriptores = [];
 let historialEnvios = [];
 
-// ── AUTH ────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════════════════
+function sbH() {
+  return {
+    'Content-Type': 'application/json',
+    'apikey': SB_KEY,
+    'Authorization': `Bearer ${SESSION?.token || SB_KEY}`
+  };
+}
+
+const AREAS   = { bi:'Inteligencia BI', estrategia:'Estrategia', procesos:'Procesos', crm:'CRM y Ventas', marketing:'Marketing', digital:'Digitalización', otros:'Otros' };
+const PRESUP  = { menos_500k:'< $500k', '500k_1.5M':'$500k–1.5M', '1.5M_5M':'$1.5M–5M', mas_5M:'> $5M' };
+const URGENCIA = { inmediato:'Inmediato', '1-3_meses':'1–3 meses', explorando:'Explorando' };
+const EST_LBL = { nuevo:'Nuevo', contactado:'Contactado', en_proceso:'En proceso', cerrado:'Cerrado', descartado:'Descartado' };
+
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('es-CL', { day:'2-digit', month:'short', year:'2-digit' });
+}
+
+function calBadge(c) {
+  const m = { calificado:['b-cal','Calificado'], potencial:['b-pot','Potencial'], no_calificado:['b-no','Sin calificar'] };
+  const [cls, txt] = m[c] || ['b-no', '—'];
+  return `<span class="badge ${cls}"><span class="badge-dot"></span>${txt}</span>`;
+}
+function estadoBadge(e) {
+  const m = { nuevo:'b-nuevo', contactado:'b-contactado', en_proceso:'b-proceso', cerrado:'b-cerrado', descartado:'b-descartado' };
+  return `<span class="badge ${m[e]||'b-no'}">${EST_LBL[e]||e||'—'}</span>`;
+}
+function scoreBar(s) {
+  const pct = Math.min(s||0, 100);
+  const color = pct>=55 ? '#4ade80' : pct>=25 ? '#facc15' : 'rgba(255,255,255,.2)';
+  return `<div class="score-bar"><div class="score-track"><div class="score-fill" style="width:${pct}%;background:${color}"></div></div><span class="score-num">${s||0}</span></div>`;
+}
+function canalHtml(l) {
+  const src = l.utm_source || (l.referrer ? (() => { try { return new URL(l.referrer).hostname.replace('www.',''); } catch { return 'directo'; } })() : 'directo');
+  return `<span class="channel"><span class="channel-dot"></span>${src}</span>`;
+}
+
+// ══════════════════════════════════════════════════════
+//  AUTH
+// ══════════════════════════════════════════════════════
 function loginGitHub() {
   const redirectTo = 'https://vorenconsultores.cl/panel';
   window.location.href = `${SB_URL}/auth/v1/authorize?provider=github&redirect_to=${encodeURIComponent(redirectTo)}`;
@@ -630,12 +801,17 @@ async function checkSession() {
   if (hash.includes('access_token')) {
     const params = new URLSearchParams(hash.slice(1));
     const token = params.get('access_token');
-    if (token) { sessionStorage.setItem('panel_token', token); window.history.replaceState(null,'',window.location.pathname); }
+    if (token) {
+      sessionStorage.setItem('panel_token', token);
+      window.history.replaceState(null, '', window.location.pathname);
+    }
   }
   const token = sessionStorage.getItem('panel_token');
   if (!token) return false;
   try {
-    const res = await fetch(`${SB_URL}/auth/v1/user`, { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${token}` } });
+    const res = await fetch(`${SB_URL}/auth/v1/user`, {
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${token}` }
+    });
     if (!res.ok) { sessionStorage.removeItem('panel_token'); return false; }
     const user = await res.json();
     SESSION = { token, user };
@@ -645,7 +821,7 @@ async function checkSession() {
     if (avatar) { const av = document.getElementById('sb-avatar'); av.src = avatar; av.style.display = 'block'; }
     const hora = new Date().getHours();
     const saludo = hora < 12 ? 'Buenos días' : hora < 19 ? 'Buenas tardes' : 'Buenas noches';
-    const nombre = (user.user_metadata?.name||user.email).split(' ')[0];
+    const nombre = (user.user_metadata?.name || user.email).split(' ')[0];
     document.getElementById('home-greeting').textContent = `${saludo}, ${nombre}`;
     return true;
   } catch { return false; }
@@ -658,93 +834,363 @@ function logout() {
   document.getElementById('auth-screen').style.display = 'flex';
 }
 
-// ── NAVEGACIÓN ──────────────────────────────────────────
-function setView(id, cal) {
-  filtroCal = cal || null;
-  vistaActual = id;
-  document.querySelectorAll('.view,.admin-view').forEach(v => v.classList.remove('active'));
+// ══════════════════════════════════════════════════════
+//  NAVEGACIÓN
+// ══════════════════════════════════════════════════════
+function setView(id, sub) {
+  document.querySelectorAll('.view, .admin-view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
 
   if (id === 'admin') {
     document.getElementById('view-admin').classList.add('active');
     document.getElementById('nav-admin').classList.add('active');
     if (!adminCargado) { document.getElementById('admin-frame').src = '/admin'; adminCargado = true; }
+
   } else if (id === 'newsletter') {
     document.getElementById('view-newsletter').classList.add('active');
     document.getElementById('nav-newsletter').classList.add('active');
     if (!nlCargado) { nlCargar(); nlCargarHistorial(); nlCargado = true; }
+
   } else if (id === 'crm') {
     document.getElementById('view-crm').classList.add('active');
-    document.getElementById(cal === 'calificado' ? 'nav-crm-cal' : 'nav-crm').classList.add('active');
-    if (!crmCargado) {
-      document.getElementById('crm-frame').src = '/crm';
-      crmCargado = true;
+    // Activar link correcto en sidebar
+    if (sub === 'calificado') {
+      document.getElementById('nav-crm-cal').classList.add('active');
+    } else {
+      document.getElementById('nav-crm').classList.add('active');
     }
+    // Aplicar filtro de calificación si viene de un acceso directo
+    crmFiltroCalActivo = sub === 'calificado' ? 'calificado' : '';
+    document.getElementById('crm-fil-cal').value = crmFiltroCalActivo;
+    const titulo = sub === 'calificado' ? 'CRM · Calificados' : 'CRM · Leads';
+    document.getElementById('crm-title').textContent = titulo;
+    crmFiltrar();
+
   } else {
     document.getElementById('view-home').classList.add('active');
     document.getElementById('nav-home').classList.add('active');
   }
 }
 
-// ── DATOS ───────────────────────────────────────────────
-function sbH() { return { 'apikey': SB_KEY, 'Authorization': `Bearer ${SESSION.token}` }; }
-
-async function cargarLeads() {
-  // Solo para home stats — CRM data vive en /crm iframe
-  await cargarHome();
-}
-
+// ══════════════════════════════════════════════════════
+//  HOME
+// ══════════════════════════════════════════════════════
 async function cargarHome() {
   try {
-    const res = await fetch(`${SB_URL}/rest/v1/contactos?select=id,nombre,email,calificacion,estado,created_at&order=created_at.desc`, { headers: sbH() });
+    const res = await fetch(
+      `${SB_URL}/rest/v1/contactos?select=id,nombre,email,calificacion,estado,created_at&order=created_at.desc`,
+      { headers: sbH() }
+    );
     if (!res.ok) throw new Error();
     todosLeads = await res.json();
-    const cal = todosLeads.filter(l => l.calificacion === 'calificado').length;
-    const pot = todosLeads.filter(l => l.calificacion === 'potencial').length;
-    const nw  = todosLeads.filter(l => l.estado === 'nuevo').length;
-    document.getElementById('hs-total').textContent = todosLeads.length;
-    document.getElementById('hs-cal').textContent = cal;
-    document.getElementById('hs-pot').textContent = pot;
-    document.getElementById('hs-new').textContent = nw;
-    document.getElementById('sb-badge-total').textContent = todosLeads.length;
-    document.getElementById('sb-badge-cal').textContent = cal;
+    actualizarStatsBadges();
     renderRecientes();
+    crmActualizarStats();
   } catch {
     document.getElementById('hs-total').textContent = '—';
     document.getElementById('recent-list').innerHTML = '<div style="padding:1.5rem;text-align:center;color:var(--muted2);font-size:.78rem">Error al cargar</div>';
   }
 }
 
-function actualizarStats() {
+function actualizarStatsBadges() {
   const cal = todosLeads.filter(l => l.calificacion === 'calificado').length;
-  const pot = todosLeads.filter(l => l.calificacion === 'potencial').length;
-  const no  = todosLeads.filter(l => l.calificacion === 'no_calificado').length;
-  // Home stats
   document.getElementById('sb-badge-total').textContent = todosLeads.length;
   document.getElementById('sb-badge-cal').textContent = cal;
   document.getElementById('hs-total').textContent = todosLeads.length;
   document.getElementById('hs-cal').textContent = cal;
-  document.getElementById('hs-pot').textContent = pot;
-  document.getElementById('hs-new').textContent = todosLeads.filter(l=>l.estado==='nuevo').length;
+  document.getElementById('hs-pot').textContent = todosLeads.filter(l => l.calificacion === 'potencial').length;
+  document.getElementById('hs-new').textContent = todosLeads.filter(l => l.estado === 'nuevo').length;
 }
 
 function renderRecientes() {
-  const calBadge = c => {
-    const m = { calificado:'b-cal', potencial:'b-pot', no_calificado:'b-no' };
-    const t = { calificado:'Calificado', potencial:'Potencial', no_calificado:'Sin calif.' };
-    return `<span class="badge ${m[c]||'b-no'}"><span class="badge-dot"></span>${t[c]||'—'}</span>`;
-  };
-  const fmtDate = d => new Date(d).toLocaleDateString('es-CL', { day:'2-digit', month:'short' });
-  const recientes = todosLeads.slice(0,5);
+  const recientes = todosLeads.slice(0, 5);
   document.getElementById('recent-list').innerHTML = recientes.length
-    ? recientes.map(l => `<div class="recent-row" onclick="setView('crm')"><div><div class="rr-name">${l.nombre||'—'}</div><div class="rr-email">${l.email||''}</div></div>${calBadge(l.calificacion)}<div class="rr-date">${fmtDate(l.created_at)}</div></div>`).join('')
+    ? recientes.map(l => `
+        <div class="recent-row" onclick="setView('crm','todos')">
+          <div><div class="rr-name">${l.nombre||'—'}</div><div class="rr-email">${l.email||''}</div></div>
+          ${calBadge(l.calificacion)}
+          <div class="rr-date">${fmtDate(l.created_at)}</div>
+        </div>`).join('')
     : '<div style="padding:2rem;text-align:center;color:var(--muted);font-size:.8rem">Aún no hay leads</div>';
 }
 
-// ── CRM vive en /crm (iframe) ─────────────────────────────
+// ══════════════════════════════════════════════════════
+//  CRM — DATOS
+// ══════════════════════════════════════════════════════
+async function cargarLeads() {
+  document.getElementById('crm-loading').style.display = 'flex';
+  document.getElementById('crm-table').style.display = 'none';
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/contactos?select=*&order=created_at.desc`,
+      { headers: sbH() }
+    );
+    if (!res.ok) throw new Error();
+    todosLeads = await res.json();
+    actualizarStatsBadges();
+    crmActualizarStats();
+    crmFiltrar();
+  } catch {
+    document.getElementById('crm-loading').innerHTML = '<span style="color:#fca5a5">Error al cargar. Verifica permisos Supabase.</span>';
+  }
+}
 
-// ── NEWSLETTER ──────────────────────────────────────────
+function crmActualizarStats() {
+  document.getElementById('crm-s-total').textContent = todosLeads.length;
+  document.getElementById('crm-s-cal').textContent   = todosLeads.filter(l => l.calificacion === 'calificado').length;
+  document.getElementById('crm-s-pot').textContent   = todosLeads.filter(l => l.calificacion === 'potencial').length;
+  document.getElementById('crm-s-no').textContent    = todosLeads.filter(l => l.calificacion === 'no_calificado').length;
+}
 
+function crmSetFiltroCalificacion(val) {
+  document.getElementById('crm-fil-cal').value = val;
+  crmFiltrar();
+}
+
+// ══════════════════════════════════════════════════════
+//  CRM — FILTROS
+// ══════════════════════════════════════════════════════
+function crmFiltrar() {
+  const q      = (document.getElementById('crm-search')?.value || '').toLowerCase();
+  const cal    = document.getElementById('crm-fil-cal')?.value || '';
+  const estado = document.getElementById('crm-fil-estado')?.value || '';
+  const area   = document.getElementById('crm-fil-area')?.value || '';
+  const ord    = document.getElementById('crm-fil-ord')?.value || 'score';
+
+  let lista = [...todosLeads];
+  if (cal)    lista = lista.filter(l => l.calificacion === cal);
+  if (estado) lista = lista.filter(l => l.estado === estado);
+  if (area)   lista = lista.filter(l => l.area === area);
+  if (q)      lista = lista.filter(l =>
+    (l.nombre||'').toLowerCase().includes(q) ||
+    (l.email||'').toLowerCase().includes(q) ||
+    (l.empresa||'').toLowerCase().includes(q)
+  );
+
+  if (ord === 'score')    lista.sort((a,b) => (b.score||0) - (a.score||0));
+  if (ord === 'reciente') lista.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+  if (ord === 'nombre')   lista.sort((a,b) => (a.nombre||'').localeCompare(b.nombre||''));
+
+  crmRenderTabla(lista);
+  if (crmModo === 'kanban') { crmRenderKanban(lista); crmRenderAnalytics(lista); }
+}
+
+// ══════════════════════════════════════════════════════
+//  CRM — TABLA
+// ══════════════════════════════════════════════════════
+function crmRenderTabla(lista) {
+  document.getElementById('crm-loading').style.display = 'none';
+  document.getElementById('crm-table').style.display = 'table';
+  const tbody = document.getElementById('crm-tbody');
+  if (!lista.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="9">Sin leads para mostrar</td></tr>';
+    return;
+  }
+  tbody.innerHTML = lista.map(l => `
+    <tr onclick="crmAbrirPanel('${l.id}')">
+      <td>
+        <div style="font-weight:400">${l.nombre||'—'}</div>
+        <div style="font-size:.7rem;color:var(--muted)">${l.email||''}</div>
+      </td>
+      <td>${l.empresa||'<span style="color:var(--muted2)">—</span>'}</td>
+      <td style="font-size:.75rem">${AREAS[l.area]||l.area||'—'}</td>
+      <td style="font-size:.75rem">${PRESUP[l.presupuesto]||l.presupuesto||'—'}</td>
+      <td>${scoreBar(l.score)}</td>
+      <td>${calBadge(l.calificacion)}</td>
+      <td>${estadoBadge(l.estado)}</td>
+      <td>${canalHtml(l)}</td>
+      <td style="color:var(--muted);font-size:.72rem">${fmtDate(l.created_at)}</td>
+    </tr>`).join('');
+}
+
+// ══════════════════════════════════════════════════════
+//  CRM — MODO TABLA/KANBAN
+// ══════════════════════════════════════════════════════
+function crmSetModo(modo) {
+  crmModo = modo;
+  const esTabla = modo === 'tabla';
+  document.getElementById('crm-table-wrap').style.display = esTabla ? 'block' : 'none';
+  document.getElementById('crm-filters').style.display    = esTabla ? 'flex' : 'none';
+  document.getElementById('crm-kanban').style.display     = esTabla ? 'none' : 'block';
+  document.getElementById('vtog-tabla').classList.toggle('on', esTabla);
+  document.getElementById('vtog-kanban').classList.toggle('on', !esTabla);
+  if (!esTabla) { crmFiltrar(); }
+}
+
+// ══════════════════════════════════════════════════════
+//  CRM — KANBAN
+// ══════════════════════════════════════════════════════
+const KANBAN_COLS = [
+  { key:'nuevo',      label:'Nuevo',      color:'#5BA4F5' },
+  { key:'contactado', label:'Contactado', color:'#a78bfa' },
+  { key:'en_proceso', label:'En proceso', color:'#facc15' },
+  { key:'cerrado',    label:'Cerrado',    color:'#4ade80' },
+  { key:'descartado', label:'Descartado', color:'#f87171' },
+];
+
+function crmRenderKanban(lista) {
+  document.getElementById('crm-kanban-board').innerHTML = KANBAN_COLS.map(col => {
+    const cards = lista.filter(l => l.estado === col.key);
+    return `
+      <div class="kanban-col">
+        <div class="kanban-col-accent" style="background:${col.color}"></div>
+        <div class="kanban-col-head">
+          <span class="kanban-col-title">${col.label}</span>
+          <span class="kanban-col-count">${cards.length}</span>
+        </div>
+        <div class="kanban-cards">${cards.length
+          ? cards.map(l => `
+              <div class="kanban-card" onclick="crmAbrirPanel('${l.id}')">
+                <div class="kanban-card-name">${l.nombre||'—'}</div>
+                <div class="kanban-card-empresa">${l.empresa||'Sin empresa'}</div>
+                <div class="kanban-card-foot">${calBadge(l.calificacion)}<span class="kanban-card-score">Score: ${l.score||0}</span></div>
+              </div>`).join('')
+          : '<div class="kanban-empty">Sin leads</div>'}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function crmRenderAnalytics(lista) {
+  const total = lista.length || 1;
+  const byCanal = {}, byArea = {}, byPresup = {};
+  lista.forEach(l => {
+    const c = l.utm_source || (l.referrer ? (() => { try { return new URL(l.referrer).hostname.replace('www.',''); } catch { return 'directo'; } })() : 'directo');
+    byCanal[c] = (byCanal[c]||0) + 1;
+    if (l.area) byArea[AREAS[l.area]||l.area] = (byArea[AREAS[l.area]||l.area]||0) + 1;
+    if (l.presupuesto) byPresup[PRESUP[l.presupuesto]||l.presupuesto] = (byPresup[PRESUP[l.presupuesto]||l.presupuesto]||0) + 1;
+  });
+  function mkBar(data) {
+    const entries = Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const max = Math.max(...entries.map(e=>e[1]), 1);
+    return entries.map(([k,v]) => `
+      <div class="an-row"><span class="an-label">${k}</span><span class="an-val">${v} (${Math.round(v/total*100)}%)</span></div>
+      <div class="an-bar-wrap"><div class="an-bar-fill" style="width:${Math.round(v/max*100)}%"></div></div>`).join('')
+      || '<div style="font-size:.75rem;color:var(--muted2);padding:.5rem 0">Sin datos</div>';
+  }
+  document.getElementById('crm-analytics').innerHTML = `
+    <div class="an-card"><div class="an-title">Por canal de origen</div>${mkBar(byCanal)}</div>
+    <div class="an-card"><div class="an-title">Por área de interés</div>${mkBar(byArea)}</div>
+    <div class="an-card"><div class="an-title">Por presupuesto</div>${mkBar(byPresup)}</div>`;
+}
+
+// ══════════════════════════════════════════════════════
+//  CRM — PANEL DETALLE
+// ══════════════════════════════════════════════════════
+function crmAbrirPanel(id) {
+  leadActual = todosLeads.find(l => String(l.id) === String(id));
+  if (!leadActual) return;
+  const l = leadActual;
+
+  document.getElementById('dp-name').textContent  = l.nombre || '—';
+  document.getElementById('dp-email').textContent = l.email  || '—';
+
+  const utmTags = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
+    .filter(k => l[k])
+    .map(k => `<span class="utm-tag">${k.replace('utm_','')}: <strong>${l[k]}</strong></span>`)
+    .join('');
+
+  document.getElementById('dp-body').innerHTML = `
+    <div class="dp-section">
+      <div class="dp-section-title">Calificación</div>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.75rem">
+        ${calBadge(l.calificacion)}${scoreBar(l.score)}
+      </div>
+      <div class="dp-row"><span class="dp-label">Presupuesto</span><span class="dp-value">${PRESUP[l.presupuesto]||l.presupuesto||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Urgencia</span><span class="dp-value">${URGENCIA[l.urgencia]||l.urgencia||'—'}</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Datos del contacto</div>
+      <div class="dp-row"><span class="dp-label">Empresa</span><span class="dp-value">${l.empresa||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Tamaño empresa</span><span class="dp-value">${l.tamano ? l.tamano+' personas' : '—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Área de interés</span><span class="dp-value">${AREAS[l.area]||l.area||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Fecha de contacto</span><span class="dp-value">${fmtDate(l.created_at)}</span></div>
+    </div>
+    ${l.mensaje ? `
+    <div class="dp-section">
+      <div class="dp-section-title">Mensaje</div>
+      <div class="dp-msg">"${l.mensaje}"</div>
+    </div>` : ''}
+    <div class="dp-section">
+      <div class="dp-section-title">Origen / UTMs</div>
+      <div class="dp-row"><span class="dp-label">Landing page</span><span class="dp-value" style="font-size:.72rem">${l.landing_page||'—'}</span></div>
+      <div class="dp-row"><span class="dp-label">Referrer</span><span class="dp-value" style="font-size:.72rem">${l.referrer||'Directo'}</span></div>
+      ${utmTags ? `<div style="margin-top:.5rem">${utmTags}</div>` : '<div style="font-size:.72rem;color:var(--muted2)">Sin parámetros UTM</div>'}
+      ${l.gclid ? `<div style="margin-top:.4rem"><span class="utm-tag">Google Ads: <strong>${l.gclid.slice(0,12)}…</strong></span></div>` : ''}
+      ${l.fbclid ? `<div style="margin-top:.4rem"><span class="utm-tag">Meta Ads: <strong>${l.fbclid.slice(0,12)}…</strong></span></div>` : ''}
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Gestión CRM</div>
+      <div class="dp-field">
+        <label>Estado del lead</label>
+        <select id="dp-estado">
+          ${['nuevo','contactado','en_proceso','cerrado','descartado'].map(e =>
+            `<option value="${e}" ${l.estado===e?'selected':''}>${EST_LBL[e]}</option>`
+          ).join('')}
+        </select>
+      </div>
+      <div class="dp-field">
+        <label>Notas internas</label>
+        <textarea id="dp-notas" placeholder="Agrega notas, próximos pasos, contexto...">${l.notas||''}</textarea>
+      </div>
+      <button class="dp-save" onclick="crmGuardarLead()">Guardar cambios</button>
+      <div class="dp-saved" id="dp-saved">✓ Guardado correctamente</div>
+    </div>`;
+
+  document.getElementById('crm-overlay').classList.add('open');
+  document.getElementById('crm-detail-panel').classList.add('open');
+}
+
+function crmCerrarPanel() {
+  document.getElementById('crm-overlay').classList.remove('open');
+  document.getElementById('crm-detail-panel').classList.remove('open');
+  leadActual = null;
+}
+
+async function crmGuardarLead() {
+  if (!leadActual) return;
+  const btn = document.querySelector('.dp-save');
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  const updates = {
+    estado:        document.getElementById('dp-estado').value,
+    notas:         document.getElementById('dp-notas').value,
+    ultima_accion: new Date().toISOString()
+  };
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/contactos?id=eq.${leadActual.id}`, {
+      method: 'PATCH',
+      headers: { ...sbH(), 'Prefer': 'return=minimal' },
+      body: JSON.stringify(updates)
+    });
+    if (!res.ok) throw new Error();
+    const idx = todosLeads.findIndex(l => l.id === leadActual.id);
+    if (idx >= 0) todosLeads[idx] = { ...todosLeads[idx], ...updates };
+    leadActual = { ...leadActual, ...updates };
+    crmActualizarStats();
+    crmFiltrar();
+    document.getElementById('dp-saved').classList.add('show');
+    setTimeout(() => document.getElementById('dp-saved').classList.remove('show'), 2500);
+  } catch { alert('Error al guardar. Intenta de nuevo.'); }
+  finally { btn.disabled = false; btn.textContent = 'Guardar cambios'; }
+}
+
+function crmExportarCSV() {
+  if (!todosLeads.length) return;
+  const headers = ['nombre','email','empresa','area','presupuesto','score','calificacion','estado','utm_source','utm_medium','utm_campaign','created_at','notas'];
+  const rows = todosLeads.map(l => headers.map(h => {
+    const val = h === 'area' ? (AREAS[l[h]]||l[h]||'') : h === 'presupuesto' ? (PRESUP[l[h]]||l[h]||'') : (l[h]||'');
+    return JSON.stringify(String(val).replace(/"/g,'""'));
+  }).join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+  a.download = 'leads-voren-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+}
+
+// ══════════════════════════════════════════════════════
+//  NEWSLETTER
+// ══════════════════════════════════════════════════════
 function nlSetTab(tab) {
   document.querySelectorAll('.nl-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.nl-panel').forEach(p => p.classList.remove('active'));
@@ -758,48 +1204,38 @@ async function nlCargar() {
     const res = await fetch(`${SB_URL}/rest/v1/suscriptores?select=*&order=created_at.desc`, { headers: sbH() });
     if (!res.ok) throw new Error();
     todosSuscriptores = await res.json();
-    nlActualizarStats();
+    const activos = todosSuscriptores.filter(s => s.activo !== false).length;
+    document.getElementById('nl-s-total').textContent  = todosSuscriptores.length;
+    document.getElementById('nl-s-active').textContent = activos;
+    document.getElementById('sb-badge-nl').textContent = activos;
+    document.getElementById('cseg-todos').textContent  = activos;
+    document.getElementById('cseg-blog').textContent   = todosSuscriptores.filter(s=>s.fuente==='blog'&&s.activo!==false).length;
+    document.getElementById('cseg-home').textContent   = todosSuscriptores.filter(s=>s.fuente==='home'&&s.activo!==false).length;
     nlFiltrar();
     nlRenderSegmentos();
-    // Update composer counts
-    document.getElementById('cseg-todos').textContent = todosSuscriptores.filter(s=>s.activo!==false).length;
-    document.getElementById('cseg-blog').textContent = todosSuscriptores.filter(s=>s.fuente==='blog'&&s.activo!==false).length;
-    document.getElementById('cseg-home').textContent = todosSuscriptores.filter(s=>s.fuente==='home'&&s.activo!==false).length;
-    document.getElementById('sb-badge-nl').textContent = todosSuscriptores.filter(s=>s.activo!==false).length;
-  } catch(e) {
-    document.getElementById('nl-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#fca5a5">Error al cargar suscriptores. Verifica permisos RLS.</td></tr>';
+  } catch {
+    document.getElementById('nl-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#fca5a5">Error al cargar suscriptores.</td></tr>';
   }
 }
 
-function nlActualizarStats() {
-  const activos = todosSuscriptores.filter(s => s.activo !== false).length;
-  document.getElementById('nl-s-total').textContent = todosSuscriptores.length;
-  document.getElementById('nl-s-active').textContent = activos;
-  if (!historialEnvios.length) return;
-  document.getElementById('nl-s-sent').textContent = historialEnvios.length;
-  const avgOpen = historialEnvios.filter(h=>h.tasa_apertura).reduce((a,h)=>a+h.tasa_apertura,0) / historialEnvios.filter(h=>h.tasa_apertura).length;
-  document.getElementById('nl-s-open').textContent = isNaN(avgOpen) ? '—%' : avgOpen.toFixed(1) + '%';
-}
-
 function nlFiltrar() {
-  const q = (document.getElementById('nl-search')?.value||'').toLowerCase();
+  const q      = (document.getElementById('nl-search')?.value||'').toLowerCase();
   const fuente = document.getElementById('nl-fil-fuente')?.value || '';
   const estado = document.getElementById('nl-fil-estado')?.value || '';
   let lista = [...todosSuscriptores];
-  if (q) lista = lista.filter(s => (s.email||'').toLowerCase().includes(q) || (s.nombre||'').toLowerCase().includes(q));
+  if (q)      lista = lista.filter(s => (s.email||'').toLowerCase().includes(q)||(s.nombre||'').toLowerCase().includes(q));
   if (fuente) lista = lista.filter(s => s.fuente === fuente);
   if (estado === 'activo') lista = lista.filter(s => s.activo !== false);
-  if (estado === 'baja') lista = lista.filter(s => s.activo === false);
+  if (estado === 'baja')   lista = lista.filter(s => s.activo === false);
   document.getElementById('nl-count').textContent = lista.length + ' suscriptores';
-  const fmtD = d => d ? new Date(d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'2-digit'}) : '—';
   document.getElementById('nl-tbody').innerHTML = lista.length
     ? lista.map(s => `<tr>
         <td style="font-size:.8rem">${s.email||'—'}</td>
         <td style="font-size:.78rem;color:var(--muted)">${s.nombre||'—'}</td>
         <td><span class="badge b-nuevo" style="font-size:.62rem">${s.fuente||'—'}</span></td>
-        <td style="font-size:.72rem;color:var(--muted)">${s.articulo_origen ? s.articulo_origen.replace('blog/','') : '—'}</td>
+        <td style="font-size:.72rem;color:var(--muted)">${s.articulo_origen?s.articulo_origen.replace('blog/',''):'—'}</td>
         <td><span class="badge ${s.activo===false?'b-descartado':'b-cal'}" style="font-size:.62rem">${s.activo===false?'Baja':'Activo'}</span></td>
-        <td style="font-size:.72rem;color:var(--muted2)">${fmtD(s.created_at)}</td>
+        <td style="font-size:.72rem;color:var(--muted2)">${fmtDate(s.created_at)}</td>
       </tr>`).join('')
     : '<tr><td colspan="6" style="text-align:center;padding:2.5rem;color:var(--muted)">Sin resultados</td></tr>';
 }
@@ -808,52 +1244,44 @@ function nlExportCSV() {
   if (!todosSuscriptores.length) return;
   const headers = ['email','nombre','fuente','articulo_origen','activo','created_at'];
   const rows = todosSuscriptores.map(s => headers.map(h => JSON.stringify(s[h]||'')).join(','));
-  const csv = [headers.join(','), ...rows].join('\n');
   const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent([headers.join(','),...rows].join('\n'));
   a.download = 'suscriptores-voren-' + new Date().toISOString().split('T')[0] + '.csv';
   a.click();
 }
 
 function nlRenderSegmentos() {
-  const total = todosSuscriptores.filter(s=>s.activo!==false).length || 1;
-  const byFuente = {};
-  const byArticulo = {};
-  todosSuscriptores.filter(s=>s.activo!==false).forEach(s => {
+  const activos = todosSuscriptores.filter(s=>s.activo!==false);
+  const byFuente = {}, byArticulo = {}, byMes = {};
+  activos.forEach(s => {
     const f = s.fuente || 'directo';
     byFuente[f] = (byFuente[f]||0) + 1;
     if (s.articulo_origen) {
-      const a = s.articulo_origen.replace(/.*blog\//, '').replace(/\/.*/, '');
+      const a = s.articulo_origen.replace(/.*blog\//,'').replace(/\/.*/,'');
       byArticulo[a] = (byArticulo[a]||0) + 1;
     }
   });
-  const byMes = {};
   todosSuscriptores.forEach(s => {
     const m = new Date(s.created_at).toLocaleDateString('es-CL',{month:'short',year:'numeric'});
     byMes[m] = (byMes[m]||0) + 1;
   });
-  const mkCard = (title, data, maxVal) => {
+  const mkCard = (title, data) => {
     const rows = Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,6);
-    const max = maxVal || Math.max(...rows.map(r=>r[1]));
+    const max = Math.max(...rows.map(r=>r[1]), 1);
     return `<div class="seg-card">
       <div class="seg-card-head"><span class="seg-name">${title}</span><span class="seg-count-badge">${rows.reduce((a,r)=>a+r[1],0)}</span></div>
       <div class="seg-rows">${rows.map(([k,v])=>`
         <div class="seg-row"><span class="seg-row-label">${k}</span><span class="seg-row-val">${v}</span></div>
         <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:${Math.round(v/max*100)}%"></div></div>`).join('')}
-      </div>
-    </div>`;
+      </div></div>`;
   };
   document.getElementById('nl-seg-grid').innerHTML =
     mkCard('Por fuente', byFuente) +
-    mkCard('Por artículo', Object.keys(byArticulo).length ? byArticulo : {'Sin artículo origen': todosSuscriptores.filter(s=>s.activo!==false).length}) +
+    mkCard('Por artículo', Object.keys(byArticulo).length ? byArticulo : {'Sin artículo origen': activos.length}) +
     mkCard('Crecimiento mensual', byMes);
 }
 
 async function nlCargarHistorial() {
-  const wrap = document.getElementById('nl-hist-wrap');
-  const fmtD = d => new Date(d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'2-digit'});
-
-  // Cargar borradores y envíos en paralelo
   let borradores = [], envios = [];
   try {
     const [bRes, eRes] = await Promise.all([
@@ -861,54 +1289,44 @@ async function nlCargarHistorial() {
       fetch(`${SB_URL}/rest/v1/envios_newsletter?select=*&order=created_at.desc&limit=50`, { headers: sbH() })
     ]);
     if (bRes.ok) borradores = await bRes.json();
-    if (eRes.ok) { envios = await eRes.json(); historialEnvios = envios; nlActualizarStats(); }
-  } catch(e) {
-    console.error('Error cargando historial:', e);
-  }
+    if (eRes.ok) {
+      envios = await eRes.json();
+      historialEnvios = envios;
+      if (historialEnvios.length) {
+        document.getElementById('nl-s-sent').textContent = historialEnvios.length;
+        const avg = historialEnvios.filter(h=>h.tasa_apertura).reduce((a,h)=>a+h.tasa_apertura,0) / (historialEnvios.filter(h=>h.tasa_apertura).length||1);
+        document.getElementById('nl-s-open').textContent = isNaN(avg) ? '—%' : avg.toFixed(1)+'%';
+      }
+    }
+  } catch(e) { console.error(e); }
 
-  if (!borradores.length && !envios.length) {
-    wrap.innerHTML = '<div class="hist-empty">Aún no hay campañas ni envíos registrados.</div>';
-    return;
-  }
+  const wrap = document.getElementById('nl-hist-wrap');
+  if (!borradores.length && !envios.length) { wrap.innerHTML = '<div class="hist-empty">Aún no hay campañas registradas.</div>'; return; }
 
   let html = '';
-
-  // Borradores primero
   const drafts = borradores.filter(b => b.estado === 'borrador');
   if (drafts.length) {
     html += `<div style="padding:.75rem 1.25rem;font-size:.63rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);background:var(--bg3)">Borradores</div>`;
     html += drafts.map(b => `
       <div class="hist-row" style="grid-template-columns:1fr auto auto auto auto">
-        <div>
-          <div class="hist-subject">${b.asunto||'Sin asunto'}</div>
-          <div class="hist-meta">Guardado ${fmtD(b.updated_at)} · Segmento: ${b.segmento||'todos'}</div>
-        </div>
+        <div><div class="hist-subject">${b.asunto||'Sin asunto'}</div><div class="hist-meta">Guardado ${fmtDate(b.updated_at)} · Segmento: ${b.segmento||'todos'}</div></div>
         <span class="badge b-pot" style="font-size:.65rem">Borrador</span>
-        <button class="nl-btn-sm" onclick="nlCargarBorrador('${b.id}')" style="padding:.3rem .7rem;font-size:.68rem">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          Editar
-        </button>
-        <button class="nl-btn-primary" onclick="nlEnviarDesdeBorrador('${b.id}')" style="padding:.3rem .7rem;font-size:.68rem">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
-          Enviar
-        </button>
+        <button class="btn-action" onclick="nlCargarBorrador('${b.id}')" style="padding:.3rem .7rem;font-size:.68rem">Editar</button>
+        <button class="nl-btn-primary" onclick="nlEnviarDesdeBorrador('${b.id}')" style="padding:.3rem .7rem;font-size:.68rem">Enviar</button>
         <button onclick="nlEliminarBorrador('${b.id}')" style="background:transparent;border:1px solid var(--border);border-radius:4px;padding:.3rem .5rem;cursor:pointer;color:var(--muted);font-size:.7rem;transition:all .2s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
         </button>
       </div>`).join('');
   }
 
-  // Enviados
-  const enviados_campanas = borradores.filter(b => b.estado === 'enviado');
-  const todasEnviadas = [...enviados_campanas, ...envios].sort((a,b) => new Date(b.created_at||b.enviado_at) - new Date(a.created_at||a.enviado_at));
-
-  if (todasEnviadas.length) {
+  const enviadas = [...borradores.filter(b=>b.estado==='enviado'), ...envios].sort((a,b)=>new Date(b.created_at||b.enviado_at)-new Date(a.created_at||a.enviado_at));
+  if (enviadas.length) {
     html += `<div style="padding:.75rem 1.25rem;font-size:.63rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);background:var(--bg3)">Enviadas</div>`;
-    html += todasEnviadas.map(h => `
+    html += enviadas.map(h => `
       <div class="hist-row">
-        <div><div class="hist-subject">${h.asunto||'Sin asunto'}</div><div class="hist-meta">${fmtD(h.created_at||h.enviado_at)} · Segmento: ${h.segmento||'todos'}</div></div>
+        <div><div class="hist-subject">${h.asunto||'Sin asunto'}</div><div class="hist-meta">${fmtDate(h.created_at||h.enviado_at)} · Segmento: ${h.segmento||'todos'}</div></div>
         <div><div class="hist-n">${h.enviados||'—'}</div><div class="hist-nl">enviados</div></div>
-        <div><div class="hist-n">${h.tasa_apertura ? h.tasa_apertura+'%' : '—'}</div><div class="hist-nl">apertura</div></div>
+        <div><div class="hist-n">${h.tasa_apertura?h.tasa_apertura+'%':'—'}</div><div class="hist-nl">apertura</div></div>
         <span class="badge b-cal" style="font-size:.65rem">Enviada</span>
       </div>`).join('');
   }
@@ -917,40 +1335,29 @@ async function nlCargarHistorial() {
 }
 
 function nlUpdatePreview() {
-  const asunto = document.getElementById('comp-asunto').value || '(Sin asunto)';
-  const body = document.getElementById('comp-body').value || '';
-  const isHtml = body.trim().startsWith('<');
+  const asunto  = document.getElementById('comp-asunto').value || '(Sin asunto)';
+  const body    = document.getElementById('comp-body').value || '';
+  const isHtml  = body.trim().startsWith('<');
   const content = isHtml ? body : body.split('\n').map(l => l ? `<p>${l}</p>` : '<br>').join('');
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-  <style>
-    body{font-family:'DM Sans',Arial,sans-serif;background:#f4f6fa;margin:0;padding:24px;}
-    .wrap{max-width:600px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);}
-    .header{background:#071428;padding:28px 36px;border-bottom:3px solid #C8A055;}
-    .brand{font-family:Georgia,serif;font-size:1.3rem;color:#fff;letter-spacing:.02em;}
-    .brand span{color:#C8A055;}
-    .subject{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.3rem;letter-spacing:.04em;}
-    .body{padding:36px;color:#1A2540;font-size:.92rem;line-height:1.85;}
-    .body h2{font-family:Georgia,serif;font-size:1.3rem;color:#0D2B5E;margin:1.5rem 0 .75rem;}
-    .body p{margin-bottom:1rem;}
-    .body a{color:#1557B0;}
-    .footer{background:#0A0F1A;padding:20px 36px;text-align:center;}
-    .footer p{font-size:.7rem;color:rgba(255,255,255,.25);margin:.2rem 0;}
-    .footer a{color:rgba(200,160,85,.6);}
-    .cta-wrap{padding:0 36px 28px;text-align:center;}
-    .cta{display:inline-block;background:#C8A055;color:#071428;padding:.75rem 2rem;border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;}
-  </style></head><body>
+  <style>body{font-family:'DM Sans',Arial,sans-serif;background:#f4f6fa;margin:0;padding:24px;}
+  .wrap{max-width:600px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+  .header{background:#071428;padding:28px 36px;border-bottom:3px solid #C8A055;}
+  .brand{font-family:Georgia,serif;font-size:1.3rem;color:#fff;}.brand span{color:#C8A055;}
+  .subject{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.3rem;}
+  .body{padding:36px;color:#1A2540;font-size:.92rem;line-height:1.85;}
+  .body h2{font-family:Georgia,serif;font-size:1.3rem;color:#0D2B5E;margin:1.5rem 0 .75rem;}
+  .body p{margin-bottom:1rem;}.body a{color:#1557B0;}
+  .cta-wrap{padding:0 36px 28px;text-align:center;}
+  .cta{display:inline-block;background:#C8A055;color:#071428;padding:.75rem 2rem;border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;}
+  .footer{background:#0A0F1A;padding:20px 36px;text-align:center;}
+  .footer p{font-size:.7rem;color:rgba(255,255,255,.25);margin:.2rem 0;}
+  .footer a{color:rgba(200,160,85,.6);}</style></head><body>
   <div class="wrap">
-    <div class="header">
-      <div class="brand">V&#x14D;<span>ren</span></div>
-      <div class="subject">${asunto}</div>
-    </div>
+    <div class="header"><div class="brand">V&#x14D;<span>ren</span></div><div class="subject">${asunto}</div></div>
     <div class="body">${content}</div>
     <div class="cta-wrap"><a href="https://vorenconsultores.cl" class="cta">Ver en el sitio →</a></div>
-    <div class="footer">
-      <p>Vōren Perspectivas · Santiago, Chile</p>
-      <p>Recibiste este email porque te suscribiste en <a href="https://vorenconsultores.cl">vorenconsultores.cl</a></p>
-      <p><a href="#">Cancelar suscripción</a></p>
-    </div>
+    <div class="footer"><p>Vōren Perspectivas · Santiago, Chile</p><p><a href="#">Cancelar suscripción</a></p></div>
   </div></body></html>`;
   const frame = document.getElementById('preview-frame');
   const doc = frame.contentDocument || frame.contentWindow.document;
@@ -959,12 +1366,12 @@ function nlUpdatePreview() {
 
 function nlTogglePreview(mode) {
   const frame = document.getElementById('preview-frame');
-  document.getElementById('ptog-desktop').classList.toggle('on', mode === 'desktop');
-  document.getElementById('ptog-mobile').classList.toggle('on', mode === 'mobile');
-  frame.style.width = mode === 'mobile' ? '375px' : '100%';
-  frame.style.margin = mode === 'mobile' ? '0 auto' : '0';
-  frame.parentElement.style.display = 'flex';
-  frame.parentElement.style.justifyContent = mode === 'mobile' ? 'center' : 'stretch';
+  document.getElementById('ptog-desktop').classList.toggle('on', mode==='desktop');
+  document.getElementById('ptog-mobile').classList.toggle('on', mode==='mobile');
+  frame.style.width  = mode==='mobile' ? '375px' : '100%';
+  frame.style.margin = mode==='mobile' ? '0 auto' : '0';
+  frame.parentElement.style.display        = 'flex';
+  frame.parentElement.style.justifyContent = mode==='mobile' ? 'center' : 'stretch';
 }
 
 function nlUpdateSeg(radio) {
@@ -972,31 +1379,36 @@ function nlUpdateSeg(radio) {
   radio.closest('.comp-seg-opt').classList.add('selected');
 }
 
+function nlStatus(msg, type) {
+  const el = document.getElementById('comp-status');
+  el.textContent = msg;
+  el.className = 'comp-status' + (type ? ' '+type : '');
+}
+
 async function nlEnviarPrueba() {
   const asunto = document.getElementById('comp-asunto').value.trim();
-  const body = document.getElementById('comp-body').value.trim();
+  const body   = document.getElementById('comp-body').value.trim();
   if (!asunto || !body) { nlStatus('Completa asunto y contenido primero.', 'err'); return; }
   const email = prompt('Email para la prueba:', SESSION?.user?.email || '');
   if (!email) return;
   nlStatus('Enviando prueba...', '');
   try {
     const res = await fetch('/api/send-newsletter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SESSION.token}` },
-      body: JSON.stringify({ asunto, body, prueba: true, email_prueba: email, from_name: document.getElementById('comp-from-name').value })
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${SESSION.token}`},
+      body:JSON.stringify({ asunto, body, prueba:true, email_prueba:email, from_name:document.getElementById('comp-from-name').value })
     });
     const data = await res.json();
     if (data.ok) nlStatus(`✓ Prueba enviada a ${email}`, 'ok');
-    else nlStatus(data.error || 'Error al enviar', 'err');
+    else nlStatus(data.error||'Error al enviar', 'err');
   } catch { nlStatus('Error de conexión', 'err'); }
 }
 
 async function nlEnviarCampana() {
-  const asunto = document.getElementById('comp-asunto').value.trim();
-  const body = document.getElementById('comp-body').value.trim();
+  const asunto   = document.getElementById('comp-asunto').value.trim();
+  const body     = document.getElementById('comp-body').value.trim();
   const segmento = document.querySelector('input[name="segmento"]:checked')?.value || 'todos';
-  const countEl = document.getElementById('cseg-' + segmento);
-  const count = countEl ? parseInt(countEl.textContent) || 0 : 0;
+  const count    = parseInt(document.getElementById('cseg-'+segmento)?.textContent)||0;
   if (!asunto || !body) { nlStatus('Completa asunto y contenido antes de enviar.', 'err'); return; }
   if (!confirm(`¿Enviar "${asunto}" a ${count} suscriptores (${segmento})?`)) return;
   const btn = document.getElementById('comp-send-btn');
@@ -1004,143 +1416,91 @@ async function nlEnviarCampana() {
   nlStatus('Procesando envío...', '');
   try {
     const res = await fetch('/api/send-newsletter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SESSION.token}` },
-      body: JSON.stringify({ asunto, body, segmento, from_name: document.getElementById('comp-from-name').value })
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${SESSION.token}`},
+      body:JSON.stringify({ asunto, body, segmento, from_name:document.getElementById('comp-from-name').value })
     });
     const data = await res.json();
     if (data.ok) {
       nlStatus(`✓ Campaña enviada a ${data.enviados} suscriptores`, 'ok');
-      // Si venía de un borrador, marcarlo como enviado
       if (borrador_id_actual) {
         await fetch(`${SB_URL}/rest/v1/campanas_newsletter?id=eq.${borrador_id_actual}`, {
-          method: 'PATCH',
-          headers: { ...sbH(), 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-          body: JSON.stringify({ estado: 'enviado', enviados: data.enviados, errores: data.errores, enviado_at: new Date().toISOString() })
+          method:'PATCH', headers:{...sbH(),'Prefer':'return=minimal'},
+          body:JSON.stringify({ estado:'enviado', enviados:data.enviados, errores:data.errores, enviado_at:new Date().toISOString() })
         });
         borrador_id_actual = null;
       }
       nlCargarHistorial();
-      nlActualizarStats();
-    } else {
-      nlStatus(data.error || 'Error al enviar campaña', 'err');
-    }
+    } else nlStatus(data.error||'Error al enviar campaña', 'err');
   } catch { nlStatus('Error de conexión con el servidor', 'err'); }
-  finally { btn.disabled = false; btn.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Enviar campaña'; }
+  finally {
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Enviar campaña';
+  }
 }
-
-function nlStatus(msg, type) {
-  const el = document.getElementById('comp-status');
-  el.textContent = msg;
-  el.className = 'comp-status' + (type ? ' ' + type : '');
-}
-
-
-
 
 function nlNuevaCampana() {
-  // Limpiar compositor y resetear borrador
-  document.getElementById('comp-asunto').value = '';
-  document.getElementById('comp-body').value = '';
+  document.getElementById('comp-asunto').value   = '';
+  document.getElementById('comp-body').value     = '';
   document.getElementById('comp-from-name').value = 'Vōren Perspectivas';
   const radio = document.querySelector('input[name="segmento"][value="todos"]');
   if (radio) { radio.checked = true; nlUpdateSeg(radio); }
   borrador_id_actual = null;
   nlStatus('', '');
   nlSetTab('compositor');
-  // Reset preview
-  const frame = document.getElementById('preview-frame');
-  if (frame) { const doc = frame.contentDocument || frame.contentWindow.document; doc.open(); doc.write(''); doc.close(); }
 }
 
-// ── BORRADORES ──────────────────────────────────────────
-
-let borrador_id_actual = null;
-
 async function nlGuardarBorrador() {
-  const asunto  = document.getElementById('comp-asunto').value.trim();
-  const body    = document.getElementById('comp-body').value.trim();
-  const segmento = document.querySelector('input[name="segmento"]:checked')?.value || 'todos';
+  const asunto    = document.getElementById('comp-asunto').value.trim();
+  const body      = document.getElementById('comp-body').value.trim();
+  const segmento  = document.querySelector('input[name="segmento"]:checked')?.value || 'todos';
   const from_name = document.getElementById('comp-from-name').value;
-
   if (!asunto) { nlStatus('Agrega un asunto antes de guardar.', 'err'); return; }
-
-  const btn = document.getElementById('comp-save-btn');
-  btn.disabled = true;
+  document.getElementById('comp-save-btn').disabled = true;
   nlStatus('Guardando...', '');
-
-  const payload = {
-    asunto,
-    contenido: body,
-    segmento,
-    from_name,
-    estado: 'borrador',
-    updated_at: new Date().toISOString(),
-  };
-
+  const payload = { asunto, contenido:body, segmento, from_name, estado:'borrador', updated_at:new Date().toISOString() };
   try {
     let res;
     if (borrador_id_actual) {
-      // Actualizar borrador existente
       res = await fetch(`${SB_URL}/rest/v1/campanas_newsletter?id=eq.${borrador_id_actual}`, {
-        method: 'PATCH',
-        headers: { ...sbH(), 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-        body: JSON.stringify(payload)
+        method:'PATCH', headers:{...sbH(),'Prefer':'return=minimal'}, body:JSON.stringify(payload)
       });
     } else {
-      // Crear nuevo borrador
       res = await fetch(`${SB_URL}/rest/v1/campanas_newsletter`, {
-        method: 'POST',
-        headers: { ...sbH(), 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
-        body: JSON.stringify({ ...payload, created_at: new Date().toISOString() })
+        method:'POST', headers:{...sbH(),'Prefer':'return=representation'}, body:JSON.stringify({...payload,created_at:new Date().toISOString()})
       });
-      if (res.ok) {
-        const data = await res.json();
-        borrador_id_actual = data[0]?.id || null;
-      }
+      if (res.ok) { const d = await res.json(); borrador_id_actual = d[0]?.id||null; }
     }
     if (!res.ok) throw new Error(await res.text());
     nlStatus('✓ Borrador guardado', 'ok');
     nlCargarHistorial();
-  } catch(e) {
-    nlStatus('Error al guardar: ' + e.message, 'err');
-  } finally {
-    btn.disabled = false;
-  }
+  } catch(e) { nlStatus('Error al guardar: '+e.message, 'err'); }
+  finally { document.getElementById('comp-save-btn').disabled = false; }
 }
 
 async function nlCargarBorrador(id) {
   try {
     const res = await fetch(`${SB_URL}/rest/v1/campanas_newsletter?id=eq.${id}&select=*`, { headers: sbH() });
     if (!res.ok) throw new Error();
-    const data = await res.json();
-    const b = data[0];
+    const b = (await res.json())[0];
     if (!b) return;
-
-    // Cargar datos en el compositor
-    document.getElementById('comp-asunto').value = b.asunto || '';
-    document.getElementById('comp-body').value = b.contenido || '';
-    document.getElementById('comp-from-name').value = b.from_name || 'Vōren Perspectivas';
-
-    // Seleccionar segmento correcto
+    document.getElementById('comp-asunto').value    = b.asunto||'';
+    document.getElementById('comp-body').value      = b.contenido||'';
+    document.getElementById('comp-from-name').value = b.from_name||'Vōren Perspectivas';
     const radio = document.querySelector(`input[name="segmento"][value="${b.segmento||'todos'}"]`);
     if (radio) { radio.checked = true; nlUpdateSeg(radio); }
-
     borrador_id_actual = id;
     nlUpdatePreview();
     nlSetTab('compositor');
-    nlStatus('✓ Borrador cargado — listo para editar o enviar', 'ok');
-  } catch(e) {
-    alert('Error al cargar el borrador');
-  }
+    nlStatus('✓ Borrador cargado', 'ok');
+  } catch { alert('Error al cargar el borrador'); }
 }
 
 async function nlEliminarBorrador(id) {
   if (!confirm('¿Eliminar este borrador?')) return;
   try {
     const res = await fetch(`${SB_URL}/rest/v1/campanas_newsletter?id=eq.${id}`, {
-      method: 'DELETE',
-      headers: { ...sbH(), 'Prefer': 'return=minimal' }
+      method:'DELETE', headers:{...sbH(),'Prefer':'return=minimal'}
     });
     if (!res.ok) throw new Error();
     if (borrador_id_actual === id) borrador_id_actual = null;
@@ -1149,18 +1509,17 @@ async function nlEliminarBorrador(id) {
 }
 
 async function nlEnviarDesdeBorrador(id) {
-  // Cargar el borrador y luego enviar
   await nlCargarBorrador(id);
-  // Pequeña pausa para que se cargue el DOM
   await new Promise(r => setTimeout(r, 100));
-  nlEnviarCampana(id);
+  nlEnviarCampana();
 }
 
-// ── THEME ───────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+//  TEMA
+// ══════════════════════════════════════════════════════
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'light' ? 'dark' : 'light';
-  applyTheme(next);
+  applyTheme(current === 'light' ? 'dark' : 'light');
 }
 
 function applyTheme(theme) {
@@ -1170,29 +1529,27 @@ function applyTheme(theme) {
     document.documentElement.removeAttribute('data-theme');
   }
   localStorage.setItem('voren_theme', theme);
-  // Sincronizar tema con iframes (CRM y Admin)
-  const msg = { type: 'SET_THEME', theme };
-  ['crm-frame', 'admin-frame'].forEach(id => {
-    const frame = document.getElementById(id);
-    if (frame && frame.contentWindow) {
-      try { frame.contentWindow.postMessage(msg, '*'); } catch(e) {}
-    }
-  });
+  // Sincronizar con iframe de admin (Sveltia)
+  const af = document.getElementById('admin-frame');
+  if (af && af.contentWindow) {
+    try { af.contentWindow.postMessage({ type:'SET_THEME', theme }, '*'); } catch {}
+  }
 }
 
-function initTheme() {
+// ══════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════
+(async () => {
   const saved = localStorage.getItem('voren_theme') || 'dark';
   applyTheme(saved);
-}
 
-// ── INIT ─────────────────────────────────────────────────
-(async () => {
-  initTheme();
   const ok = await checkSession();
   if (ok) {
     document.getElementById('auth-screen').style.display = 'none';
     document.getElementById('app').style.display = 'grid';
     await cargarHome();
+    // Pre-cargar leads para el CRM
+    await cargarLeads();
   }
 })();
 </script>
